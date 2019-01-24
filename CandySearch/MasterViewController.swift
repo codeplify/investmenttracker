@@ -1,25 +1,20 @@
-
-
 import CoreData
 import UIKit
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
-  var filteredCandies = [Candy]()
-  let searchController = UISearchController(searchResultsController: nil)
-    
   @IBOutlet var tableView: UITableView!
   @IBOutlet var searchFooter: SearchFooter!
   
   var detailViewController: DetailViewController? = nil
   var candies = [Candy]()
-  
   var stocks: [NSManagedObject] = []
+  var filteredCandies = [Candy]()
+  let searchController = UISearchController(searchResultsController: nil)
     
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // Setup the Scope Bar
+  
     searchController.searchBar.scopeButtonTitles = ["All","Watch"]
     searchController.searchBar.delegate = self
 
@@ -68,21 +63,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 for json in jsonArray {
                     
-                    guard let stockName = json["name"] as? String else{
-                        return
-                    }
+                    guard let stockName = json["name"] as? String else{ return }
                     
-                    guard let symbol = json["symbol"] as? String else{
-                        return
-                    }
+                    guard let symbol = json["symbol"] as? String else{ return }
                     
-                    guard let per = json["percent_change"] else {
-                        return
-                    }
+                    guard let per = json["percent_change"] else { return }
                     
-                    guard let vol = json["volume"] as? Int else{
-                        return
-                    }
+                    guard let vol = json["volume"] as? Int else{ return }
                     
                    
                     let price = json["price"] as! [String:Any]
@@ -230,10 +217,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
 }
 
 extension MasterViewController: UISearchResultsUpdating {
-    // MARK: - UISearchResultsUpdating Delegate
-//    func updateSearchResults(for searchController: UISearchController) {
-//        filterContentForSearchText(searchController.searchBar.text!)
-//    }
     
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
