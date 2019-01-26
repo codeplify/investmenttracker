@@ -318,8 +318,8 @@
                             <rect key="frame" x="67.5" y="5.5" width="240" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Inline-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="svX-yb-LUO">
-                                    <rect key="frame" x="-45.5" y="-13" width="349" height="47"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Inline-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="mZH-Es-36T">
+                                    <rect key="frame" x="98" y="0.0" width="44" height="33"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                             </subviews>
@@ -359,7 +359,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Inline-Logo" width="300" height="100"/>
+        <image name="Inline-Logo" width="192" height="192"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="q9E-Xa-mX4"/>

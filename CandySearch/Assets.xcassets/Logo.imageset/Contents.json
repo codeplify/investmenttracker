@@ -2,7 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "CandySearch.pdf"
+      "filename" : "stock-up-logo.png",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "stock-up-logo-1.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "stock-up-logo-2.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
