@@ -21,7 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		171E0C7A1B8E5B84001E6242 /* CandySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CandySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		171E0C7A1B8E5B84001E6242 /* StockWatcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockWatcher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		171E0C7D1B8E5B84001E6242 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		171E0C7F1B8E5B84001E6242 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		171E0C811B8E5B84001E6242 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -51,7 +51,7 @@
 			isa = PBXGroup;
 			children = (
 				D683DB9F21F84C0A0091B4ED /* XStockDBModel.xcdatamodeld */,
-				171E0C7C1B8E5B84001E6242 /* CandySearch */,
+				171E0C7C1B8E5B84001E6242 /* StockWatcher */,
 				171E0C7B1B8E5B84001E6242 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,12 +59,12 @@
 		171E0C7B1B8E5B84001E6242 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				171E0C7A1B8E5B84001E6242 /* CandySearch.app */,
+				171E0C7A1B8E5B84001E6242 /* StockWatcher.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		171E0C7C1B8E5B84001E6242 /* CandySearch */ = {
+		171E0C7C1B8E5B84001E6242 /* StockWatcher */ = {
 			isa = PBXGroup;
 			children = (
 				171E0C7D1B8E5B84001E6242 /* AppDelegate.swift */,
@@ -79,15 +79,15 @@
 				171E0C8B1B8E5B84001E6242 /* Info.plist */,
 				D627599321F9992800E8A527 /* MonitorViewController.swift */,
 			);
-			path = CandySearch;
+			path = StockWatcher;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		171E0C791B8E5B84001E6242 /* CandySearch */ = {
+		171E0C791B8E5B84001E6242 /* StockWatcher */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 171E0CA41B8E5B84001E6242 /* Build configuration list for PBXNativeTarget "CandySearch" */;
+			buildConfigurationList = 171E0CA41B8E5B84001E6242 /* Build configuration list for PBXNativeTarget "StockWatcher" */;
 			buildPhases = (
 				171E0C761B8E5B84001E6242 /* Sources */,
 				171E0C771B8E5B84001E6242 /* Frameworks */,
@@ -97,9 +97,9 @@
 			);
 			dependencies = (
 			);
-			name = CandySearch;
+			name = StockWatcher;
 			productName = CandySearch;
-			productReference = 171E0C7A1B8E5B84001E6242 /* CandySearch.app */;
+			productReference = 171E0C7A1B8E5B84001E6242 /* StockWatcher.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -109,7 +109,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0900;
-				ORGANIZATIONNAME = "Peartree Developers";
+				ORGANIZATIONNAME = "Loey Agdan";
 				TargetAttributes = {
 					171E0C791B8E5B84001E6242 = {
 						CreatedOnToolsVersion = 7.0;
@@ -118,7 +118,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 171E0C751B8E5B84001E6242 /* Build configuration list for PBXProject "CandySearch" */;
+			buildConfigurationList = 171E0C751B8E5B84001E6242 /* Build configuration list for PBXProject "StockWatcher" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -131,7 +131,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				171E0C791B8E5B84001E6242 /* CandySearch */,
+				171E0C791B8E5B84001E6242 /* StockWatcher */,
 			);
 		};
 /* End PBXProject section */
@@ -294,9 +294,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 84QZTGCEL5;
-				INFOPLIST_FILE = CandySearch/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/StockWatcher/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.searchquery.list;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stockwatcher.pse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
@@ -308,9 +308,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 84QZTGCEL5;
-				INFOPLIST_FILE = CandySearch/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/StockWatcher/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.searchquery.list;
+				PRODUCT_BUNDLE_IDENTIFIER = com.stockwatcher.pse;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
@@ -320,7 +320,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		171E0C751B8E5B84001E6242 /* Build configuration list for PBXProject "CandySearch" */ = {
+		171E0C751B8E5B84001E6242 /* Build configuration list for PBXProject "StockWatcher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				171E0CA21B8E5B84001E6242 /* Debug */,
@@ -329,7 +329,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		171E0CA41B8E5B84001E6242 /* Build configuration list for PBXNativeTarget "CandySearch" */ = {
+		171E0CA41B8E5B84001E6242 /* Build configuration list for PBXNativeTarget "StockWatcher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				171E0CA51B8E5B84001E6242 /* Debug */,
