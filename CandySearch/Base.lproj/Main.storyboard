@@ -85,23 +85,6 @@
                                     <constraint firstItem="Rb4-j0-juD" firstAttribute="centerY" secondItem="djJ-aY-wFy" secondAttribute="centerY" id="nQn-2I-rUT"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BlV-bE-1Lk">
-                                <rect key="frame" x="113" y="474" width="38" height="30"/>
-                                <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Track"/>
-                                <connections>
-                                    <action selector="btnWatchTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="wcm-6V-L6F"/>
-                                    <segue destination="8bS-AY-Tux" kind="show" id="R6g-7I-JgD"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkZ-ES-WCA">
-                                <rect key="frame" x="203" y="474" width="55" height="30"/>
-                                <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Remove"/>
-                                <connections>
-                                    <action selector="btnDeleteWatchStock:" destination="JEX-9P-axG" eventType="touchUpInside" id="vbG-oy-INU"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vte-Mb-WUF">
                                 <rect key="frame" x="16" y="590" width="343" height="57"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -115,18 +98,33 @@
                                     <action selector="btnWatchTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="HsP-gG-nkl"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BlV-bE-1Lk">
+                                <rect key="frame" x="42" y="529" width="38" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Track"/>
+                                <connections>
+                                    <action selector="btnWatchTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="wcm-6V-L6F"/>
+                                    <segue destination="8bS-AY-Tux" kind="show" id="R6g-7I-JgD"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkZ-ES-WCA">
+                                <rect key="frame" x="132" y="529" width="55" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Remove"/>
+                                <connections>
+                                    <action selector="btnDeleteWatchStock:" destination="JEX-9P-axG" eventType="touchUpInside" id="vbG-oy-INU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="vte-Mb-WUF" secondAttribute="bottom" constant="20" symbolic="YES" id="6oL-Dk-ARg"/>
                             <constraint firstItem="djJ-aY-wFy" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="10" id="DZX-Ag-8B8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="djJ-aY-wFy" secondAttribute="trailing" constant="-11" id="ECF-pg-gvy"/>
-                            <constraint firstItem="BlV-bE-1Lk" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="97" id="KJ5-f1-kpH"/>
                             <constraint firstItem="vte-Mb-WUF" firstAttribute="trailing" secondItem="svH-Pt-448" secondAttribute="trailingMargin" id="OGf-LQ-n4a"/>
                             <constraint firstItem="djJ-aY-wFy" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="21" id="Sos-A0-mBt"/>
-                            <constraint firstItem="ZkZ-ES-WCA" firstAttribute="leading" secondItem="BlV-bE-1Lk" secondAttribute="trailing" constant="52" id="cy6-eZ-MuF"/>
-                            <constraint firstItem="vte-Mb-WUF" firstAttribute="top" secondItem="BlV-bE-1Lk" secondAttribute="bottom" constant="86" id="dGn-RA-E3D"/>
-                            <constraint firstItem="BlV-bE-1Lk" firstAttribute="baseline" secondItem="ZkZ-ES-WCA" secondAttribute="baseline" id="ocB-oh-ZR5"/>
                             <constraint firstItem="vte-Mb-WUF" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" id="vb5-ny-1fJ"/>
                             <constraint firstAttribute="bottom" secondItem="djJ-aY-wFy" secondAttribute="bottom" constant="323" id="zLf-NU-4jz"/>
                         </constraints>
