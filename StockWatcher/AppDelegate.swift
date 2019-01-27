@@ -59,3 +59,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
   }
   
 }
+
+//commited changes
