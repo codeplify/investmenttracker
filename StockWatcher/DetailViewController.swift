@@ -11,6 +11,7 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var lblVolume: UILabel!
     @IBOutlet weak var lblPercentage: UILabel!
     @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lblStatus: UILabel!
     
   var detailCandy: Candy? {
     didSet {
@@ -35,6 +36,7 @@ class DetailViewController: UIViewController {
         lblPercentage.text = "\(detailCandy.percent_change)%"
         lblAmount.text = "\(detailCandy.currency) \(detailCandy.price)"
         print("detailCandy \(detailCandy)")
+        lblStatus.text = "Unwatched"
         title = detailCandy.category
         
       }
@@ -130,6 +132,7 @@ class DetailViewController: UIViewController {
             
             do{
                 try managedContext.save()
+                lblStatus.text = "Watched"
                 print("Stock saved!")
             }catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")

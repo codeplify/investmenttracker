@@ -161,6 +161,7 @@
                         <outlet property="detailDescriptionLabel" destination="jTl-4A-YZp" id="OV0-b4-vM9"/>
                         <outlet property="lblAmount" destination="qDP-XR-5Go" id="a2P-cO-KiV"/>
                         <outlet property="lblPercentage" destination="Rb4-j0-juD" id="C4p-We-5UV"/>
+                        <outlet property="lblStatus" destination="02Y-XE-2RW" id="cPJ-kR-NZJ"/>
                         <outlet property="lblVolume" destination="5S7-gs-AFp" id="wYM-xf-UrK"/>
                     </connections>
                 </viewController>
