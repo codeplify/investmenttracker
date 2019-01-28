@@ -23,11 +23,18 @@ class DetailViewController: UIViewController {
       if let detailDescriptionLabel = detailDescriptionLabel {
         detailDescriptionLabel.text = detailCandy.name
         
-        lblVolume.text = "Volume: \(Int(detailCandy.volume)!.formattedWithSeparator)"
-        lblPercentage.text = "Percentage: \(detailCandy.percent_change)%"
-        lblAmount.text = "Price: \(detailCandy.currency) \(detailCandy.price)"
+        let percentChange = detailCandy.percent_change.contains("-")
+        
+        if percentChange {
+            lblPercentage.textColor = UIColor.red
+        }else{
+            lblPercentage.textColor = UIColor.green
+        }
+        
+        lblVolume.text = "\(Int(detailCandy.volume)!.formattedWithSeparator)"
+        lblPercentage.text = "\(detailCandy.percent_change)%"
+        lblAmount.text = "\(detailCandy.currency) \(detailCandy.price)"
         print("detailCandy \(detailCandy)")
-        //candyImageView.image = UIImage(named: detailCandy.name)
         title = detailCandy.category
         
       }
