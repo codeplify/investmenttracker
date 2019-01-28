@@ -94,6 +94,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         if(scope == "Watch"){
             //Fetching CoreData
+            
+            var temp = [Candy]()
+            
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 return
             }
@@ -109,6 +112,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                     
                     filteredCandies = candies.filter({ (candy : Candy) -> Bool in
                         if "\(s.value(forKey: "scode")!)" == candy.name {
+                            temp.append(candy)
                             return true
                         }else{
                             return false
@@ -116,6 +120,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                     })
                     
                 }
+                
+                filteredCandies.removeAll()
+                filteredCandies = temp
+                
+                //Loop candies
+                
             }catch let error as NSError {
                 print(error)
             }
