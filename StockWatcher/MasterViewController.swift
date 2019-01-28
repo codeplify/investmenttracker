@@ -40,8 +40,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   }
     
     func loadStocks(){
-        guard let url = URL(string: "http://phisix-api4.appspot.com/stocks.json")else {
-            return}
+        guard let url = URL(string: "http://phisix-api4.appspot.com/stocks.json")else {return}
         
         let task = URLSession.shared.dataTask(with: url){data,response,error in
             guard let dataResponse = data,error == nil else{
@@ -66,14 +65,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 for json in jsonArray {
                     
                     guard let stockName = json["name"] as? String else{ return }
-                    
                     guard let symbol = json["symbol"] as? String else{ return }
-                    
                     guard let per = json["percent_change"] else { return }
-                    
                     guard let vol = json["volume"] as? Int else{ return }
-                    
-                   
                     let price = json["price"] as! [String:Any]
                     
                     self.candies.append(Candy(category:"\(stockName)", name:"\(symbol)",volume:"\(vol)",percent_change:"\(per)",price:"\(String(describing: price["amount"]!))",currency:"\(String(describing: price["currency"]!))"))
@@ -91,13 +85,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     // MARK: - Private instance methods
     
     func searchBarIsEmpty() -> Bool {
-        // Returns true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         
-        filteredCandies.removeAll()
+        //filteredCandies.removeAll()
         
         if(scope == "Watch"){
             //Fetching CoreData
@@ -108,12 +101,19 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             let managedContext = appDelegate.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
             
+            //TODO:- Fixed filtering of watch stocks
+            
             do{
               stocks = try managedContext.fetch(fetchRequest)
                 for s in stocks{
-                    print(s.value(forKey: "scode"))
                     
-                    filteredCandies.append(Candy(category:"\(s.value(forKey: "details")!)",name:"\(s.value(forKey: "scode")!)",volume:"0",percent_change:"",price:"",currency:""))
+                    filteredCandies = candies.filter({ (candy : Candy) -> Bool in
+                        if "\(s.value(forKey: "scode")!)" == candy.name {
+                            return true
+                        }else{
+                            return false
+                        }
+                    })
                     
                 }
             }catch let error as NSError {
@@ -213,6 +213,18 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         controller.detailCandy = candy
         controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         controller.navigationItem.leftItemsSupplementBackButton = true
+       
+        if candy.percent_change == "" {
+            controller.isWatched = true
+        }
+        
+        print("prepare_for_segue: \(candy.name)")
+        print("prepare_for_segue: \(candy.category)")
+        print("prepare_for_segue: \(candy.currency)")
+        print("prepare_for_segue: \(candy.percent_change)")
+        print("prepare_for_segue: \(candy.price)")
+        print("prepare_for_segue: \(candy.volume)")
+        
       }
     }
   }
@@ -225,7 +237,6 @@ extension MasterViewController: UISearchResultsUpdating {
         let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
         filterContentForSearchText(searchController.searchBar.text!, scope: scope)
     }
-
 }
 
 extension MasterViewController: UISearchBarDelegate {

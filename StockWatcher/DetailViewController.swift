@@ -13,6 +13,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var lblAmount: UILabel!
     @IBOutlet weak var lblStatus: UILabel!
     
+    var isWatched = false
+    
   var detailCandy: Candy? {
     didSet {
       configureView()
@@ -21,25 +23,40 @@ class DetailViewController: UIViewController {
   
   func configureView() {
     if let detailCandy = detailCandy {
-      if let detailDescriptionLabel = detailDescriptionLabel {
-        detailDescriptionLabel.text = detailCandy.name
         
-        let percentChange = detailCandy.percent_change.contains("-")
+        //TODO:- Check if being watched...
         
-        if percentChange {
-            lblPercentage.textColor = UIColor.red
-        }else{
-            lblPercentage.textColor = UIColor.green
-        }
         
-        lblVolume.text = "\(Int(detailCandy.volume)!.formattedWithSeparator)"
-        lblPercentage.text = "\(detailCandy.percent_change)%"
-        lblAmount.text = "\(detailCandy.currency) \(detailCandy.price)"
-        print("detailCandy \(detailCandy)")
-        lblStatus.text = "Unwatched"
-        title = detailCandy.category
         
-      }
+          if let detailDescriptionLabel = detailDescriptionLabel {
+            detailDescriptionLabel.text = detailCandy.name
+            
+            let percentChange = detailCandy.percent_change.contains("-")
+            
+            if percentChange {
+                lblPercentage.textColor = UIColor.red
+            }else{
+                lblPercentage.textColor = UIColor.green
+            }
+            
+        
+            
+            if search(code: detailCandy.name){
+                
+            
+                lblStatus.text = "Unwatched"
+            }else{
+                lblStatus.text = "Watching"
+                loadStock(code: detailCandy.name)
+            }
+            lblVolume.text = "\(Int(detailCandy.volume)!.formattedWithSeparator)"
+            lblPercentage.text = "\(detailCandy.percent_change)%"
+            lblAmount.text = "\(detailCandy.currency) \(detailCandy.price)"
+            print("detailCandy \(detailCandy)")
+            title = detailCandy.category
+            
+          }
+        
     }
   }
    
@@ -56,6 +73,9 @@ class DetailViewController: UIViewController {
         let candy = try managedContext.fetch(fetchRequest)
         if(candy.count == 0){
             return true
+        }else{
+           //found here
+            
         }
     }catch{
         print(error)
@@ -63,6 +83,51 @@ class DetailViewController: UIViewController {
     
     return false
  }
+    
+    func loadStock(code:String){
+        guard let url = URL(string: "http://phisix-api4.appspot.com/stocks/\(code).json") else {
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url){data,response,error in
+            guard let dataResponse = data,error == nil else{
+                print(error?.localizedDescription ?? "Response Error")
+                return
+            }
+            
+            guard let rootJSON = try? JSONSerialization.jsonObject(with: dataResponse, options: []) else {
+                print("failed")
+                return
+            }
+            
+            
+            
+            if let JSON = rootJSON as? [String:Any]{
+                print("Latest: \(JSON["as_of"] as? String)")
+                
+                guard let jsonArray = JSON["stock"] as? [[String:Any]] else {
+                    return
+                }
+                
+                print(jsonArray)
+                
+                for json in jsonArray {
+                    
+                    guard let stockName = json["name"] as? String else{ return }
+                    guard let symbol = json["symbol"] as? String else{ return }
+                    guard let per = json["percent_change"] else { return }
+                    guard let vol = json["volume"] as? Int else{ return }
+                    let price = json["price"] as! [String:Any]
+
+                }
+                
+                
+            }
+            
+        }
+        
+        
+        
+    }
   
     
   //Remove data from watchlist
