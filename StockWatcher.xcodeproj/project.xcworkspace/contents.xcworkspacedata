@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/loey/Downloads/CandySearch_4_Starter/StockWatcher.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
