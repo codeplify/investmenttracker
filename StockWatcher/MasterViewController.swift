@@ -2,6 +2,7 @@ import CoreData
 import UIKit
 
 //TODO:- Code Cleanup
+//TODO:- Fix Doubling of data even in the main loading of all the stocks
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
@@ -21,6 +22,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     searchController.searchBar.delegate = self
 
     DispatchQueue.main.async {
+        self.filteredCandies.removeAll()
+        self.candies.removeAll()
         self.loadStocks()
     }
     
@@ -93,6 +96,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         //filteredCandies.removeAll()
         
         if(scope == "Watch"){
+            
+            filteredCandies.removeAll()
             //Fetching CoreData
             
             var temp = [Candy]()
@@ -104,27 +109,31 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             let managedContext = appDelegate.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
             
-            //TODO:- Fixed filtering of watch stocks
+         
             
             do{
               stocks = try managedContext.fetch(fetchRequest)
-                for s in stocks{
-                    
-                    filteredCandies = candies.filter({ (candy : Candy) -> Bool in
-                        if "\(s.value(forKey: "scode")!)" == candy.name {
-                            temp.append(candy)
-                            return true
-                        }else{
-                            return false
+                 print("Stock Count => \(stocks.count)")
+                temp.removeAll()
+                
+                
+                    filteredCandies = candies.map {
+                        for s in stocks{
+                            if $0.name ==  "\(s.value(forKey: "scode")!)" {
+                                temp.append($0)
+                                print("appended \($0.name)")
+                                return $0
+                                //return true
+                            }else{
+                                //return false
+                            }
                         }
-                    })
-                    
-                }
+                        return $0
+                    }
                 
-                filteredCandies.removeAll()
-                filteredCandies = temp
                 
-                //Loop candies
+                    filteredCandies.removeAll()
+                    filteredCandies = temp
                 
             }catch let error as NSError {
                 print(error)
@@ -170,6 +179,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   func numberOfSections(in tableView: UITableView) -> Int {
     if isFiltering() {
         searchFooter.setIsFilteringToShow(filteredItemCount: filteredCandies.count, of: candies.count)
+        print(filteredCandies.count)
         return filteredCandies.count
     }
     
@@ -181,11 +191,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         if isFiltering() {
             return filteredCandies.count
         }
-        
+    
         return candies.count
   }
    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let candy: Candy
         if isFiltering() {
