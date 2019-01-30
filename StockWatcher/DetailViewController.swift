@@ -97,7 +97,12 @@ class DetailViewController: UIViewController {
  }
     
     func loadStock(code:String){
-        guard let url = URL(string: "http://phisix-api4.appspot.com/stocks/\(code).json") else {
+        //https://www.pse.com.ph/stockMarket/companyInfo.html?id=118&security=547&tab=3
+        //https://www.pse.com.ph/stockMarket/companyInfoHistoricalData.html?method=getRecentSecurityQuoteData&security=547&ajax=false
+        
+        print("stock reloaded")
+        
+        guard let url = URL(string: "https://www.pse.com.ph/stockMarket/companyInfo.html?id=118&security=547&tab=3") else {
             return
         }
         let task = URLSession.shared.dataTask(with: url){data,response,error in
@@ -106,39 +111,35 @@ class DetailViewController: UIViewController {
                 return
             }
             
-            guard let rootJSON = try? JSONSerialization.jsonObject(with: dataResponse, options: []) else {
-                print("failed")
+            guard let url2 = URL(string: "https://www.pse.com.ph/stockMarket/companyInfoHistoricalData.html?method=getRecentSecurityQuoteData&security=547&ajax=false") else {
                 return
             }
             
-            
-            
-            if let JSON = rootJSON as? [String:Any]{
-                print("Latest: \(JSON["as_of"] as? String)")
+            let task2 = URLSession.shared.dataTask(with: url2){
+                data,response,error in
                 
-                guard let jsonArray = JSON["stock"] as? [[String:Any]] else {
+                guard let dataResponse = data,error == nil else{
+                    print(error?.localizedDescription ?? "Response Error")
                     return
                 }
                 
-                print(jsonArray)
+                print(dataResponse)
                 
-                for json in jsonArray {
-                    
-                    guard let stockName = json["name"] as? String else{ return }
-                    guard let symbol = json["symbol"] as? String else{ return }
-                    guard let per = json["percent_change"] else { return }
-                    guard let vol = json["volume"] as? Int else{ return }
-                    let price = json["price"] as! [String:Any]
-
+                guard let rootJSON = try? JSONSerialization.jsonObject(with: dataResponse, options: []) else {
+                    print("failed")
+                    return
                 }
                 
+                print(rootJSON)
                 
             }
             
+            task2.resume()
+            
+            
         }
         
-        
-        
+        task.resume()
     }
   
     
