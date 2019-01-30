@@ -11,6 +11,11 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var lblVolume: UILabel!
     @IBOutlet weak var lblPercentage: UILabel!
     @IBOutlet weak var lblAmount: UILabel!
+    @IBOutlet weak var lblStatus: UILabel!
+    @IBOutlet weak var btnWatchButton: UIButton!
+    @IBOutlet weak var btnUnWatchButton: UIButton!
+    
+    var isWatched = false
     
   var detailCandy: Candy? {
     didSet {
@@ -20,17 +25,50 @@ class DetailViewController: UIViewController {
   
   func configureView() {
     if let detailCandy = detailCandy {
-      if let detailDescriptionLabel = detailDescriptionLabel {
-        detailDescriptionLabel.text = detailCandy.name
         
-        lblVolume.text = "Volume: \(Int(detailCandy.volume)!.formattedWithSeparator)"
-        lblPercentage.text = "Percentage: \(detailCandy.percent_change)%"
-        lblAmount.text = "Price: \(detailCandy.currency) \(detailCandy.price)"
-        print("detailCandy \(detailCandy)")
-        //candyImageView.image = UIImage(named: detailCandy.name)
-        title = detailCandy.category
+        //TODO:- Check if being watched...
         
-      }
+        
+        
+          if let detailDescriptionLabel = detailDescriptionLabel {
+            detailDescriptionLabel.text = detailCandy.name
+            
+            let percentChange = detailCandy.percent_change.contains("-")
+            
+            if percentChange {
+                lblPercentage.textColor = UIColor.red
+            }else{
+                lblPercentage.textColor = UIColor.green
+            }
+            
+            
+            if btnWatchButton.isHidden {
+                btnUnWatchButton.isHidden = true
+            }else{
+                btnUnWatchButton.isHidden = false
+            }
+        
+            
+            if search(code: detailCandy.name){
+                
+                lblStatus.text = "Unwatched"
+                btnUnWatchButton.isHidden = true
+            }else{
+                lblStatus.text = "Watching"
+                btnWatchButton.isHidden = true
+                loadStock(code: detailCandy.name)
+                
+            }
+            lblVolume.text = "\(Int(detailCandy.volume)!.formattedWithSeparator)"
+            lblPercentage.text = "\(detailCandy.percent_change)%"
+            lblAmount.text = "\(detailCandy.currency) \(detailCandy.price)"
+            print("detailCandy \(detailCandy)")
+            title = detailCandy.category
+            
+            
+            
+          }
+        
     }
   }
    
@@ -47,6 +85,9 @@ class DetailViewController: UIViewController {
         let candy = try managedContext.fetch(fetchRequest)
         if(candy.count == 0){
             return true
+        }else{
+           //found here
+            
         }
     }catch{
         print(error)
@@ -54,6 +95,51 @@ class DetailViewController: UIViewController {
     
     return false
  }
+    
+    func loadStock(code:String){
+        guard let url = URL(string: "http://phisix-api4.appspot.com/stocks/\(code).json") else {
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url){data,response,error in
+            guard let dataResponse = data,error == nil else{
+                print(error?.localizedDescription ?? "Response Error")
+                return
+            }
+            
+            guard let rootJSON = try? JSONSerialization.jsonObject(with: dataResponse, options: []) else {
+                print("failed")
+                return
+            }
+            
+            
+            
+            if let JSON = rootJSON as? [String:Any]{
+                print("Latest: \(JSON["as_of"] as? String)")
+                
+                guard let jsonArray = JSON["stock"] as? [[String:Any]] else {
+                    return
+                }
+                
+                print(jsonArray)
+                
+                for json in jsonArray {
+                    
+                    guard let stockName = json["name"] as? String else{ return }
+                    guard let symbol = json["symbol"] as? String else{ return }
+                    guard let per = json["percent_change"] else { return }
+                    guard let vol = json["volume"] as? Int else{ return }
+                    let price = json["price"] as! [String:Any]
+
+                }
+                
+                
+            }
+            
+        }
+        
+        
+        
+    }
   
     
   //Remove data from watchlist
@@ -75,6 +161,8 @@ class DetailViewController: UIViewController {
         
         do{
             try managedContext.save()
+            btnWatchButton.isHidden = false
+            btnUnWatchButton.isHidden = true
         }catch{
             print(error)
         }
@@ -88,6 +176,7 @@ class DetailViewController: UIViewController {
   }
     @IBAction func btnDeleteWatchStock(_ sender: UIButton) {
         deleteData(code: (detailCandy?.name)!)
+        lblStatus.text = "Unwatched"
         
     }
     
@@ -123,7 +212,10 @@ class DetailViewController: UIViewController {
             
             do{
                 try managedContext.save()
+                lblStatus.text = "Watched"
                 print("Stock saved!")
+                btnWatchButton.isHidden = true
+                btnUnWatchButton.isHidden = false
             }catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }

@@ -1,7 +1,6 @@
 import CoreData
 import UIKit
 
-//TODO:- Code Cleanup
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
@@ -21,6 +20,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     searchController.searchBar.delegate = self
 
     DispatchQueue.main.async {
+        self.filteredCandies.removeAll()
+        self.candies.removeAll()
         self.loadStocks()
     }
     
@@ -40,8 +41,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   }
     
     func loadStocks(){
-        guard let url = URL(string: "http://phisix-api4.appspot.com/stocks.json")else {
-            return}
+        guard let url = URL(string: "http://phisix-api4.appspot.com/stocks.json")else {return}
         
         let task = URLSession.shared.dataTask(with: url){data,response,error in
             guard let dataResponse = data,error == nil else{
@@ -62,26 +62,22 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 }
                 
                 print(jsonArray)
+                print("json count \(jsonArray.count)")
                 
                 for json in jsonArray {
                     
                     guard let stockName = json["name"] as? String else{ return }
-                    
                     guard let symbol = json["symbol"] as? String else{ return }
-                    
                     guard let per = json["percent_change"] else { return }
-                    
                     guard let vol = json["volume"] as? Int else{ return }
-                    
-                   
                     let price = json["price"] as! [String:Any]
                     
                     self.candies.append(Candy(category:"\(stockName)", name:"\(symbol)",volume:"\(vol)",percent_change:"\(per)",price:"\(String(describing: price["amount"]!))",currency:"\(String(describing: price["currency"]!))"))
-                    
                 }
                 
-               self.tableView.reloadData()
+                print("c size: \(self.candies.count)")
                 
+               self.tableView.reloadData()
             }
         }
         
@@ -91,16 +87,17 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     // MARK: - Private instance methods
     
     func searchBarIsEmpty() -> Bool {
-        // Returns true if the text is empty or nil
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         
-        filteredCandies.removeAll()
-        
         if(scope == "Watch"){
-            //Fetching CoreData
+            
+            filteredCandies.removeAll()
+            
+            var temp = [Candy]()
+            
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 return
             }
@@ -108,14 +105,29 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             let managedContext = appDelegate.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
             
+         
+            
             do{
               stocks = try managedContext.fetch(fetchRequest)
-                for s in stocks{
-                    print(s.value(forKey: "scode"))
-                    
-                    filteredCandies.append(Candy(category:"\(s.value(forKey: "details")!)",name:"\(s.value(forKey: "scode")!)",volume:"0",percent_change:"",price:"",currency:""))
-                    
-                }
+                 print("Stock Count => \(stocks.count)")
+                temp.removeAll()
+                
+                
+                    filteredCandies = candies.map {
+                        for s in stocks{
+                            if $0.name ==  "\(s.value(forKey: "scode")!)" {
+                                temp.append($0)
+                                print("appended \($0.name)")
+                                return $0
+                            }
+                        }
+                        return $0
+                    }
+                
+                
+                    filteredCandies.removeAll()
+                    filteredCandies = temp
+                
             }catch let error as NSError {
                 print(error)
             }
@@ -156,8 +168,14 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     super.didReceiveMemoryWarning()
   }
   
+    var c:Int = 0
   // MARK: - Table View
   func numberOfSections(in tableView: UITableView) -> Int {
+    return 1
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
     if isFiltering() {
         searchFooter.setIsFilteringToShow(filteredItemCount: filteredCandies.count, of: candies.count)
         return filteredCandies.count
@@ -166,16 +184,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     searchFooter.setNotFiltering()
     return candies.count
   }
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering() {
-            return filteredCandies.count
-        }
-        
-        return candies.count
-  }
    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         let candy: Candy
         if isFiltering() {
@@ -193,6 +203,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             cell.textLabel?.textColor = UIColor.candyGreen
             cell.detailTextLabel?.textColor = UIColor.candyGreen
         }
+        print("cell_for_row_at \(candy.name)")
         
         return cell
     }
@@ -213,19 +224,22 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         controller.detailCandy = candy
         controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         controller.navigationItem.leftItemsSupplementBackButton = true
+       
+        if candy.percent_change == "" {
+            controller.isWatched = true
+        }
+        
       }
     }
   }
 }
 
 extension MasterViewController: UISearchResultsUpdating {
-    
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
         filterContentForSearchText(searchController.searchBar.text!, scope: scope)
     }
-
 }
 
 extension MasterViewController: UISearchBarDelegate {
