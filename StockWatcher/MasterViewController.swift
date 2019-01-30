@@ -1,8 +1,6 @@
 import CoreData
 import UIKit
 
-//TODO:- Code Cleanup
-//TODO:- Fix Doubling of data even in the main loading of all the stocks
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
@@ -64,6 +62,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 }
                 
                 print(jsonArray)
+                print("json count \(jsonArray.count)")
                 
                 for json in jsonArray {
                     
@@ -74,11 +73,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                     let price = json["price"] as! [String:Any]
                     
                     self.candies.append(Candy(category:"\(stockName)", name:"\(symbol)",volume:"\(vol)",percent_change:"\(per)",price:"\(String(describing: price["amount"]!))",currency:"\(String(describing: price["currency"]!))"))
-                    
                 }
                 
-               self.tableView.reloadData()
+                print("c size: \(self.candies.count)")
                 
+               self.tableView.reloadData()
             }
         }
         
@@ -93,12 +92,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         
-        //filteredCandies.removeAll()
-        
         if(scope == "Watch"){
             
             filteredCandies.removeAll()
-            //Fetching CoreData
             
             var temp = [Candy]()
             
@@ -123,9 +119,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                                 temp.append($0)
                                 print("appended \($0.name)")
                                 return $0
-                                //return true
-                            }else{
-                                //return false
                             }
                         }
                         return $0
@@ -175,24 +168,21 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     super.didReceiveMemoryWarning()
   }
   
+    var c:Int = 0
   // MARK: - Table View
   func numberOfSections(in tableView: UITableView) -> Int {
+    return 1
+  }
+  
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
     if isFiltering() {
         searchFooter.setIsFilteringToShow(filteredItemCount: filteredCandies.count, of: candies.count)
-        print(filteredCandies.count)
         return filteredCandies.count
     }
     
     searchFooter.setNotFiltering()
     return candies.count
-  }
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering() {
-            return filteredCandies.count
-        }
-    
-        return candies.count
   }
    
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -213,6 +203,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             cell.textLabel?.textColor = UIColor.candyGreen
             cell.detailTextLabel?.textColor = UIColor.candyGreen
         }
+        print("cell_for_row_at \(candy.name)")
         
         return cell
     }
@@ -238,20 +229,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             controller.isWatched = true
         }
         
-        print("prepare_for_segue: \(candy.name)")
-        print("prepare_for_segue: \(candy.category)")
-        print("prepare_for_segue: \(candy.currency)")
-        print("prepare_for_segue: \(candy.percent_change)")
-        print("prepare_for_segue: \(candy.price)")
-        print("prepare_for_segue: \(candy.volume)")
-        
       }
     }
   }
 }
 
 extension MasterViewController: UISearchResultsUpdating {
-    
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
