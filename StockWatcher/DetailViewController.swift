@@ -12,6 +12,8 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var lblPercentage: UILabel!
     @IBOutlet weak var lblAmount: UILabel!
     @IBOutlet weak var lblStatus: UILabel!
+    @IBOutlet weak var btnWatchButton: UIButton!
+    @IBOutlet weak var btnUnWatchButton: UIButton!
     
     var isWatched = false
     
@@ -39,21 +41,31 @@ class DetailViewController: UIViewController {
                 lblPercentage.textColor = UIColor.green
             }
             
+            
+            if btnWatchButton.isHidden {
+                btnUnWatchButton.isHidden = true
+            }else{
+                btnUnWatchButton.isHidden = false
+            }
         
             
             if search(code: detailCandy.name){
                 
-            
                 lblStatus.text = "Unwatched"
+                btnUnWatchButton.isHidden = true
             }else{
                 lblStatus.text = "Watching"
+                btnWatchButton.isHidden = true
                 loadStock(code: detailCandy.name)
+                
             }
             lblVolume.text = "\(Int(detailCandy.volume)!.formattedWithSeparator)"
             lblPercentage.text = "\(detailCandy.percent_change)%"
             lblAmount.text = "\(detailCandy.currency) \(detailCandy.price)"
             print("detailCandy \(detailCandy)")
             title = detailCandy.category
+            
+            
             
           }
         
@@ -149,6 +161,8 @@ class DetailViewController: UIViewController {
         
         do{
             try managedContext.save()
+            btnWatchButton.isHidden = false
+            btnUnWatchButton.isHidden = true
         }catch{
             print(error)
         }
@@ -162,6 +176,7 @@ class DetailViewController: UIViewController {
   }
     @IBAction func btnDeleteWatchStock(_ sender: UIButton) {
         deleteData(code: (detailCandy?.name)!)
+        lblStatus.text = "Unwatched"
         
     }
     
@@ -199,6 +214,8 @@ class DetailViewController: UIViewController {
                 try managedContext.save()
                 lblStatus.text = "Watched"
                 print("Stock saved!")
+                btnWatchButton.isHidden = true
+                btnUnWatchButton.isHidden = false
             }catch let error as NSError {
                 print("Could not save. \(error), \(error.userInfo)")
             }

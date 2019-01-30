@@ -55,22 +55,13 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BlV-bE-1Lk">
-                                <rect key="frame" x="42" y="529" width="38" height="30"/>
+                                <rect key="frame" x="70" y="341" width="38" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Track"/>
                                 <connections>
                                     <action selector="btnWatchTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="wcm-6V-L6F"/>
                                     <segue destination="8bS-AY-Tux" kind="show" id="R6g-7I-JgD"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkZ-ES-WCA">
-                                <rect key="frame" x="132" y="529" width="55" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Remove"/>
-                                <connections>
-                                    <action selector="btnDeleteWatchStock:" destination="JEX-9P-axG" eventType="touchUpInside" id="vbG-oy-INU"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hxi-Si-SJi">
@@ -143,21 +134,33 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkZ-ES-WCA">
+                                <rect key="frame" x="148.5" y="545" width="78" height="30"/>
+                                <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Unwatched"/>
+                                <connections>
+                                    <action selector="btnDeleteWatchStock:" destination="JEX-9P-axG" eventType="touchUpInside" id="vbG-oy-INU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="vte-Mb-WUF" secondAttribute="bottom" constant="20" symbolic="YES" id="6oL-Dk-ARg"/>
                             <constraint firstItem="djJ-aY-wFy" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="20" id="EFP-MI-8oX"/>
                             <constraint firstItem="vte-Mb-WUF" firstAttribute="trailing" secondItem="svH-Pt-448" secondAttribute="trailingMargin" id="OGf-LQ-n4a"/>
+                            <constraint firstItem="vte-Mb-WUF" firstAttribute="top" secondItem="ZkZ-ES-WCA" secondAttribute="bottom" constant="15" id="QAp-CM-f13"/>
                             <constraint firstItem="Hxi-Si-SJi" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="16" id="WNy-R8-vLY"/>
                             <constraint firstItem="djJ-aY-wFy" firstAttribute="leading" secondItem="Hxi-Si-SJi" secondAttribute="trailing" constant="57.5" id="he5-CP-0Jo"/>
                             <constraint firstItem="Hxi-Si-SJi" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="21" id="r2G-Rk-GQD"/>
+                            <constraint firstItem="ZkZ-ES-WCA" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="uqW-kk-GIA"/>
                             <constraint firstItem="vte-Mb-WUF" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" id="vb5-ny-1fJ"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Chocolate" largeTitleDisplayMode="always" id="mOI-FS-AaM"/>
                     <connections>
+                        <outlet property="btnUnWatchButton" destination="ZkZ-ES-WCA" id="MVZ-Nz-fuR"/>
+                        <outlet property="btnWatchButton" destination="vte-Mb-WUF" id="6eo-OH-4i4"/>
                         <outlet property="detailDescriptionLabel" destination="jTl-4A-YZp" id="OV0-b4-vM9"/>
                         <outlet property="lblAmount" destination="qDP-XR-5Go" id="a2P-cO-KiV"/>
                         <outlet property="lblPercentage" destination="Rb4-j0-juD" id="C4p-We-5UV"/>
