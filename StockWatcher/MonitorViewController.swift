@@ -6,6 +6,13 @@
 //  Copyright © 2019 Peartree Developers. All rights reserved.
 //
 
+/*
+    - Keyboard number
+    - Save via CoreData
+    - Automatic computation on textfield change
+ 
+ */
+
 import UIKit
 
 class MonitorViewController: UIViewController {
@@ -22,15 +29,16 @@ class MonitorViewController: UIViewController {
         navigationController?.setToolbarHidden(false, animated: false)
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func btnSaveTapped(_ sender: UIButton) {
+        computeInv()
     }
-    */
-
+    
+    func computeInv(){
+        let stockPrice = Double(price.text!)
+        let stocks = Double(txtStocks.text!)
+        let c = Double(txtCharge.text!)!
+        let tax = Double(txtTax.text!)!
+        let amountTotal = (stockPrice! * stocks!) - ( c + tax )
+        lblTotalAmtInvested.text = String(amountTotal)
+    }
 }
