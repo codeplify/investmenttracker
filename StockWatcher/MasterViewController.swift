@@ -6,7 +6,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   
   @IBOutlet var tableView: UITableView!
   @IBOutlet var searchFooter: SearchFooter!
-  
+
+    
   var detailViewController: DetailViewController? = nil
   var candies = [Candy]()
   var stocks: [NSManagedObject] = []

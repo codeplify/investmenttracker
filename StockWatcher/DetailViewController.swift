@@ -6,7 +6,8 @@ import CoreData
 
 class DetailViewController: UIViewController {
   
-  @IBOutlet weak var detailDescriptionLabel: UILabel!
+    @IBOutlet weak var btnInvest: UIButton!
+    @IBOutlet weak var detailDescriptionLabel: UILabel!
     //@IBOutlet weak var candyImageView: UIImageView!
     @IBOutlet weak var lblVolume: UILabel!
     @IBOutlet weak var lblPercentage: UILabel!
@@ -28,7 +29,7 @@ class DetailViewController: UIViewController {
         
         //TODO:- Check if being watched...
         
-        
+      
         
           if let detailDescriptionLabel = detailDescriptionLabel {
             detailDescriptionLabel.text = detailCandy.name
@@ -44,6 +45,9 @@ class DetailViewController: UIViewController {
             
             if btnWatchButton.isHidden {
                 btnUnWatchButton.isHidden = true
+                btnInvest.isHidden = false
+                
+                
             }else{
                 btnUnWatchButton.isHidden = false
             }
@@ -56,6 +60,7 @@ class DetailViewController: UIViewController {
             }else{
                 lblStatus.text = "Watching"
                 btnWatchButton.isHidden = true
+                btnInvest.isHidden = false
                 loadStock(code: detailCandy.name)
                 
             }

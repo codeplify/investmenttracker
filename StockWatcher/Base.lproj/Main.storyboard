@@ -41,29 +41,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vte-Mb-WUF">
-                                <rect key="frame" x="16" y="590" width="343" height="57"/>
-                                <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="57" id="WHM-1R-Mrl"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Watch"/>
-                                <connections>
-                                    <action selector="btnWatchTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="HsP-gG-nkl"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BlV-bE-1Lk">
-                                <rect key="frame" x="70" y="341" width="38" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Track"/>
-                                <connections>
-                                    <action selector="btnWatchTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="wcm-6V-L6F"/>
-                                    <segue destination="8bS-AY-Tux" kind="show" id="R6g-7I-JgD"/>
-                                </connections>
-                            </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hxi-Si-SJi">
                                 <rect key="frame" x="16" y="85" width="92.5" height="142.5"/>
                                 <subviews>
@@ -134,31 +111,66 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkZ-ES-WCA">
-                                <rect key="frame" x="148.5" y="545" width="78" height="30"/>
-                                <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="Unwatched"/>
-                                <connections>
-                                    <action selector="btnDeleteWatchStock:" destination="JEX-9P-axG" eventType="touchUpInside" id="vbG-oy-INU"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TGC-Kb-QAq">
+                                <rect key="frame" x="10" y="573" width="355" height="74"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkZ-ES-WCA">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="30"/>
+                                        <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="Unwatched"/>
+                                        <connections>
+                                            <action selector="btnDeleteWatchStock:" destination="JEX-9P-axG" eventType="touchUpInside" id="vbG-oy-INU"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BlV-bE-1Lk">
+                                        <rect key="frame" x="0.0" y="34" width="355" height="0.0"/>
+                                        <color key="backgroundColor" red="0.32867060599999998" green="0.61464927810000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" title="Invest">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnWatchTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="wcm-6V-L6F"/>
+                                            <segue destination="8bS-AY-Tux" kind="show" id="R6g-7I-JgD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vte-Mb-WUF">
+                                        <rect key="frame" x="0.0" y="38" width="355" height="36"/>
+                                        <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Watch"/>
+                                        <connections>
+                                            <action selector="btnWatchTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="HsP-gG-nkl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="vte-Mb-WUF" secondAttribute="trailing" id="IRz-8n-9f1"/>
+                                    <constraint firstItem="vte-Mb-WUF" firstAttribute="leading" secondItem="TGC-Kb-QAq" secondAttribute="leading" id="Rso-2P-U6j"/>
+                                    <constraint firstItem="BlV-bE-1Lk" firstAttribute="leading" secondItem="TGC-Kb-QAq" secondAttribute="leading" id="V0L-uv-I7A"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZkZ-ES-WCA" secondAttribute="trailing" id="gIY-CK-Dg6"/>
+                                    <constraint firstAttribute="trailing" secondItem="BlV-bE-1Lk" secondAttribute="trailing" id="sgd-g5-wPH"/>
+                                    <constraint firstItem="ZkZ-ES-WCA" firstAttribute="leading" secondItem="TGC-Kb-QAq" secondAttribute="leading" id="tV4-FZ-piq"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="vte-Mb-WUF" secondAttribute="bottom" constant="20" symbolic="YES" id="6oL-Dk-ARg"/>
                             <constraint firstItem="djJ-aY-wFy" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="20" id="EFP-MI-8oX"/>
-                            <constraint firstItem="vte-Mb-WUF" firstAttribute="trailing" secondItem="svH-Pt-448" secondAttribute="trailingMargin" id="OGf-LQ-n4a"/>
-                            <constraint firstItem="vte-Mb-WUF" firstAttribute="top" secondItem="ZkZ-ES-WCA" secondAttribute="bottom" constant="15" id="QAp-CM-f13"/>
+                            <constraint firstAttribute="trailing" secondItem="TGC-Kb-QAq" secondAttribute="trailing" constant="10" id="EJL-yr-AUc"/>
+                            <constraint firstItem="TGC-Kb-QAq" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="10" id="HO8-2j-62a"/>
+                            <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="TGC-Kb-QAq" secondAttribute="bottom" constant="20" id="M0u-pg-OvX"/>
                             <constraint firstItem="Hxi-Si-SJi" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="16" id="WNy-R8-vLY"/>
                             <constraint firstItem="djJ-aY-wFy" firstAttribute="leading" secondItem="Hxi-Si-SJi" secondAttribute="trailing" constant="57.5" id="he5-CP-0Jo"/>
                             <constraint firstItem="Hxi-Si-SJi" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="21" id="r2G-Rk-GQD"/>
-                            <constraint firstItem="ZkZ-ES-WCA" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="uqW-kk-GIA"/>
-                            <constraint firstItem="vte-Mb-WUF" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" id="vb5-ny-1fJ"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Chocolate" largeTitleDisplayMode="always" id="mOI-FS-AaM"/>
                     <connections>
+                        <outlet property="btnInvest" destination="BlV-bE-1Lk" id="VGH-Pw-HYK"/>
                         <outlet property="btnUnWatchButton" destination="ZkZ-ES-WCA" id="MVZ-Nz-fuR"/>
                         <outlet property="btnWatchButton" destination="vte-Mb-WUF" id="6eo-OH-4i4"/>
                         <outlet property="detailDescriptionLabel" destination="jTl-4A-YZp" id="OV0-b4-vM9"/>
