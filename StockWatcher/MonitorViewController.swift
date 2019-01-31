@@ -10,10 +10,15 @@ import UIKit
 
 class MonitorViewController: UIViewController {
 
+    @IBOutlet weak var price: UITextField!
+    @IBOutlet weak var txtStocks: UITextField!
+    @IBOutlet weak var txtAmount: UITextField!
+    @IBOutlet weak var txtCharge: UITextField!
+    @IBOutlet weak var txtTax: UITextField!
+    @IBOutlet weak var lblTotalAmtInvested: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         navigationController?.setToolbarHidden(false, animated: false)
     }
     
