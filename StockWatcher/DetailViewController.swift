@@ -6,17 +6,17 @@ import CoreData
 
 class DetailViewController: UIViewController {
   
-    @IBOutlet weak var btnInvest: UIButton!
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-    //@IBOutlet weak var candyImageView: UIImageView!
-    @IBOutlet weak var lblVolume: UILabel!
-    @IBOutlet weak var lblPercentage: UILabel!
-    @IBOutlet weak var lblAmount: UILabel!
-    @IBOutlet weak var lblStatus: UILabel!
-    @IBOutlet weak var btnWatchButton: UIButton!
-    @IBOutlet weak var btnUnWatchButton: UIButton!
+ @IBOutlet weak var btnInvest: UIButton!
+ @IBOutlet weak var detailDescriptionLabel: UILabel!
+ @IBOutlet weak var lblVolume: UILabel!
+ @IBOutlet weak var lblPercentage: UILabel!
+ @IBOutlet weak var lblAmount: UILabel!
+ @IBOutlet weak var lblStatus: UILabel!
+ @IBOutlet weak var btnWatchButton: UIButton!
+ @IBOutlet weak var btnUnWatchButton: UIButton!
     
-    var isWatched = false
+  var isWatched = false
+  var presenter: WatchlistPresenter?
     
   var detailCandy: Candy? {
     didSet {
@@ -26,8 +26,6 @@ class DetailViewController: UIViewController {
   
   func configureView() {
     if let detailCandy = detailCandy {
-        
-        //TODO:- Check if being watched...
         
           if let detailDescriptionLabel = detailDescriptionLabel {
             detailDescriptionLabel.text = detailCandy.name
@@ -50,7 +48,6 @@ class DetailViewController: UIViewController {
         
             
             if search(code: detailCandy.name){
-                
                 lblStatus.text = "Unwatched"
                 btnUnWatchButton.isHidden = true
             }else{
@@ -182,6 +179,7 @@ class DetailViewController: UIViewController {
     
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.presenter = WatchlistPresenter(delegate: self as WatchlistDelegate)
     configureView()
   }
   
@@ -192,39 +190,33 @@ class DetailViewController: UIViewController {
     
     @IBAction func btnWatchTapped(_ sender: UIButton) {
         if search(code: detailCandy!.name) {
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                return
-            }
-            
-            let managedContext = appDelegate.persistentContainer.viewContext
-            let entity = NSEntityDescription.entity(forEntityName: "StocksDB", in: managedContext)!
-            let stock = NSManagedObject(entity: entity, insertInto: managedContext)
-            
-            stock.setValue(detailCandy?.category, forKey: "details")
-            stock.setValue(Double(detailCandy?.price as! String), forKey: "amount")
-            stock.setValue(detailCandy?.currency, forKey: "currency")
-            stock.setValue(detailCandy?.name, forKey: "scode")
-            stock.setValue(1, forKey: "status")
-            
-            // 1 - Watching
-            // 2 - Invested
-            // Check here if it is already tapped...
-            
-            do{
-                try managedContext.save()
-                lblStatus.text = "Watched"
-                print("Stock saved!")
-                btnWatchButton.isHidden = true
-                btnUnWatchButton.isHidden = false
-            }catch let error as NSError {
-                print("Could not save. \(error), \(error.userInfo)")
-            }
+            self.presenter?.save(stock: detailCandy!)
         }else{
             print("Already added to watchlist")
         }
         
     }
     
+}
+
+extension DetailViewController: WatchlistDelegate {
+    func showProgress() {
+        print("show progress bar")
+    }
+    
+    func hideProgress() {
+        print("hide progress bar")
+    }
+    
+    func saveToWatchlistSucceed() {
+        lblStatus.text = "Watched"
+        btnWatchButton.isHidden = true
+        btnUnWatchButton.isHidden = false
+    }
+    
+    func saveToWatchlistFailed(message: String) {
+        print(message)
+    }
 }
 
 extension Formatter {
