@@ -17,6 +17,7 @@
 		452C6F7B1E9BDA75003A4C50 /* SearchFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452C6F7A1E9BDA75003A4C50 /* SearchFooter.swift */; };
 		45D31C6F1EB28E8F000A3BE1 /* CandyTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D31C6E1EB28E8F000A3BE1 /* CandyTheme.swift */; };
 		D627599421F9992800E8A527 /* MonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D627599321F9992800E8A527 /* MonitorViewController.swift */; };
+		D63F32EB2206CDEE00B719AA /* WatchlistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F32EA2206CDEE00B719AA /* WatchlistPresenter.swift */; };
 		D683DBA121F84C0A0091B4ED /* XStockDBModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D683DB9F21F84C0A0091B4ED /* XStockDBModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		452C6F7A1E9BDA75003A4C50 /* SearchFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchFooter.swift; sourceTree = "<group>"; };
 		45D31C6E1EB28E8F000A3BE1 /* CandyTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CandyTheme.swift; sourceTree = "<group>"; };
 		D627599321F9992800E8A527 /* MonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorViewController.swift; sourceTree = "<group>"; };
+		D63F32EA2206CDEE00B719AA /* WatchlistPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistPresenter.swift; sourceTree = "<group>"; };
 		D683DBA021F84C0A0091B4ED /* XStockDBModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = XStockDBModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -67,6 +69,7 @@
 		171E0C7C1B8E5B84001E6242 /* StockWatcher */ = {
 			isa = PBXGroup;
 			children = (
+				D63F32E92206CDB300B719AA /* Presenter */,
 				171E0C7D1B8E5B84001E6242 /* AppDelegate.swift */,
 				45D31C6E1EB28E8F000A3BE1 /* CandyTheme.swift */,
 				171E0C7F1B8E5B84001E6242 /* MasterViewController.swift */,
@@ -80,6 +83,14 @@
 				D627599321F9992800E8A527 /* MonitorViewController.swift */,
 			);
 			path = StockWatcher;
+			sourceTree = "<group>";
+		};
+		D63F32E92206CDB300B719AA /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				D63F32EA2206CDEE00B719AA /* WatchlistPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,6 +171,7 @@
 				171E0CAE1B8E5C58001E6242 /* Candy.swift in Sources */,
 				171E0C801B8E5B84001E6242 /* MasterViewController.swift in Sources */,
 				D627599421F9992800E8A527 /* MonitorViewController.swift in Sources */,
+				D63F32EB2206CDEE00B719AA /* WatchlistPresenter.swift in Sources */,
 				D683DBA121F84C0A0091B4ED /* XStockDBModel.xcdatamodeld in Sources */,
 				171E0C7E1B8E5B84001E6242 /* AppDelegate.swift in Sources */,
 			);
