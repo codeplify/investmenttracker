@@ -29,7 +29,9 @@ class WatchlistPresenter{
     
     func save(stock: Candy){
         if search(code: stock.name) {
-            //Move saving here...
+            
+            //TODO:- Move to data persistence
+            
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 return
             }
@@ -100,10 +102,8 @@ class WatchlistPresenter{
                 self.delegate.deleteWatchlistFailed(message: error as! String)
             }
             
-            
-            
         }catch{
-            print(error)
+            self.delegate.deleteWatchlistFailed(message: error as! String)
         }
     }
 }

@@ -35,7 +35,6 @@ class DetailViewController: UIViewController {
                 lblPercentage.textColor = UIColor.green
             }
             
-            
             if btnWatchButton.isHidden {
                 btnUnWatchButton.isHidden = true
                 btnInvest.isHidden = false
@@ -51,6 +50,7 @@ class DetailViewController: UIViewController {
                 btnWatchButton.isHidden = true
                 btnInvest.isHidden = false
             }
+            
             lblVolume.text = "\(Int(detailCandy.volume)!.formattedWithSeparator)"
             lblPercentage.text = "\(detailCandy.percent_change)%"
             lblAmount.text = "\(detailCandy.currency) \(detailCandy.price)"
@@ -76,12 +76,11 @@ class DetailViewController: UIViewController {
     super.didReceiveMemoryWarning()
   }
     
-    
-    @IBAction func btnWatchTapped(_ sender: UIButton) {
+  @IBAction func btnWatchTapped(_ sender: UIButton) {
         if (self.presenter?.search(code: detailCandy!.name))! {
             self.presenter?.save(stock: detailCandy!)
         }
-    }
+  }
     
 }
 

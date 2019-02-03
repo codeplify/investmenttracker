@@ -6,13 +6,6 @@
 //  Copyright © 2019 Peartree Developers. All rights reserved.
 //
 
-/*
-    - Keyboard number
-    X Save via CoreData
-    - Automatic computation on textfield change
- 
- */
-
 import UIKit
 import CoreData
 
@@ -33,6 +26,12 @@ class MonitorViewController: UIViewController {
         txtAmount.placeholder = "0.00"
         txtCharge.placeholder = "0.00"
         txtTax.placeholder = "0.00"
+        
+        price.keyboardType = UIKeyboardType.decimalPad
+        txtStocks.keyboardType = UIKeyboardType.decimalPad
+        txtAmount.keyboardType = UIKeyboardType.decimalPad
+        txtCharge.keyboardType = UIKeyboardType.decimalPad
+        txtTax.keyboardType = UIKeyboardType.decimalPad
         
         price.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         txtStocks.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
