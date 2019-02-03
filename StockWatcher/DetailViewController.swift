@@ -1,8 +1,5 @@
 import UIKit
 import CoreData
-/**
-    Todo: Clean this code apply MVP
- */
 
 class DetailViewController: UIViewController {
   
@@ -46,8 +43,6 @@ class DetailViewController: UIViewController {
                 btnUnWatchButton.isHidden = false
             }
         
-            
-//            if search(code: detailCandy.name){
             if (self.presenter?.search(code: detailCandy.name))! {
                 lblStatus.text = "Unwatched"
                 btnUnWatchButton.isHidden = true
@@ -55,8 +50,6 @@ class DetailViewController: UIViewController {
                 lblStatus.text = "Watching"
                 btnWatchButton.isHidden = true
                 btnInvest.isHidden = false
-                loadStock(code: detailCandy.name)
-                
             }
             lblVolume.text = "\(Int(detailCandy.volume)!.formattedWithSeparator)"
             lblPercentage.text = "\(detailCandy.percent_change)%"
@@ -68,90 +61,9 @@ class DetailViewController: UIViewController {
         
     }
   }
-    
-    func loadStock(code:String){
-        //https://www.pse.com.ph/stockMarket/companyInfo.html?id=118&security=547&tab=3
-        //https://www.pse.com.ph/stockMarket/companyInfoHistoricalData.html?method=getRecentSecurityQuoteData&security=547&ajax=false
-        
-        print("stock reloaded")
-        
-        guard let url = URL(string: "https://www.pse.com.ph/stockMarket/companyInfo.html?id=118&security=547&tab=3") else {
-            return
-        }
-        let task = URLSession.shared.dataTask(with: url){data,response,error in
-            guard let dataResponse = data,error == nil else{
-                print(error?.localizedDescription ?? "Response Error")
-                return
-            }
-            
-            guard let url2 = URL(string: "https://www.pse.com.ph/stockMarket/companyInfoHistoricalData.html?method=getRecentSecurityQuoteData&security=547&ajax=false") else {
-                return
-            }
-            
-            let task2 = URLSession.shared.dataTask(with: url2){
-                data,response,error in
-                
-                guard let dataResponse = data,error == nil else{
-                    print(error?.localizedDescription ?? "Response Error")
-                    return
-                }
-                
-                print(dataResponse)
-                
-                guard let rootJSON = try? JSONSerialization.jsonObject(with: dataResponse, options: []) else {
-                    print("failed")
-                    return
-                }
-                
-                print(rootJSON)
-                
-            }
-            
-            task2.resume()
-            
-            
-        }
-        
-        task.resume()
-    }
-  
-    
-  //Remove data from watchlist
-  func deleteData(code:String){
-        print("code to delete \(code)")
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-        return
-    }
-    
-    let managedContext = appDelegate.persistentContainer.viewContext
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StocksDB")
-        fetchRequest.predicate = NSPredicate(format: "scode = %@",code)
-    do{
-        let candy = try managedContext.fetch(fetchRequest)
-        print("candy \(candy.count)")
-        let del = candy[0] as! NSManagedObject
-        
-        managedContext.delete(del)
-        
-        do{
-            try managedContext.save()
-            btnWatchButton.isHidden = false
-            btnUnWatchButton.isHidden = true
-        }catch{
-            print(error)
-        }
-        
-        print("\(code) has been deleted")
-        
-    }catch{
-        print(error)
-    }
-    
-  }
+
   @IBAction func btnDeleteWatchStock(_ sender: UIButton) {
-        deleteData(code: (detailCandy?.name)!)
-        lblStatus.text = "Unwatched"
-        
+        self.presenter?.delete(code: (detailCandy?.name)!)
   }
     
   override func viewDidLoad() {
@@ -166,18 +78,25 @@ class DetailViewController: UIViewController {
     
     
     @IBAction func btnWatchTapped(_ sender: UIButton) {
-       // if search(code: detailCandy!.name) {
         if (self.presenter?.search(code: detailCandy!.name))! {
             self.presenter?.save(stock: detailCandy!)
-        }else{
-            //TODO:- Add prompt
-            print("Already added to watchlist")
         }
     }
     
 }
 
 extension DetailViewController: WatchlistDelegate {
+    func deleteWatchlistSucceed() {
+         btnWatchButton.isHidden = false
+         btnUnWatchButton.isHidden = true
+         btnInvest.isHidden = true
+         lblStatus.text = "Unwatched"
+    }
+    
+    func deleteWatchlistFailed(message: String) {
+        print("failed deleting from watchlist\(message)")
+    }
+    
     func showProgress() {
         print("show progress bar")
     }

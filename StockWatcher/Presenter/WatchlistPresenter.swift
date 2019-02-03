@@ -15,6 +15,8 @@ protocol WatchlistDelegate {
     func hideProgress()
     func saveToWatchlistSucceed()
     func saveToWatchlistFailed(message: String)
+    func deleteWatchlistSucceed()
+    func deleteWatchlistFailed(message: String)
 
 }
 
@@ -73,5 +75,35 @@ class WatchlistPresenter{
         }
         
         return false
+    }
+    
+    func delete(code:String){
+        print("code to delete \(code)")
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StocksDB")
+        fetchRequest.predicate = NSPredicate(format: "scode = %@",code)
+        do{
+            let candy = try managedContext.fetch(fetchRequest)
+            print("candy \(candy.count)")
+            let del = candy[0] as! NSManagedObject
+            
+            managedContext.delete(del)
+            
+            do{
+                try managedContext.save()
+                self.delegate.deleteWatchlistSucceed()
+            }catch{
+                self.delegate.deleteWatchlistFailed(message: error as! String)
+            }
+            
+            
+            
+        }catch{
+            print(error)
+        }
     }
 }
