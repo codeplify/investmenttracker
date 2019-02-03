@@ -67,7 +67,7 @@ class MonitorViewController: UIViewController {
             return
         }
         
-        var amountTotal = (stockPrice * stocks) - ( c + tax )
+        let amountTotal = (stockPrice * stocks) - ( c + tax )
         
         txtAmount.text = String(stockPrice * stocks)
         lblTotalAmtInvested.text = String(amountTotal)
@@ -90,7 +90,7 @@ class MonitorViewController: UIViewController {
             portfolio.setValue(Double(txtTax.text!)!, forKey: "tax")
             portfolio.setValue(Double(txtAmount.text!)!, forKey: "amount")
             portfolio.setValue(Double(lblTotalAmtInvested.text!)!, forKey: "total")
-            portfolio.setValue(UUID.init().uuidString, forKey: "id")
+            portfolio.setValue(UUID.init(), forKey: "id")
             portfolio.setValue("\(Date())", forKey: "date")
             portfolio.setValue(String(""), forKey: "code")
             
@@ -105,4 +105,5 @@ class MonitorViewController: UIViewController {
             print("Error saving...")
         }
     }
+    
 }
