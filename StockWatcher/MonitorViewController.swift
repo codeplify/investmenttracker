@@ -33,30 +33,49 @@ class MonitorViewController: UIViewController {
         txtAmount.placeholder = "0.00"
         txtCharge.placeholder = "0.00"
         txtTax.placeholder = "0.00"
+        
+        price.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        txtStocks.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        txtAmount.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        txtCharge.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        txtTax.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     }
     
-    @IBAction func btnSaveTapped(_ sender: UIButton) {
+    @objc func textFieldDidChange(_ textField: UITextField){
         computeInv()
     }
     
+    @IBAction func btnSaveTapped(_ sender: UIButton) {
+        saveInv()
+    }
+    
     func computeInv(){
-        let stockPrice = Double(price.text!)
-        let stocks = Double(txtStocks.text!)
-        let c = Double(txtCharge.text!)!
-        let tax = Double(txtTax.text!)!
-        var amountTotal = (stockPrice! * stocks!) - ( c + tax )
-        txtAmount.text = String(stockPrice! * stocks!)
-        lblTotalAmtInvested.text = String(amountTotal)
         
-//        if amountTotal > 0 {
-//            //TODO:- Add confirmation to save here...
-//            saveInv()
-//        }
+        guard let stockPrice = Double(price.text!) else{
+            return
+        }
+        
+        guard let stocks = Double(txtStocks.text!) else{
+            return
+        }
+        
+        guard let c = Double(txtCharge.text!) else{
+            return
+        }
+        
+        guard let tax = Double(txtTax.text!) else {
+            return
+        }
+        
+        var amountTotal = (stockPrice * stocks) - ( c + tax )
+        
+        txtAmount.text = String(stockPrice * stocks)
+        lblTotalAmtInvested.text = String(amountTotal)
         
     }
     
     func saveInv(){
-//        if Double(lblTotalAmtInvested.text!)! > 0 {
+        if Double(lblTotalAmtInvested.text!)! > 0 {
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 return
             }
@@ -82,6 +101,8 @@ class MonitorViewController: UIViewController {
                 print("\(error)")
             }
             
-//        }
+        }else{
+            print("Error saving...")
+        }
     }
 }

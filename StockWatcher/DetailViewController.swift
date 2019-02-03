@@ -29,8 +29,6 @@ class DetailViewController: UIViewController {
         
         //TODO:- Check if being watched...
         
-      
-        
           if let detailDescriptionLabel = detailDescriptionLabel {
             detailDescriptionLabel.text = detailCandy.name
             
@@ -46,8 +44,6 @@ class DetailViewController: UIViewController {
             if btnWatchButton.isHidden {
                 btnUnWatchButton.isHidden = true
                 btnInvest.isHidden = false
-                
-                
             }else{
                 btnUnWatchButton.isHidden = false
             }
@@ -69,8 +65,6 @@ class DetailViewController: UIViewController {
             lblAmount.text = "\(detailCandy.currency) \(detailCandy.price)"
             print("detailCandy \(detailCandy)")
             title = detailCandy.category
-            
-            
             
           }
         
