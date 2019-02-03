@@ -15,6 +15,7 @@ protocol WatchlistDelegate {
     func hideProgress()
     func saveToWatchlistSucceed()
     func saveToWatchlistFailed(message: String)
+
 }
 
 class WatchlistPresenter{
@@ -25,7 +26,7 @@ class WatchlistPresenter{
     }
     
     func save(stock: Candy){
-        if search(scode: stock.name) {
+        if search(code: stock.name) {
             //Move saving here...
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
                 return
@@ -50,7 +51,27 @@ class WatchlistPresenter{
         }
     }
     
-    func search(scode: String) -> Bool{
-        return true
+    func search(code: String) -> Bool{
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return false
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StocksDB")
+        fetchRequest.predicate = NSPredicate(format: "scode = %@", code)
+        
+        do{
+            let candy = try managedContext.fetch(fetchRequest)
+            if(candy.count == 0){
+                return true
+            }else{
+                //found here
+                
+            }
+        }catch{
+            print(error)
+        }
+        
+        return false
     }
 }

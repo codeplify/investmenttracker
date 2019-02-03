@@ -47,7 +47,8 @@ class DetailViewController: UIViewController {
             }
         
             
-            if search(code: detailCandy.name){
+//            if search(code: detailCandy.name){
+            if (self.presenter?.search(code: detailCandy.name))! {
                 lblStatus.text = "Unwatched"
                 btnUnWatchButton.isHidden = true
             }else{
@@ -67,30 +68,6 @@ class DetailViewController: UIViewController {
         
     }
   }
-   
- func search(code:String) -> Bool{
-    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-        return false
-    }
-    
-    let managedContext = appDelegate.persistentContainer.viewContext
-    let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StocksDB")
-        fetchRequest.predicate = NSPredicate(format: "scode = %@", code)
-    
-    do{
-        let candy = try managedContext.fetch(fetchRequest)
-        if(candy.count == 0){
-            return true
-        }else{
-           //found here
-            
-        }
-    }catch{
-        print(error)
-    }
-    
-    return false
- }
     
     func loadStock(code:String){
         //https://www.pse.com.ph/stockMarket/companyInfo.html?id=118&security=547&tab=3
@@ -171,11 +148,11 @@ class DetailViewController: UIViewController {
     }
     
   }
-    @IBAction func btnDeleteWatchStock(_ sender: UIButton) {
+  @IBAction func btnDeleteWatchStock(_ sender: UIButton) {
         deleteData(code: (detailCandy?.name)!)
         lblStatus.text = "Unwatched"
         
-    }
+  }
     
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -189,12 +166,13 @@ class DetailViewController: UIViewController {
     
     
     @IBAction func btnWatchTapped(_ sender: UIButton) {
-        if search(code: detailCandy!.name) {
+       // if search(code: detailCandy!.name) {
+        if (self.presenter?.search(code: detailCandy!.name))! {
             self.presenter?.save(stock: detailCandy!)
         }else{
+            //TODO:- Add prompt
             print("Already added to watchlist")
         }
-        
     }
     
 }
@@ -212,6 +190,7 @@ extension DetailViewController: WatchlistDelegate {
         lblStatus.text = "Watched"
         btnWatchButton.isHidden = true
         btnUnWatchButton.isHidden = false
+        btnInvest.isHidden = false
     }
     
     func saveToWatchlistFailed(message: String) {
