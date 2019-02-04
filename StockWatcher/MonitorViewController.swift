@@ -18,6 +18,10 @@ class MonitorViewController: UIViewController {
     @IBOutlet weak var txtTax: UITextField!
     @IBOutlet weak var lblTotalAmtInvested: UILabel!
     
+    var inv: Portfolio = Portfolio()
+    var code:String!
+    var presenter:PortfolioPresenter?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setToolbarHidden(true, animated: false)
@@ -38,6 +42,9 @@ class MonitorViewController: UIViewController {
         txtAmount.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         txtCharge.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         txtTax.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+        
+        self.presenter = PortfolioPresenter(delegate: self as PortfolioDelegate)
+        
     }
     
     @objc func textFieldDidChange(_ textField: UITextField){
@@ -47,6 +54,8 @@ class MonitorViewController: UIViewController {
     @IBAction func btnSaveTapped(_ sender: UIButton) {
         saveInv()
     }
+    
+
     
     func computeInv(){
         
@@ -66,43 +75,56 @@ class MonitorViewController: UIViewController {
             return
         }
         
-        let amountTotal = (stockPrice * stocks) - ( c + tax )
+        let amountPrice = stockPrice * stocks
+        let amountTotal = amountPrice - ( c + tax )
         
-        txtAmount.text = String(stockPrice * stocks)
+        txtAmount.text = String(amountPrice)
         lblTotalAmtInvested.text = String(amountTotal)
         
     }
     
     func saveInv(){
         if Double(lblTotalAmtInvested.text!)! > 0 {
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                return
-            }
             
-            let managedContext = appDelegate.persistentContainer.viewContext
-            let entity = NSEntityDescription.entity(forEntityName: "Investment", in: managedContext)!
-            let portfolio = NSManagedObject(entity: entity, insertInto: managedContext)
+            inv.charge = Double(txtCharge.text!)!
+            inv.price = Double(price.text!)!
+            inv.stock = Int(txtStocks.text!)!
+            inv.tax = Double(txtTax.text!)!
+            inv.amount = Double(txtAmount.text!)!
+            inv.uid = UUID.init()
+            inv.date = "\(Date())"
+            inv.code = "CLC"
+            inv.total = Double(lblTotalAmtInvested.text!)!
             
-            portfolio.setValue(Double(txtCharge.text!)!, forKey: "bcharge")
-            portfolio.setValue(Double(price.text!)!, forKey: "price")
-            portfolio.setValue(Int(txtStocks.text!)!, forKey: "stocks")
-            portfolio.setValue(Double(txtTax.text!)!, forKey: "tax")
-            portfolio.setValue(Double(txtAmount.text!)!, forKey: "amount")
-            portfolio.setValue(Double(lblTotalAmtInvested.text!)!, forKey: "total")
-            portfolio.setValue(UUID.init(), forKey: "id")
-            portfolio.setValue("\(Date())", forKey: "date")
-            portfolio.setValue(String(""), forKey: "code")
-            
-            do{
-                try managedContext.save()
-                print("Investment saved...")
-            }catch let error as NSError {
-                print("\(error)")
-            }
+            self.presenter?.save(port: inv)
             
         }else{
             print("Error saving...")
         }
     }
+    
+}
+
+extension MonitorViewController: PortfolioDelegate {
+    func showProgress() {}
+    
+    func hideProgress() {}
+    
+    func saveToPortfolioSucceed() {
+        print("portfolio saved...")
+    }
+    
+    func saveToPortfolioFailed(message: String) {
+        print(message)
+    }
+    
+    func deletePortfolioSucceed() {
+        
+    }
+    
+    func deletePortfolioFailed(message: String) {
+        
+    }
+    
     
 }

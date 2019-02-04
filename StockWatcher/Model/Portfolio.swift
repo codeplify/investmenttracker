@@ -8,15 +8,17 @@
 
 import Foundation
 
-struct Portfolio{
-    let charge:Double
-    let price:Double
-    let stock:Int
-    let tax:Double
-    let amount:Double
-    let id:UUID
-    let date:String
-    let code:String
-    let total: Double
+class Portfolio:NSObject {
+    
+    override init(){ }
+    
+    var charge:Double?
+    var price:Double?
+    var stock:Int?
+    var tax:Double?
+    var amount:Double?
+    var uid:UUID?
+    var date:String?
+    var code:String?
+    var total:Double?
 }
-

@@ -19,7 +19,6 @@ protocol PortfolioDelegate {
     func deletePortfolioFailed(message: String)
 }
 
-
 class PortfolioPresenter {
     var delegate: PortfolioDelegate
     
@@ -42,7 +41,7 @@ class PortfolioPresenter {
         portfolio.setValue(port.tax, forKey: "tax")
         portfolio.setValue(port.amount, forKey: "amount")
         portfolio.setValue(port.total, forKey: "total")
-        portfolio.setValue(port.id, forKey: "id")
+        portfolio.setValue(port.uid, forKey: "id")
         portfolio.setValue(port.date, forKey: "date")
         portfolio.setValue(port.code, forKey: "code")
         
