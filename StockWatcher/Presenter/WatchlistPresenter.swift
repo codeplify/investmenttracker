@@ -106,4 +106,6 @@ class WatchlistPresenter{
             self.delegate.deleteWatchlistFailed(message: error as! String)
         }
     }
+    
+
 }

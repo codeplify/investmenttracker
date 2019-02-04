@@ -21,6 +21,7 @@
 		D66349C122071F1B009EF321 /* PortfolioPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66349C022071F1B009EF321 /* PortfolioPresenter.swift */; };
 		D66349C322072127009EF321 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66349C222072127009EF321 /* Portfolio.swift */; };
 		D683DBA121F84C0A0091B4ED /* XStockDBModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D683DB9F21F84C0A0091B4ED /* XStockDBModel.xcdatamodeld */; };
+		D6C64D85220847CB00FDB013 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +41,7 @@
 		D66349C022071F1B009EF321 /* PortfolioPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPresenter.swift; sourceTree = "<group>"; };
 		D66349C222072127009EF321 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		D683DBA021F84C0A0091B4ED /* XStockDBModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = XStockDBModel.xcdatamodel; sourceTree = "<group>"; };
+		D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				D63F32EC220702B300B719AA /* Model */,
 				D63F32E92206CDB300B719AA /* Presenter */,
 				171E0C7D1B8E5B84001E6242 /* AppDelegate.swift */,
+				D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */,
 				45D31C6E1EB28E8F000A3BE1 /* CandyTheme.swift */,
 				171E0C7F1B8E5B84001E6242 /* MasterViewController.swift */,
 				452C6F7A1E9BDA75003A4C50 /* SearchFooter.swift */,
@@ -188,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				452C6F7B1E9BDA75003A4C50 /* SearchFooter.swift in Sources */,
+				D6C64D85220847CB00FDB013 /* PortfolioViewController.swift in Sources */,
 				45D31C6F1EB28E8F000A3BE1 /* CandyTheme.swift in Sources */,
 				171E0C821B8E5B84001E6242 /* DetailViewController.swift in Sources */,
 				171E0CAE1B8E5C58001E6242 /* Candy.swift in Sources */,

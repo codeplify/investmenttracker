@@ -26,7 +26,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRr-9d-vN8">
-                                <rect key="frame" x="131" y="234" width="113" height="37"/>
+                                <rect key="frame" x="131" y="211" width="113" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Search">
@@ -34,7 +34,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfW-bF-p2f">
-                                <rect key="frame" x="131" y="279" width="113" height="37"/>
+                                <rect key="frame" x="131" y="256" width="113" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Watchlist">
@@ -42,7 +42,7 @@
                                 </state>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKp-IS-pxZ">
-                                <rect key="frame" x="131" y="324" width="113" height="37"/>
+                                <rect key="frame" x="131" y="301" width="113" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Portfolio">
@@ -55,7 +55,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bJE-ZM-ehH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-856.79999999999995" y="-993.55322338830592"/>
+            <point key="canvasLocation" x="-857" y="-1375"/>
+        </scene>
+        <!--Portfolio View Controller-->
+        <scene sceneID="Shi-Ly-a7e">
+            <objects>
+                <viewController id="jDV-lJ-31y" customClass="PortfolioViewController" customModule="StockWatcher" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4ee-zd-X2r"/>
+                        <viewControllerLayoutGuide type="bottom" id="CFE-76-228"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cGl-tv-KDV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yyW-U3-pvy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-46" y="-1375"/>
         </scene>
         <!--Master-->
         <scene sceneID="pY4-Hu-kfo">

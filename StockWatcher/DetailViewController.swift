@@ -4,6 +4,7 @@ import CoreData
 class DetailViewController: UIViewController {
     
     //TODO:- transfer code using didSet to MonitorViewController
+    //TODO:- Check if there is invested value and show-it
   
  @IBOutlet weak var btnInvest: UIButton!
  @IBOutlet weak var detailDescriptionLabel: UILabel!
@@ -115,6 +116,27 @@ extension DetailViewController: WatchlistDelegate {
     
     func saveToWatchlistFailed(message: String) {
         print(message)
+    }
+    
+    func searchPortfolio() {
+        
+        var ps:[Portfolio] = [Portfolio]()
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Investment")
+        var portfolio: [NSManagedObject] = []
+        do{
+            portfolio = try managedContext.fetch(fetchRequest)
+            
+            for p in portfolio{
+                print("p:\(p.value(forKey: "total")!)")
+                
+                //ps.append(nil)
+            }
+        }catch let error as NSError {
+            print(error)
+        }
     }
 }
 

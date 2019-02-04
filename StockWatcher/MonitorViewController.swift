@@ -20,6 +20,8 @@ class MonitorViewController: UIViewController {
     @IBOutlet weak var txtTax: UITextField!
     @IBOutlet weak var lblTotalAmtInvested: UILabel!
     
+    var portfolio: [NSManagedObject] = []
+    
     var inv: Portfolio = Portfolio()
     var code:String!
     var presenter:PortfolioPresenter?
@@ -46,6 +48,7 @@ class MonitorViewController: UIViewController {
         txtTax.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         self.presenter = PortfolioPresenter(delegate: self as PortfolioDelegate)
+        loadInvested()
     }
     
     @objc func textFieldDidChange(_ textField: UITextField){
@@ -67,55 +70,47 @@ class MonitorViewController: UIViewController {
         }
     }
     
-
-    
     func computeInv(){
         
-        guard let stockPrice = Double(price.text!) else{
-            return
-        }
-        
-        guard let stocks = Double(txtStocks.text!) else{
-            return
-        }
-        
-        guard let c = Double(txtCharge.text!) else{
-            return
-        }
-        
-        guard let tax = Double(txtTax.text!) else {
-            return
-        }
+        guard let stockPrice = Double(price.text!) else{ return }
+        guard let stocks = Double(txtStocks.text!) else{ return }
+        guard let c = Double(txtCharge.text!) else{ return }
+        guard let tax = Double(txtTax.text!) else { return }
         
         let amountPrice = stockPrice * stocks
         let amountTotal = amountPrice - ( c + tax )
         
         txtAmount.text = String(amountPrice)
         lblTotalAmtInvested.text = String(amountTotal)
+    }
+    
+    func loadInvested(){
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
         
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Investment")
+        
+        do{
+            portfolio = try managedContext.fetch(fetchRequest)
+            
+            for p in portfolio{
+                print("p:\(p.value(forKey: "total")!)")
+            }
+        }catch let error as NSError {
+            print(error)
+        }
     }
 }
 
 extension MonitorViewController: PortfolioDelegate {
     func showProgress() {}
-    
     func hideProgress() {}
-    
     func saveToPortfolioSucceed() {
         print("portfolio saved...")
     }
-    
     func saveToPortfolioFailed(message: String) {
         print(message)
     }
-    
-    func deletePortfolioSucceed() {
-        
-    }
-    
-    func deletePortfolioFailed(message: String) {
-        
-    }
-    
-    
+    func deletePortfolioSucceed() {}
+    func deletePortfolioFailed(message: String) {}
 }
