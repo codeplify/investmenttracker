@@ -2,6 +2,8 @@ import UIKit
 import CoreData
 
 class DetailViewController: UIViewController {
+    
+    //TODO:- transfer code using didSet to MonitorViewController
   
  @IBOutlet weak var btnInvest: UIButton!
  @IBOutlet weak var detailDescriptionLabel: UILabel!

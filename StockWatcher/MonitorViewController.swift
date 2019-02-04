@@ -6,6 +6,8 @@
 //  Copyright © 2019 Peartree Developers. All rights reserved.
 //
 
+//TODO:- Add listing of portfolio / portfolio managing
+
 import UIKit
 import CoreData
 
@@ -44,7 +46,6 @@ class MonitorViewController: UIViewController {
         txtTax.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
         self.presenter = PortfolioPresenter(delegate: self as PortfolioDelegate)
-        
     }
     
     @objc func textFieldDidChange(_ textField: UITextField){
@@ -52,7 +53,18 @@ class MonitorViewController: UIViewController {
     }
     
     @IBAction func btnSaveTapped(_ sender: UIButton) {
-        saveInv()
+        if Double(lblTotalAmtInvested.text!)! > 0 {
+            inv.charge = Double(txtCharge.text!)!
+            inv.price = Double(price.text!)!
+            inv.stock = Int(txtStocks.text!)!
+            inv.tax = Double(txtTax.text!)!
+            inv.amount = Double(txtAmount.text!)!
+            inv.uid = UUID.init()
+            inv.date = "\(Date())"
+            inv.code = "CLC"
+            inv.total = Double(lblTotalAmtInvested.text!)!
+            self.presenter?.save(port: inv)
+        }
     }
     
 
@@ -82,27 +94,6 @@ class MonitorViewController: UIViewController {
         lblTotalAmtInvested.text = String(amountTotal)
         
     }
-    
-    func saveInv(){
-        if Double(lblTotalAmtInvested.text!)! > 0 {
-            
-            inv.charge = Double(txtCharge.text!)!
-            inv.price = Double(price.text!)!
-            inv.stock = Int(txtStocks.text!)!
-            inv.tax = Double(txtTax.text!)!
-            inv.amount = Double(txtAmount.text!)!
-            inv.uid = UUID.init()
-            inv.date = "\(Date())"
-            inv.code = "CLC"
-            inv.total = Double(lblTotalAmtInvested.text!)!
-            
-            self.presenter?.save(port: inv)
-            
-        }else{
-            print("Error saving...")
-        }
-    }
-    
 }
 
 extension MonitorViewController: PortfolioDelegate {

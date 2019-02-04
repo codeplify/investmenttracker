@@ -36,9 +36,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
       let controllers = splitViewController.viewControllers
       detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
     }
-    
     tableView.tableFooterView = searchFooter
-    
   }
     
     func loadStocks(){
@@ -106,13 +104,10 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             let managedContext = appDelegate.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
             
-         
-            
             do{
               stocks = try managedContext.fetch(fetchRequest)
                  print("Stock Count => \(stocks.count)")
                 temp.removeAll()
-                
                 
                     filteredCandies = candies.map {
                         for s in stocks{
@@ -125,10 +120,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                         return $0
                     }
                 
-                
                     filteredCandies.removeAll()
                     filteredCandies = temp
-                
             }catch let error as NSError {
                 print(error)
             }
@@ -142,10 +135,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 } else {
                     return doesCategoryMatch && candy.name.lowercased().contains(searchText.lowercased())
                 }
-                
             })
-            
-            
         }
         tableView.reloadData()
        
