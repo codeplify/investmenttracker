@@ -1,10 +1,16 @@
 import UIKit
 import CoreData
 
-class DetailViewController: UIViewController {
+
+class PortfolioTableViewCell : UITableViewCell {
+    @IBOutlet weak var lblDate: UILabel!
+    @IBOutlet weak var lblAmount: UILabel!
+    
+}
+
+class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     //TODO:- transfer code using didSet to MonitorViewController
-    //TODO:- Check if there is invested value and show-it
   
  @IBOutlet weak var btnInvest: UIButton!
  @IBOutlet weak var detailDescriptionLabel: UILabel!
@@ -14,9 +20,12 @@ class DetailViewController: UIViewController {
  @IBOutlet weak var lblStatus: UILabel!
  @IBOutlet weak var btnWatchButton: UIButton!
  @IBOutlet weak var btnUnWatchButton: UIButton!
+ @IBOutlet weak var tableView: UITableView!
     
-  var isWatched = false
-  var presenter: WatchlistPresenter?
+ var ps:[Portfolio] = [Portfolio]()
+    
+ var isWatched = false
+ var presenter: WatchlistPresenter?
     
   var detailCandy: Candy? {
     didSet {
@@ -72,7 +81,12 @@ class DetailViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.presenter = WatchlistPresenter(delegate: self as WatchlistDelegate)
+    
+    tableView.dataSource = self
+    tableView.delegate = self
+    
     configureView()
+    searchPortfolio()
   }
   
   override func didReceiveMemoryWarning() {
@@ -84,6 +98,67 @@ class DetailViewController: UIViewController {
             self.presenter?.save(stock: detailCandy!)
         }
   }
+    
+    
+    @IBAction func btnInvestTapped(_ sender: UIButton) {
+//        let vc = MonitorViewController(nibName: "MonitorVC", bundle: nil)
+//        vc.code = detailCandy?.name
+//        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    /**
+     Tableview:
+     */
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ps.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+     
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PortfolioTableViewCell
+        let p = ps[indexPath.row]
+        
+        cell.lblAmount?.text = "\(p.total!)"
+        cell.lblDate?.text = "\(p.date!)"
+        
+        print(p.date!)
+        
+        return cell
+    }
+    
+    func searchPortfolio() {
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Investment")
+        var portfolio: [NSManagedObject] = []
+        do{
+            portfolio = try managedContext.fetch(fetchRequest)
+            
+            for p in portfolio{
+                print("p:\(p.value(forKey: "total")!)")
+                let portfolio = Portfolio()
+                portfolio.amount = p.value(forKey: "amount") as! Double
+                portfolio.charge = p.value(forKey: "bcharge") as! Double
+                portfolio.code = p.value(forKey: "code") as! String
+                portfolio.date = p.value(forKey: "date") as! String
+                portfolio.uid = p.value(forKey: "id") as! UUID
+                portfolio.price = p.value(forKey: "price") as! Double
+                portfolio.stock = p.value(forKey: "stocks") as! Int
+                portfolio.tax = p.value(forKey: "tax") as! Double
+                portfolio.total = p.value(forKey: "total") as! Double
+                ps.append(portfolio)
+            }
+            
+            print(ps.count)
+        }catch let error as NSError {
+            print(error)
+        }
+    }
     
 }
 
@@ -118,26 +193,7 @@ extension DetailViewController: WatchlistDelegate {
         print(message)
     }
     
-    func searchPortfolio() {
-        
-        var ps:[Portfolio] = [Portfolio]()
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
-        
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Investment")
-        var portfolio: [NSManagedObject] = []
-        do{
-            portfolio = try managedContext.fetch(fetchRequest)
-            
-            for p in portfolio{
-                print("p:\(p.value(forKey: "total")!)")
-                
-                //ps.append(nil)
-            }
-        }catch let error as NSError {
-            print(error)
-        }
-    }
+    
 }
 
 extension Formatter {
