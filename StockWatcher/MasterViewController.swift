@@ -17,7 +17,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   override func viewDidLoad() {
     super.viewDidLoad()
   
-    searchController.searchBar.scopeButtonTitles = ["All","Watch"]
+    searchController.searchBar.scopeButtonTitles = ["Portfolio","All","Watch"]
     searchController.searchBar.delegate = self
 
     DispatchQueue.main.async {

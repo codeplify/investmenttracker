@@ -50,8 +50,6 @@ class MonitorViewController: UIViewController {
         self.presenter = PortfolioPresenter(delegate: self as PortfolioDelegate)
         loadInvested()
         
-        print("\(code)")
-        
        
     }
     
@@ -68,7 +66,7 @@ class MonitorViewController: UIViewController {
             inv.amount = Double(txtAmount.text!)!
             inv.uid = UUID.init()
             inv.date = "\(Date())"
-            inv.code = "CLC"
+            inv.code = "\(code!)"
             inv.total = Double(lblTotalAmtInvested.text!)!
             self.presenter?.save(port: inv)
         }

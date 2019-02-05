@@ -145,6 +145,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Investment")
+            fetchRequest.predicate = NSPredicate(format: "code = %@",(detailCandy?.name)!)
         var portfolio: [NSManagedObject] = []
         do{
             portfolio = try managedContext.fetch(fetchRequest)
