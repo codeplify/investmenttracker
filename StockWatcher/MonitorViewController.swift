@@ -57,6 +57,8 @@ class MonitorViewController: UIViewController {
         computeInv()
     }
     
+    
+    
     @IBAction func btnSaveTapped(_ sender: UIButton) {
         if Double(lblTotalAmtInvested.text!)! > 0 {
             inv.charge = Double(txtCharge.text!)!

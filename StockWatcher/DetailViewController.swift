@@ -101,6 +101,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     @IBAction func btnInvestTapped(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let controller = storyboard.instantiateViewController(withIdentifier: "MonitorVC") as! MonitorViewController
+        
+        controller.code = detailCandy?.name
+        controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+        controller.navigationItem.leftItemsSupplementBackButton = true
+        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     
@@ -129,14 +136,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     //showAddInvestment
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showAddInvestment" {
-            
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let controller = storyboard.instantiateViewController(withIdentifier: "MonitorVC") as! MonitorViewController
-            controller.code = detailCandy?.name
-            
-            self.present(controller, animated: true, completion: nil)
-        }
+        
+//        if segue.identifier == "showAddInvestment" {
+        
+//        }
     }
     
     func searchPortfolio() {
@@ -203,8 +206,6 @@ extension DetailViewController: WatchlistDelegate {
     func saveToWatchlistFailed(message: String) {
         print(message)
     }
-    
-    
 }
 
 extension Formatter {

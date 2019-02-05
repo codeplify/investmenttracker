@@ -1,6 +1,7 @@
 import CoreData
 import UIKit
 
+//TODO:- Add portfolio category checking if watchlist is invested value or not
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
