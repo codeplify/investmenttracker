@@ -302,6 +302,8 @@
                         <outlet property="btnWatchButton" destination="vte-Mb-WUF" id="6eo-OH-4i4"/>
                         <outlet property="detailDescriptionLabel" destination="jTl-4A-YZp" id="OV0-b4-vM9"/>
                         <outlet property="lblAmount" destination="qDP-XR-5Go" id="a2P-cO-KiV"/>
+                        <outlet property="lblAmtList" destination="ddW-qs-NYp" id="hbb-tp-bU7"/>
+                        <outlet property="lblDateList" destination="vCN-1w-BEK" id="Sqw-ca-X7p"/>
                         <outlet property="lblPercentage" destination="Rb4-j0-juD" id="C4p-We-5UV"/>
                         <outlet property="lblStatus" destination="02Y-XE-2RW" id="cPJ-kR-NZJ"/>
                         <outlet property="lblVolume" destination="5S7-gs-AFp" id="wYM-xf-UrK"/>

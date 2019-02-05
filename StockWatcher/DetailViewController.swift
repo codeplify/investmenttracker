@@ -21,6 +21,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
  @IBOutlet weak var btnWatchButton: UIButton!
  @IBOutlet weak var btnUnWatchButton: UIButton!
  @IBOutlet weak var tableView: UITableView!
+ @IBOutlet weak var lblDateList: UILabel!
+ @IBOutlet weak var lblAmtList: UILabel!
+    
     
  var ps:[Portfolio] = [Portfolio]()
     
@@ -106,6 +109,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         controller.navigationItem.leftItemsSupplementBackButton = true
         self.navigationController?.pushViewController(controller, animated: true)
+        
     }
     
     
@@ -154,19 +158,26 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         do{
             portfolio = try managedContext.fetch(fetchRequest)
             
-            for p in portfolio{
-                print("p:\(p.value(forKey: "total")!)")
-                let portfolio = Portfolio()
-                portfolio.amount = p.value(forKey: "amount") as! Double
-                portfolio.charge = p.value(forKey: "bcharge") as! Double
-                portfolio.code = p.value(forKey: "code") as! String
-                portfolio.date = p.value(forKey: "date") as! String
-                portfolio.uid = p.value(forKey: "id") as! UUID
-                portfolio.price = p.value(forKey: "price") as! Double
-                portfolio.stock = p.value(forKey: "stocks") as! Int
-                portfolio.tax = p.value(forKey: "tax") as! Double
-                portfolio.total = p.value(forKey: "total") as! Double
-                ps.append(portfolio)
+            if portfolio.count > 0 {
+            
+                for p in portfolio{
+                    print("p:\(p.value(forKey: "total")!)")
+                    let portfolio = Portfolio()
+                    portfolio.amount = p.value(forKey: "amount") as! Double
+                    portfolio.charge = p.value(forKey: "bcharge") as! Double
+                    portfolio.code = p.value(forKey: "code") as! String
+                    portfolio.date = p.value(forKey: "date") as! String
+                    portfolio.uid = p.value(forKey: "id") as! UUID
+                    portfolio.price = p.value(forKey: "price") as! Double
+                    portfolio.stock = p.value(forKey: "stocks") as! Int
+                    portfolio.tax = p.value(forKey: "tax") as! Double
+                    portfolio.total = p.value(forKey: "total") as! Double
+                    ps.append(portfolio)
+                }
+            }else{
+                lblDateList.isHidden = true
+                lblAmtList.isHidden = true
+                tableView.isHidden = true
             }
             
             print(ps.count)

@@ -7,8 +7,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   
   @IBOutlet var tableView: UITableView!
   @IBOutlet var searchFooter: SearchFooter!
-
     
+  var wpresenter: WatchlistPresenter?
   var detailViewController: DetailViewController? = nil
   var candies = [Candy]()
   var stocks: [NSManagedObject] = []
@@ -38,6 +38,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
       detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
     }
     tableView.tableFooterView = searchFooter
+    
+    
   }
     
     func loadStocks(){
@@ -89,10 +91,47 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
+ 
+        
+    func isPortfolioExist(code: String)->Bool{
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return false}
+            
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Investment")
+            fetchRequest.predicate = NSPredicate(format: "code = %@",code)
+            
+            var portfolio: [NSManagedObject] = []
+            do{
+                portfolio = try managedContext.fetch(fetchRequest)
+                
+                if portfolio.count > 0 {
+                    return true
+                }
+                
+            }catch let error as NSError {
+                print(error)
+                return false
+            }
+            
+            return false
+    }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         
-        if(scope == "Watch"){
+        print("scope value \(scope)")
+        
+        if(scope == "Portfolio"){
+            
+            //TODO:- Load all watch here
+            //TODO:- Check if there has a existing stocks
+            
+            tableView.isHidden = true
+         
+        }else if(scope == "Watch"){
+            
+            tableView.isHidden = false
+            
+            print("watch shows")
             
             filteredCandies.removeAll()
             
@@ -128,6 +167,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             }
             
         }else{
+            print("All shows")
+            tableView.isHidden = false
             filteredCandies = candies.filter({( candy : Candy) -> Bool in
                 let doesCategoryMatch = (scope == "All") || (candy.category == scope)
                 
