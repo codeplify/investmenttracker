@@ -80,31 +80,64 @@ class WatchlistPresenter{
     }
     
     func delete(code:String){
-        print("code to delete \(code)")
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
         
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StocksDB")
-        fetchRequest.predicate = NSPredicate(format: "scode = %@",code)
-        do{
-            let candy = try managedContext.fetch(fetchRequest)
-            print("candy \(candy.count)")
-            let del = candy[0] as! NSManagedObject
+        //TODO:- check if there is an existing stocks inside
+        
+        
+        if !isPortfolioExist(code: code){
+        
+            print("code to delete \(code)")
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+                return
+            }
             
-            managedContext.delete(del)
-            
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "StocksDB")
+            fetchRequest.predicate = NSPredicate(format: "scode = %@",code)
             do{
-                try managedContext.save()
-                self.delegate.deleteWatchlistSucceed()
+                let candy = try managedContext.fetch(fetchRequest)
+                print("candy \(candy.count)")
+                let del = candy[0] as! NSManagedObject
+                
+                managedContext.delete(del)
+                
+                do{
+                    try managedContext.save()
+                    self.delegate.deleteWatchlistSucceed()
+                }catch{
+                    self.delegate.deleteWatchlistFailed(message: error as! String)
+                }
+                
             }catch{
                 self.delegate.deleteWatchlistFailed(message: error as! String)
             }
             
-        }catch{
-            self.delegate.deleteWatchlistFailed(message: error as! String)
+        }else{
+            self.delegate.deleteWatchlistFailed(message: "Cant delete to watchlist as it contains investment")
         }
+    }
+    
+    func isPortfolioExist(code: String)->Bool{
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return false}
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Investment")
+            fetchRequest.predicate = NSPredicate(format: "code = %@",code)
+        
+        var portfolio: [NSManagedObject] = []
+        do{
+            portfolio = try managedContext.fetch(fetchRequest)
+            
+            if portfolio.count > 0 {
+                return true
+            }
+            
+        }catch let error as NSError {
+            print(error)
+            return false
+        }
+        
+        return false
     }
     
 

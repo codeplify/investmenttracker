@@ -70,7 +70,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             title = detailCandy.category
             
           }
-        
     }
   }
 
@@ -84,7 +83,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     tableView.dataSource = self
     tableView.delegate = self
-    
     configureView()
     searchPortfolio()
   }
@@ -133,14 +131,17 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-    //showAddInvestment
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-//        if segue.identifier == "showAddInvestment" {
-        
-//        }
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}
     
     func searchPortfolio() {
         
