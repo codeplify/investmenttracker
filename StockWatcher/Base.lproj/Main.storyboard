@@ -199,7 +199,7 @@
                                         <connections>
                                             <action selector="btnInvestTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="KC7-9V-FZ9"/>
                                             <action selector="btnWatchTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="wcm-6V-L6F"/>
-                                            <segue destination="8bS-AY-Tux" kind="show" id="R6g-7I-JgD"/>
+                                            <segue destination="8bS-AY-Tux" kind="show" identifier="showAddInvestment" id="R6g-7I-JgD"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vte-Mb-WUF">
@@ -576,7 +576,7 @@
         <image name="Inline-Logo" width="240" height="240"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Tll-UG-LXB"/>
+        <segue reference="q9E-Xa-mX4"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

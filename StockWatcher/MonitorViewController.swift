@@ -50,6 +50,8 @@ class MonitorViewController: UIViewController {
         self.presenter = PortfolioPresenter(delegate: self as PortfolioDelegate)
         loadInvested()
         
+        print("\(code)")
+        
        
     }
     

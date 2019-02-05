@@ -101,9 +101,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     @IBAction func btnInvestTapped(_ sender: UIButton) {
-//        let vc = MonitorViewController(nibName: "MonitorVC", bundle: nil)
-//        vc.code = detailCandy?.name
-//        navigationController?.pushViewController(vc, animated: true)
     }
     
     
@@ -127,6 +124,19 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         print(p.date!)
         
         return cell
+    }
+    
+    //showAddInvestment
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showAddInvestment" {
+            
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let controller = storyboard.instantiateViewController(withIdentifier: "MonitorVC") as! MonitorViewController
+            controller.code = detailCandy?.name
+            
+            self.present(controller, animated: true, completion: nil)
+        }
     }
     
     func searchPortfolio() {
