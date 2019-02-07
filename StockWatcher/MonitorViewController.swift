@@ -49,8 +49,6 @@ class MonitorViewController: UIViewController {
         
         self.presenter = PortfolioPresenter(delegate: self as PortfolioDelegate)
         loadInvested()
-        
-       
     }
     
     @objc func textFieldDidChange(_ textField: UITextField){

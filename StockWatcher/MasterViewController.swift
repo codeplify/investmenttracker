@@ -246,6 +246,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
         cell.textLabel!.text = candy.name
         cell.detailTextLabel!.text = candy.category
+        cell.accessoryType = .disclosureIndicator
         
         if candy.percent_change.contains("-") {
             cell.textLabel?.textColor = UIColor.red
