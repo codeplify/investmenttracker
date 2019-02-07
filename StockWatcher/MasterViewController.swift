@@ -250,9 +250,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         if candy.percent_change.contains("-") {
             cell.textLabel?.textColor = UIColor.red
             cell.detailTextLabel?.textColor = UIColor.red
+            cell.imageView?.image = UIImage(imageLiteralResourceName: "download-arrow")
         }else{
             cell.textLabel?.textColor = UIColor.candyGreen
             cell.detailTextLabel?.textColor = UIColor.candyGreen
+            cell.imageView?.image = UIImage(imageLiteralResourceName: "up-arrow")
         }
     
         return cell
