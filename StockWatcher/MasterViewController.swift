@@ -2,6 +2,7 @@ import CoreData
 import UIKit
 
 //TODO:- Add portfolio category checking if watchlist is invested value or not
+//OBSERVATION:- Only two array is working... ->
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
@@ -37,12 +38,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
       let controllers = splitViewController.viewControllers
       detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
     }
-    tableView.tableFooterView = searchFooter
     
+    tableView.tableFooterView = searchFooter
     
   }
     
-    func loadStocks(){
+  func loadStocks(){
         guard let url = URL(string: "http://phisix-api4.appspot.com/stocks.json")else {return}
         
         let task = URLSession.shared.dataTask(with: url){data,response,error in
@@ -57,17 +58,10 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             }
             
             if let JSON = rootJSON as? [String:Any]{
-                print("Latest: \(JSON["as_of"] as? String)")
                 
-                guard let jsonArray = JSON["stock"] as? [[String:Any]] else {
-                    return
-                }
-                
-                print(jsonArray)
-                print("json count \(jsonArray.count)")
+                guard let jsonArray = JSON["stock"] as? [[String:Any]] else { return }
                 
                 for json in jsonArray {
-                    
                     guard let stockName = json["name"] as? String else{ return }
                     guard let symbol = json["symbol"] as? String else{ return }
                     guard let per = json["percent_change"] else { return }
@@ -77,9 +71,11 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                     self.candies.append(Candy(category:"\(stockName)", name:"\(symbol)",volume:"\(vol)",percent_change:"\(per)",price:"\(String(describing: price["amount"]!))",currency:"\(String(describing: price["currency"]!))"))
                 }
                 
-                print("c size: \(self.candies.count)")
+                //filter here for portfolio
+                //self.candies.filter(<#T##isIncluded: (Candy) throws -> Bool##(Candy) throws -> Bool#>)
                 
-               self.tableView.reloadData()
+//                print("c size: \(self.candies.count)")
+                self.tableView.reloadData()
             }
         }
         
@@ -91,8 +87,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
- 
-        
+
     func isPortfolioExist(code: String)->Bool{
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return false}
             
@@ -116,31 +111,16 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             return false
     }
     
+    var tempCandies:[Candy] = []
+    
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        
-        print("scope value \(scope)")
-        
-        if(scope == "Portfolio"){
-            
-            //TODO:- Load all watch here
-            //TODO:- Check if there has a existing stocks
-            
-            tableView.isHidden = true
-         
-        }else if(scope == "Watch"){
-            
-            tableView.isHidden = false
-            
-            print("watch shows")
-            
+
+        if(scope == "Watch"){
             filteredCandies.removeAll()
             
             var temp = [Candy]()
             
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-                return
-            }
-            
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             let managedContext = appDelegate.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
             
@@ -166,26 +146,70 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 print(error)
             }
             
-        }else{
+        }else if(scope == "All"){
             print("All shows")
             tableView.isHidden = false
             filteredCandies = candies.filter({( candy : Candy) -> Bool in
                 let doesCategoryMatch = (scope == "All") || (candy.category == scope)
                 
                 if searchBarIsEmpty() {
+                    print("doesCategoryMatch\(doesCategoryMatch)")
                     return doesCategoryMatch
                 } else {
+                    print("doesCategoryMatch- false")
                     return doesCategoryMatch && candy.name.lowercased().contains(searchText.lowercased())
                 }
             })
         }
+        
+        if(scope == "Portfolio"){
+            
+            //TODO:- Load all watch here
+            //TODO:- Check if there has a existing stocks
+            
+            filteredCandies.removeAll()
+            var temp = [Candy]()
+            
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+            var temp2 = [Candy]()
+            let managedContext = appDelegate.persistentContainer.viewContext
+            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
+            var stock2 :[NSManagedObject] = []
+            do{
+                stock2 = try managedContext.fetch(fetchRequest)
+                print("Stock Count => \(stocks.count)")
+                temp2.removeAll()
+                filteredCandies = candies.map {
+                    for s in stocks{
+                        if $0.name ==  "\(s.value(forKey: "scode")!)" {
+                            
+                            if isPortfolioExist(code: $0.name){
+                                temp2.append($0)
+                                print("appended \($0.name)")
+                                return $0
+                            }
+                            
+                        }
+                    }
+                    return $0
+                }
+                
+                filteredCandies.removeAll()
+                filteredCandies = temp2
+                
+            }catch let error as NSError{
+                print(error)
+            }
+        }
+        
         tableView.reloadData()
-       
     }
     
     func isFiltering() -> Bool {
+        //TODO:- Change the value of section to filtering -> to set to filtering of only invested amounts
         let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
-        return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+        //return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
+        return true
     }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -226,6 +250,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         } else {
             candy = candies[indexPath.row]
         }
+    
         cell.textLabel!.text = candy.name
         cell.detailTextLabel!.text = candy.category
         
@@ -236,8 +261,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             cell.textLabel?.textColor = UIColor.candyGreen
             cell.detailTextLabel?.textColor = UIColor.candyGreen
         }
-        print("cell_for_row_at \(candy.name)")
-        
+    
         return cell
     }
 
@@ -254,9 +278,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             }
 
         let controller = (segue.destination as! UINavigationController).topViewController as! DetailViewController
-        controller.detailCandy = candy
-        controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
-        controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.detailCandy = candy
+            controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
+            controller.navigationItem.leftItemsSupplementBackButton = true
        
         if candy.percent_change == "" {
             controller.isWatched = true
