@@ -1,8 +1,6 @@
 import CoreData
 import UIKit
 
-//TODO:- Add portfolio category checking if watchlist is invested value or not
-//OBSERVATION:- Only two array is working... ->
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
@@ -70,11 +68,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                     
                     self.candies.append(Candy(category:"\(stockName)", name:"\(symbol)",volume:"\(vol)",percent_change:"\(per)",price:"\(String(describing: price["amount"]!))",currency:"\(String(describing: price["currency"]!))"))
                 }
-                
-                //filter here for portfolio
-                //self.candies.filter(<#T##isIncluded: (Candy) throws -> Bool##(Candy) throws -> Bool#>)
-                
-//                print("c size: \(self.candies.count)")
                 self.tableView.reloadData()
             }
         }
