@@ -10,8 +10,7 @@ class PortfolioTableViewCell : UITableViewCell {
 
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    //TODO:- transfer code using didSet to MonitorViewController
-  
+ //TODO:- transfer code using didSet to MonitorViewController
  @IBOutlet weak var btnInvest: UIButton!
  @IBOutlet weak var detailDescriptionLabel: UILabel!
  @IBOutlet weak var lblVolume: UILabel!
@@ -24,6 +23,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
  @IBOutlet weak var lblDateList: UILabel!
  @IBOutlet weak var lblAmtList: UILabel!
     
+    @IBOutlet weak var lblProfit: UILabel!
     
  var ps:[Portfolio] = [Portfolio]()
     
@@ -87,7 +87,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     tableView.dataSource = self
     tableView.delegate = self
     configureView()
-    searchPortfolio()
+    //DispatchQueue.main.async {
+        self.searchPortfolio()
+//    }
+   
   }
   
   override func didReceiveMemoryWarning() {
@@ -160,6 +163,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             if portfolio.count > 0 {
             
+                var totalInvested:[Double] = []
+                
                 for p in portfolio{
                     print("p:\(p.value(forKey: "total")!)")
                     let portfolio = Portfolio()
@@ -172,8 +177,34 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     portfolio.stock = p.value(forKey: "stocks") as! Int
                     portfolio.tax = p.value(forKey: "tax") as! Double
                     portfolio.total = p.value(forKey: "total") as! Double
+                    
                     ps.append(portfolio)
+                   
                 }
+                
+                let total = ps.reduce(0.00){
+                    (result , a)-> Double in
+                    return result + (a.total as! Double)
+                }
+                
+                let totalStocks = ps.reduce(0){
+                    (result, a)-> Int in
+                    return result + (a.stock as! Int)
+                }
+                
+                let currentValue = Double(totalStocks) * Double(detailCandy?.price as! String)!
+                
+                print("Total invested amount \(total) current value \(currentValue) total stocks \(totalStocks)")
+                print("total=> \( currentValue-total)")
+                
+                let totalProfit =  currentValue-total
+                
+                lblProfit.text = "\(totalProfit)"
+                
+                //TODO:- (Get current amount of stock * my stocks ) - total invested
+                //TODO:- Check if negative or positive value
+                //TODO:- Fix ui of invest ui
+                
             }else{
                 //lblDateList.isHidden = true
                 //lblAmtList.isHidden = true
