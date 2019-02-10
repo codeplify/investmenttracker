@@ -198,16 +198,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 print("total=> \( currentValue-total)")
                 
                 let totalProfit =  currentValue-total
-                
                 lblProfit.text = "\(totalProfit)"
                 
-                //TODO:- (Get current amount of stock * my stocks ) - total invested
-                //TODO:- Check if negative or positive value
-                //TODO:- Fix ui of invest ui
+                if "\(totalProfit)".contains("-") {
+                    lblProfit.textColor = UIColor.red
+                }
                 
             }else{
-                //lblDateList.isHidden = true
-                //lblAmtList.isHidden = true
                 tableView.isHidden = true
             }
             
