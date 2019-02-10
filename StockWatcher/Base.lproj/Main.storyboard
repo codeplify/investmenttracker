@@ -227,9 +227,30 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="242" id="wdb-fQ-XsL"/>
                                 </constraints>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="PGu-DN-QM6">
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5c-9B-IoJ">
+                                            <rect key="frame" x="8" y="12" width="36" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cto-vi-PkU">
+                                            <rect key="frame" x="283" y="12" width="60" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="55" id="aPX-1p-Xke" customClass="PortfolioTableViewCell" customModule="StockWatcher" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="343" height="55"/>
+                                        <rect key="frame" x="0.0" y="72" width="343" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aPX-1p-Xke" id="R8d-gd-jeg">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="54.5"/>
@@ -262,34 +283,18 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCN-1w-BEK">
-                                <rect key="frame" x="30" y="292.5" width="37.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ddW-qs-NYp">
-                                <rect key="frame" x="296.5" y="292.5" width="63.5" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="kYN-FC-DlM" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" id="0tL-P3-I10"/>
-                            <constraint firstItem="vCN-1w-BEK" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="30" id="4kz-ir-ZPt"/>
                             <constraint firstItem="djJ-aY-wFy" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="10" id="EFP-MI-8oX"/>
                             <constraint firstAttribute="trailing" secondItem="TGC-Kb-QAq" secondAttribute="trailing" constant="10" id="EJL-yr-AUc"/>
                             <constraint firstItem="kYN-FC-DlM" firstAttribute="trailing" secondItem="svH-Pt-448" secondAttribute="trailingMargin" id="FYX-Se-ruq"/>
                             <constraint firstItem="TGC-Kb-QAq" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="10" id="HO8-2j-62a"/>
                             <constraint firstItem="GAO-Cl-Wes" firstAttribute="top" secondItem="TGC-Kb-QAq" secondAttribute="bottom" constant="20" id="M0u-pg-OvX"/>
                             <constraint firstItem="Hxi-Si-SJi" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="16" id="WNy-R8-vLY"/>
-                            <constraint firstItem="kYN-FC-DlM" firstAttribute="top" secondItem="vCN-1w-BEK" secondAttribute="bottom" constant="8" id="bMR-ML-h2e"/>
                             <constraint firstItem="djJ-aY-wFy" firstAttribute="leading" secondItem="Hxi-Si-SJi" secondAttribute="trailing" constant="57.5" id="he5-CP-0Jo"/>
-                            <constraint firstAttribute="trailing" secondItem="ddW-qs-NYp" secondAttribute="trailing" constant="15" id="heG-rh-zMF"/>
                             <constraint firstItem="kYN-FC-DlM" firstAttribute="leading" secondItem="TGC-Kb-QAq" secondAttribute="trailing" constant="-349" id="kMj-Wz-i2Y"/>
-                            <constraint firstItem="kYN-FC-DlM" firstAttribute="top" secondItem="ddW-qs-NYp" secondAttribute="bottom" constant="8" id="l3t-Pz-Rtd"/>
                             <constraint firstItem="Hxi-Si-SJi" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="10" id="r2G-Rk-GQD"/>
                             <constraint firstItem="TGC-Kb-QAq" firstAttribute="top" secondItem="kYN-FC-DlM" secondAttribute="bottom" constant="10" id="uRt-kI-0oh"/>
                         </constraints>
@@ -302,8 +307,6 @@
                         <outlet property="btnWatchButton" destination="vte-Mb-WUF" id="6eo-OH-4i4"/>
                         <outlet property="detailDescriptionLabel" destination="jTl-4A-YZp" id="OV0-b4-vM9"/>
                         <outlet property="lblAmount" destination="qDP-XR-5Go" id="a2P-cO-KiV"/>
-                        <outlet property="lblAmtList" destination="ddW-qs-NYp" id="hbb-tp-bU7"/>
-                        <outlet property="lblDateList" destination="vCN-1w-BEK" id="Sqw-ca-X7p"/>
                         <outlet property="lblPercentage" destination="Rb4-j0-juD" id="C4p-We-5UV"/>
                         <outlet property="lblStatus" destination="02Y-XE-2RW" id="cPJ-kR-NZJ"/>
                         <outlet property="lblVolume" destination="5S7-gs-AFp" id="wYM-xf-UrK"/>

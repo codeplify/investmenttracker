@@ -175,8 +175,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     ps.append(portfolio)
                 }
             }else{
-                lblDateList.isHidden = true
-                lblAmtList.isHidden = true
+                //lblDateList.isHidden = true
+                //lblAmtList.isHidden = true
                 tableView.isHidden = true
             }
             
