@@ -57,6 +57,10 @@ class MonitorViewController: UIViewController {
     
     
     @IBAction func btnSaveTapped(_ sender: UIButton) {
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        
         if Double(lblTotalAmtInvested.text!)! > 0 {
             inv.charge = Double(txtCharge.text!)!
             inv.price = Double(price.text!)!
@@ -64,7 +68,7 @@ class MonitorViewController: UIViewController {
             inv.tax = Double(txtTax.text!)!
             inv.amount = Double(txtAmount.text!)!
             inv.uid = UUID.init()
-            inv.date = "\(Date())"
+            inv.date = "\(dateFormatter.string(from: Date()))"
             inv.code = "\(code!)"
             inv.total = Double(lblTotalAmtInvested.text!)!
             self.presenter?.save(port: inv)
@@ -82,7 +86,9 @@ class MonitorViewController: UIViewController {
         let amountTotal = amountPrice - ( c + tax )
         
         txtAmount.text = String(amountPrice)
-        lblTotalAmtInvested.text = String(amountTotal)
+        lblTotalAmtInvested.text = String(amountTotal.formatted)
+        
+     
     }
     
     func loadInvested(){
@@ -107,7 +113,12 @@ extension MonitorViewController: PortfolioDelegate {
     func showProgress() {}
     func hideProgress() {}
     func saveToPortfolioSucceed() {
-        print("portfolio saved...")
+        price.text = ""
+        txtStocks.text = ""
+        txtCharge.text = ""
+        txtTax.text = ""
+        txtAmount.text = ""
+        lblTotalAmtInvested.text = "0.00"
     }
     func saveToPortfolioFailed(message: String) {
         print(message)

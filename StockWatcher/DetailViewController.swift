@@ -22,10 +22,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
  @IBOutlet weak var tableView: UITableView!
  @IBOutlet weak var lblDateList: UILabel!
  @IBOutlet weak var lblAmtList: UILabel!
-    
-    @IBOutlet weak var lblProfit: UILabel!
-    
- var ps:[Portfolio] = [Portfolio]()
+ @IBOutlet weak var lblProfit: UILabel!
+ @IBOutlet weak var lblStockOwned: UILabel!
+    var ps:[Portfolio] = [Portfolio]()
     
  var isWatched = false
  var presenter: WatchlistPresenter?
@@ -68,7 +67,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             lblVolume.text = "\(Int(detailCandy.volume)!.formattedWithSeparator)"
             lblPercentage.text = "\(detailCandy.percent_change)%"
-            lblAmount.text = "\(detailCandy.currency) \(detailCandy.price)"
+            lblAmount.text = "\(detailCandy.currency) \(detailCandy.price)" // remove formatting as number .formatted
             print("detailCandy \(detailCandy)")
             title = detailCandy.category
             
@@ -130,7 +129,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PortfolioTableViewCell
         let p = ps[indexPath.row]
         
-        cell.lblAmount?.text = "\(p.total!)"
+        cell.lblAmount?.text = "\(p.total!.formatted)"
         cell.lblDate?.text = "\(p.date!)"
         
         print(p.date!)
@@ -143,8 +142,28 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        
+        let p = ps[indexPath.row]
+        
         if (editingStyle == UITableViewCellEditingStyle.delete) {
-            // handle delete (by removing the data from your array and updating the tableview)
+            let alert = UIAlertController(title: "", message: "Are you sure you want to delete?", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: {
+                action in
+                
+                print("delete investment \(p.uid)")
+                
+                self.presenter?.deleteInvestment(id: p.uid!)
+                //self.ps.remove(at: indexPath.row)
+               
+            }))
+            
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+                action in
+                print("cancel deleting")
+            }))
+            
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -162,11 +181,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             portfolio = try managedContext.fetch(fetchRequest)
             
             if portfolio.count > 0 {
+                
+                ps.removeAll()
             
                 btnUnWatchButton.isHidden = true
                 var totalInvested:[Double] = []
                 
-                for p in portfolio{
+                for p in portfolio {
                     print("p:\(p.value(forKey: "total")!)")
                     let portfolio = Portfolio()
                     portfolio.amount = p.value(forKey: "amount") as! Double
@@ -180,7 +201,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     portfolio.total = p.value(forKey: "total") as! Double
                     
                     ps.append(portfolio)
-                   
                 }
                 
                 let total = ps.reduce(0.00){
@@ -193,6 +213,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     return result + (a.stock as! Int)
                 }
                 
+                
+                
                 let currentValue = Double(totalStocks) * Double(detailCandy?.price as! String)!
                 
                 print("Total invested amount \(total) current value \(currentValue) total stocks \(totalStocks)")
@@ -200,6 +222,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 let totalProfit =  currentValue-total
                 lblProfit.text = "\(totalProfit)"
+                lblStockOwned.text = "\(totalStocks)"
                 
                 if "\(totalProfit)".contains("-") {
                     lblProfit.textColor = UIColor.red
@@ -207,7 +230,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
             }else{
                 tableView.isHidden = true
+                btnUnWatchButton.isHidden = false
             }
+            print("count portfolio \(ps.count)")
+            self.tableView.reloadData()
             
             print(ps.count)
         }catch let error as NSError {
@@ -218,6 +244,16 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
 }
 
 extension DetailViewController: WatchlistDelegate {
+    func deleteStockInvestedSucceed() {
+        print("investment deleted")
+        searchPortfolio()
+        
+    }
+    
+    func deleteStockInvestedFailed(message: String) {
+        print(message)
+    }
+    
     func deleteWatchlistSucceed() {
          btnWatchButton.isHidden = false
          btnUnWatchButton.isHidden = true
@@ -261,6 +297,19 @@ extension Formatter {
 extension BinaryInteger {
     var formattedWithSeparator: String {
         return Formatter.withSeparator.string(for: self) ?? ""
+    }
+}
+
+extension Double {
+    static let twoFractionDigits: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
+    var formatted: String {
+        return Double.twoFractionDigits.string(for: self) ?? ""
     }
 }
 

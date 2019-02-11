@@ -21,6 +21,7 @@
 		D66349C122071F1B009EF321 /* PortfolioPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66349C022071F1B009EF321 /* PortfolioPresenter.swift */; };
 		D66349C322072127009EF321 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66349C222072127009EF321 /* Portfolio.swift */; };
 		D683DBA121F84C0A0091B4ED /* XStockDBModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D683DB9F21F84C0A0091B4ED /* XStockDBModel.xcdatamodeld */; };
+		D6BDDBD9221195A600D324BF /* UtilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BDDBD8221195A600D324BF /* UtilityHelper.swift */; };
 		D6C64D85220847CB00FDB013 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +42,7 @@
 		D66349C022071F1B009EF321 /* PortfolioPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPresenter.swift; sourceTree = "<group>"; };
 		D66349C222072127009EF321 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		D683DBA021F84C0A0091B4ED /* XStockDBModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = XStockDBModel.xcdatamodel; sourceTree = "<group>"; };
+		D6BDDBD8221195A600D324BF /* UtilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityHelper.swift; sourceTree = "<group>"; };
 		D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -75,6 +77,7 @@
 		171E0C7C1B8E5B84001E6242 /* StockWatcher */ = {
 			isa = PBXGroup;
 			children = (
+				D6BDDBD72211958D00D324BF /* Utilities */,
 				D63F32ED22071AD600B719AA /* DataPersistence */,
 				D63F32EC220702B300B719AA /* Model */,
 				D63F32E92206CDB300B719AA /* Presenter */,
@@ -116,6 +119,14 @@
 			children = (
 			);
 			path = DataPersistence;
+			sourceTree = "<group>";
+		};
+		D6BDDBD72211958D00D324BF /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D6BDDBD8221195A600D324BF /* UtilityHelper.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -197,6 +208,7 @@
 				171E0CAE1B8E5C58001E6242 /* Candy.swift in Sources */,
 				171E0C801B8E5B84001E6242 /* MasterViewController.swift in Sources */,
 				D627599421F9992800E8A527 /* MonitorViewController.swift in Sources */,
+				D6BDDBD9221195A600D324BF /* UtilityHelper.swift in Sources */,
 				D66349C322072127009EF321 /* Portfolio.swift in Sources */,
 				D63F32EB2206CDEE00B719AA /* WatchlistPresenter.swift in Sources */,
 				D683DBA121F84C0A0091B4ED /* XStockDBModel.xcdatamodeld in Sources */,

@@ -17,7 +17,8 @@ protocol WatchlistDelegate {
     func saveToWatchlistFailed(message: String)
     func deleteWatchlistSucceed()
     func deleteWatchlistFailed(message: String)
-
+    func deleteStockInvestedSucceed()
+    func deleteStockInvestedFailed(message: String)
 }
 
 class WatchlistPresenter{
@@ -113,6 +114,31 @@ class WatchlistPresenter{
         }else{
             self.delegate.deleteWatchlistFailed(message: "Cant delete to watchlist as it contains investment")
         }
+    }
+    
+    func deleteInvestment(id:UUID){
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Investment")
+        fetchRequest.predicate = NSPredicate(format: "id = %@",id as CVarArg)
+        
+        do{
+            let candy = try managedContext.fetch(fetchRequest)
+            let del = candy[0] as! NSManagedObject
+            managedContext.delete(del)
+            
+            do{
+                try managedContext.save()
+                self.delegate.deleteStockInvestedSucceed()
+            }catch{
+                self.delegate.deleteStockInvestedFailed(message: "Failed deleting invested stock")
+            }
+            
+        }catch{
+            self.delegate.deleteStockInvestedFailed(message: "Cant delete investment")
+        }
+        
     }
     
     func isPortfolioExist(code: String)->Bool{
