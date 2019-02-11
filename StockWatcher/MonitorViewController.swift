@@ -6,8 +6,6 @@
 //  Copyright © 2019 Peartree Developers. All rights reserved.
 //
 
-//TODO:- Add listing of portfolio / portfolio managing
-
 import UIKit
 import CoreData
 
@@ -34,6 +32,7 @@ class MonitorViewController: UIViewController {
         txtAmount.placeholder = "0.00"
         txtCharge.placeholder = "0.00"
         txtTax.placeholder = "0.00"
+        txtAmount.isEnabled = false
         
         price.keyboardType = UIKeyboardType.decimalPad
         txtStocks.keyboardType = UIKeyboardType.decimalPad
@@ -61,7 +60,7 @@ class MonitorViewController: UIViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd, yyyy"
         
-        if Double(lblTotalAmtInvested.text!)! > 0 {
+        if lblTotalAmtInvested.text! != "0.00" {
             inv.charge = Double(txtCharge.text!)!
             inv.price = Double(price.text!)!
             inv.stock = Int(txtStocks.text!)!
