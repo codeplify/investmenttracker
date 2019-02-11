@@ -163,6 +163,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             if portfolio.count > 0 {
             
+                btnUnWatchButton.isHidden = true
                 var totalInvested:[Double] = []
                 
                 for p in portfolio{
