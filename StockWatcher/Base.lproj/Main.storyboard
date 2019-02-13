@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="xZm-gC-6is">
             <objects>
-                <viewController id="Hq3-z9-R1O" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="Hq3-z9-R1O" customClass="LoginViewController" customModule="StockWatcher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pnz-aV-GR6"/>
                         <viewControllerLayoutGuide type="bottom" id="sy5-Vg-bJ2"/>
@@ -22,40 +22,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Inline-Logo" translatesAutoresizingMaskIntoConstraints="NO" id="CgD-RQ-Jgb">
-                                <rect key="frame" x="147" y="100" width="81" height="74"/>
+                                <rect key="frame" x="147" y="34" width="81" height="74"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRr-9d-vN8">
-                                <rect key="frame" x="131" y="211" width="113" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Search">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dfW-bF-p2f">
-                                <rect key="frame" x="131" y="256" width="113" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Watchlist">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BKp-IS-pxZ">
-                                <rect key="frame" x="131" y="301" width="113" height="37"/>
+                                <rect key="frame" x="131" y="214" width="113" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Portfolio">
+                                <state key="normal" title="Login">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnLogin:" destination="Hq3-z9-R1O" eventType="touchUpInside" id="Pll-ld-l8b"/>
+                                </connections>
                             </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MJV-Jv-oCI">
+                                <rect key="frame" x="113" y="126" width="145" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EKr-hb-4fA">
+                                <rect key="frame" x="113" y="164" width="145" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <connections>
+                        <outlet property="txtPassword" destination="EKr-hb-4fA" id="FRj-ZA-OhX"/>
+                        <outlet property="txtUsername" destination="MJV-Jv-oCI" id="aLb-sa-VT1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bJE-ZM-ehH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-857" y="-1375"/>
+            <point key="canvasLocation" x="-857" y="-1057"/>
         </scene>
         <!--Portfolio View Controller-->
         <scene sceneID="Shi-Ly-a7e">
@@ -330,6 +335,8 @@
                         <outlet property="btnUnWatchButton" destination="ZkZ-ES-WCA" id="MVZ-Nz-fuR"/>
                         <outlet property="btnWatchButton" destination="vte-Mb-WUF" id="6eo-OH-4i4"/>
                         <outlet property="detailDescriptionLabel" destination="jTl-4A-YZp" id="OV0-b4-vM9"/>
+                        <outlet property="labelDesignProfit" destination="p9d-Zq-WUg" id="deU-Mt-3hK"/>
+                        <outlet property="labelStockOwn" destination="1lh-e8-K4u" id="MFj-qx-sVG"/>
                         <outlet property="lblAmount" destination="qDP-XR-5Go" id="a2P-cO-KiV"/>
                         <outlet property="lblPercentage" destination="Rb4-j0-juD" id="C4p-We-5UV"/>
                         <outlet property="lblProfit" destination="hIJ-o6-Y1Y" id="g6y-Ih-MyB"/>
@@ -624,7 +631,7 @@
         <image name="Inline-Logo" width="240" height="240"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="q9E-Xa-mX4"/>
+        <segue reference="Tll-UG-LXB"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

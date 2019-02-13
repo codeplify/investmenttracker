@@ -50,6 +50,14 @@ class MonitorViewController: UIViewController {
         loadInvested()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        //print("view will appear...")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print("view will appearing...")
+    }
+    
     @objc func textFieldDidChange(_ textField: UITextField){
         computeInv()
     }
@@ -69,7 +77,7 @@ class MonitorViewController: UIViewController {
             inv.uid = UUID.init()
             inv.date = "\(dateFormatter.string(from: Date()))"
             inv.code = "\(code!)"
-            inv.total = Double(lblTotalAmtInvested.text!)!
+            inv.total = Double((lblTotalAmtInvested.text!).replacingOccurrences(of: ",", with: ""))!
             self.presenter?.save(port: inv)
         }
     }
@@ -78,16 +86,16 @@ class MonitorViewController: UIViewController {
         
         guard let stockPrice = Double(price.text!) else{ return }
         guard let stocks = Double(txtStocks.text!) else{ return }
+        let amountPrice = stockPrice * stocks
+        txtAmount.text = String(amountPrice)
+        
         guard let c = Double(txtCharge.text!) else{ return }
         guard let tax = Double(txtTax.text!) else { return }
         
-        let amountPrice = stockPrice * stocks
-        let amountTotal = amountPrice - ( c + tax )
         
-        txtAmount.text = String(amountPrice)
+        let amountTotal = amountPrice - ( c + tax )
         lblTotalAmtInvested.text = String(amountTotal.formatted)
         
-     
     }
     
     func loadInvested(){

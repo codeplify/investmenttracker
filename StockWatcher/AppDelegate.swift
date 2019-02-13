@@ -8,14 +8,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
-    let splitViewController = window!.rootViewController as! UISplitViewController
-    let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-    navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-    splitViewController.preferredDisplayMode = .allVisible
-    splitViewController.delegate = self
-    
-    UISearchBar.appearance().tintColor = .candyGreen
-    UINavigationBar.appearance().tintColor = .candyGreen
+     
+        let splitViewController = window!.rootViewController as! UISplitViewController
+        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+        splitViewController.preferredDisplayMode = .allVisible
+        splitViewController.delegate = self
+     
+        UISearchBar.appearance().tintColor = .candyGreen
+        UINavigationBar.appearance().tintColor = .candyGreen
+ 
     
     return true
   }

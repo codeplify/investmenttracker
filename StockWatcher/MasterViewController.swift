@@ -16,9 +16,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    
   
-    searchController.searchBar.scopeButtonTitles = ["Portfolio","All","Watch"]
+    searchController.searchBar.scopeButtonTitles = ["Watch","Portfolio","All"]
     searchController.searchBar.delegate = self
+    tableView.isHidden = false
 
     DispatchQueue.main.async {
         self.filteredCandies.removeAll()
@@ -29,6 +32,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     searchController.searchResultsUpdater = self
     searchController.obscuresBackgroundDuringPresentation = false
     searchController.searchBar.placeholder = "Search Stocks"
+    searchController.searchBar.showsScopeBar = true
     navigationItem.searchController = searchController
     definesPresentationContext = true
     
@@ -38,6 +42,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     tableView.tableFooterView = searchFooter
+    
+    print("Filtering => \(isFiltering())")
     
   }
     
@@ -69,6 +75,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                     self.candies.append(Candy(category:"\(stockName)", name:"\(symbol)",volume:"\(vol)",percent_change:"\(per)",price:"\(String(describing: price["amount"]!))",currency:"\(String(describing: price["currency"]!))"))
                 }
                 self.tableView.reloadData()
+                self.searchController.isActive = true
+                self.searchController.becomeFirstResponder()
             }
         }
         
@@ -157,9 +165,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         if(scope == "Portfolio"){
             
-            //TODO:- Load all watch here
-            //TODO:- Check if there has a existing stocks
+            //MARK:- This is only activated when searchbar is selected
             
+            print("Portfolio Listings...")
             filteredCandies.removeAll()
             var temp = [Candy]()
             
@@ -232,6 +240,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     searchFooter.setNotFiltering()
+    print("stock count \(candies.count)")
+    
     return candies.count
   }
    

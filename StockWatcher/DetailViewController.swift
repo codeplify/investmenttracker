@@ -24,6 +24,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
  @IBOutlet weak var lblAmtList: UILabel!
  @IBOutlet weak var lblProfit: UILabel!
  @IBOutlet weak var lblStockOwned: UILabel!
+ @IBOutlet weak var labelDesignProfit: UILabel!
+ @IBOutlet weak var labelStockOwn: UILabel!
+    
     var ps:[Portfolio] = [Portfolio]()
     
  var isWatched = false
@@ -87,9 +90,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     tableView.delegate = self
     configureView()
     //DispatchQueue.main.async {
-        self.searchPortfolio()
+     //   self.searchPortfolio()
 //    }
    
+  }
+    
+  override func viewWillAppear(_ animated: Bool) {
+       searchPortfolio()
   }
   
   override func didReceiveMemoryWarning() {
@@ -111,7 +118,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         controller.navigationItem.leftItemsSupplementBackButton = true
         self.navigationController?.pushViewController(controller, animated: true)
-        
     }
     
     
@@ -183,8 +189,14 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if portfolio.count > 0 {
                 
                 ps.removeAll()
-            
+                
+                tableView.isHidden = false
                 btnUnWatchButton.isHidden = true
+                labelDesignProfit.isHidden = false
+                labelStockOwn.isHidden = false
+                lblProfit.isHidden = false
+                lblStockOwned.isHidden = false
+                
                 var totalInvested:[Double] = []
                 
                 for p in portfolio {
@@ -213,8 +225,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     return result + (a.stock as! Int)
                 }
                 
-                
-                
                 let currentValue = Double(totalStocks) * Double(detailCandy?.price as! String)!
                 
                 print("Total invested amount \(total) current value \(currentValue) total stocks \(totalStocks)")
@@ -229,8 +239,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
                 
             }else{
+                
                 tableView.isHidden = true
                 btnUnWatchButton.isHidden = false
+                labelStockOwn.isHidden = true
+                labelDesignProfit.isHidden = true
+                lblStockOwned.isHidden = true
+                lblProfit.isHidden = true
             }
             print("count portfolio \(ps.count)")
             self.tableView.reloadData()
@@ -312,4 +327,3 @@ extension Double {
         return Double.twoFractionDigits.string(for: self) ?? ""
     }
 }
-
