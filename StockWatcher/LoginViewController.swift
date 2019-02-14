@@ -45,8 +45,7 @@ class LoginViewController: UIViewController {
         //let region = "us-east-2"
         
         let serviceConfiguration: AWSServiceConfiguration = AWSServiceConfiguration(region: .USEast2, credentialsProvider: nil)
-        
-        let cognitoConfiguration:AWSCognitoIdentityUserPoolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: clientId, clientSecret: clientSecret, poolId: poolId)
+        let cognitoConfiguration: AWSCognitoIdentityUserPoolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: clientId, clientSecret: clientSecret, poolId: poolId)
         
         AWSCognitoIdentityUserPool.register(with: serviceConfiguration, userPoolConfiguration: cognitoConfiguration, forKey: poolId)
     }
