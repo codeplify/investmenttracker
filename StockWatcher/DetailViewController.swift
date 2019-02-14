@@ -1,11 +1,9 @@
 import UIKit
 import CoreData
 
-
 class PortfolioTableViewCell : UITableViewCell {
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblAmount: UILabel!
-    
 }
 
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
@@ -27,8 +25,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
  @IBOutlet weak var labelDesignProfit: UILabel!
  @IBOutlet weak var labelStockOwn: UILabel!
     
-    var ps:[Portfolio] = [Portfolio]()
-    
+ var ps:[Portfolio] = [Portfolio]()
  var isWatched = false
  var presenter: WatchlistPresenter?
     
@@ -89,9 +86,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     tableView.dataSource = self
     tableView.delegate = self
     configureView()
-    //DispatchQueue.main.async {
-     //   self.searchPortfolio()
-//    }
    
   }
     
@@ -104,6 +98,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
   }
     
   @IBAction func btnWatchTapped(_ sender: UIButton) {
+    
+
+    
         if (self.presenter?.search(code: detailCandy!.name))! {
             self.presenter?.save(stock: detailCandy!)
         }

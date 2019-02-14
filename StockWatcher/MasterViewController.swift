@@ -17,8 +17,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    
-  
     searchController.searchBar.scopeButtonTitles = ["Watch","Portfolio","All"]
     searchController.searchBar.delegate = self
     tableView.isHidden = false
@@ -113,7 +111,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     var tempCandies:[Candy] = []
-    
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
 
         if(scope == "Watch"){

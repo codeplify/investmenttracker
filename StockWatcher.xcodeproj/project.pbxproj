@@ -25,6 +25,7 @@
 		D6BDDBD9221195A600D324BF /* UtilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BDDBD8221195A600D324BF /* UtilityHelper.swift */; };
 		D6C64D85220847CB00FDB013 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */; };
 		D6DB35D42214302100B67072 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DB35D32214302100B67072 /* LoginViewController.swift */; };
+		D6DB35D622143E0700B67072 /* UserAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DB35D522143E0700B67072 /* UserAccess.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		D6BDDBD8221195A600D324BF /* UtilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityHelper.swift; sourceTree = "<group>"; };
 		D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; };
 		D6DB35D32214302100B67072 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		D6DB35D522143E0700B67072 /* UserAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccess.swift; sourceTree = "<group>"; };
 		DD7D4F9CB0997D575D059F80 /* Pods_StockWatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StockWatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -137,6 +139,7 @@
 			children = (
 				171E0CAD1B8E5C58001E6242 /* Candy.swift */,
 				D66349C222072127009EF321 /* Portfolio.swift */,
+				D6DB35D522143E0700B67072 /* UserAccess.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				171E0CAE1B8E5C58001E6242 /* Candy.swift in Sources */,
 				171E0C801B8E5B84001E6242 /* MasterViewController.swift in Sources */,
 				D627599421F9992800E8A527 /* MonitorViewController.swift in Sources */,
+				D6DB35D622143E0700B67072 /* UserAccess.swift in Sources */,
 				D6BDDBD9221195A600D324BF /* UtilityHelper.swift in Sources */,
 				D66349C322072127009EF321 /* Portfolio.swift in Sources */,
 				D63F32EB2206CDEE00B719AA /* WatchlistPresenter.swift in Sources */,
