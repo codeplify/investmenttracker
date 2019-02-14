@@ -24,6 +24,7 @@
 		D683DBA121F84C0A0091B4ED /* XStockDBModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D683DB9F21F84C0A0091B4ED /* XStockDBModel.xcdatamodeld */; };
 		D6BDDBD9221195A600D324BF /* UtilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BDDBD8221195A600D324BF /* UtilityHelper.swift */; };
 		D6C64D85220847CB00FDB013 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */; };
+		D6D1518622157ED000D9EFC3 /* CognitoConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6D1518522157ED000D9EFC3 /* CognitoConfig.plist */; };
 		D6DB35D42214302100B67072 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DB35D32214302100B67072 /* LoginViewController.swift */; };
 		D6DB35D622143E0700B67072 /* UserAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DB35D522143E0700B67072 /* UserAccess.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		D683DBA021F84C0A0091B4ED /* XStockDBModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = XStockDBModel.xcdatamodel; sourceTree = "<group>"; };
 		D6BDDBD8221195A600D324BF /* UtilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityHelper.swift; sourceTree = "<group>"; };
 		D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; };
+		D6D1518522157ED000D9EFC3 /* CognitoConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = CognitoConfig.plist; sourceTree = "<group>"; };
 		D6DB35D32214302100B67072 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D6DB35D522143E0700B67072 /* UserAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccess.swift; sourceTree = "<group>"; };
 		DD7D4F9CB0997D575D059F80 /* Pods_StockWatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StockWatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +98,7 @@
 		171E0C7C1B8E5B84001E6242 /* StockWatcher */ = {
 			isa = PBXGroup;
 			children = (
+				D6D1518422157EAA00D9EFC3 /* Configuration */,
 				D6BDDBD72211958D00D324BF /* Utilities */,
 				D63F32ED22071AD600B719AA /* DataPersistence */,
 				D63F32EC220702B300B719AA /* Model */,
@@ -111,6 +114,7 @@
 				171E0C861B8E5B84001E6242 /* Assets.xcassets */,
 				171E0C881B8E5B84001E6242 /* LaunchScreen.storyboard */,
 				171E0C8B1B8E5B84001E6242 /* Info.plist */,
+				D6D1518522157ED000D9EFC3 /* CognitoConfig.plist */,
 				D6DB35D32214302100B67072 /* LoginViewController.swift */,
 			);
 			path = StockWatcher;
@@ -157,6 +161,13 @@
 				D6BDDBD8221195A600D324BF /* UtilityHelper.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D6D1518422157EAA00D9EFC3 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +234,7 @@
 			files = (
 				171E0C8A1B8E5B84001E6242 /* LaunchScreen.storyboard in Resources */,
 				171E0C871B8E5B84001E6242 /* Assets.xcassets in Resources */,
+				D6D1518622157ED000D9EFC3 /* CognitoConfig.plist in Resources */,
 				171E0C851B8E5B84001E6242 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -271,11 +283,15 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-StockWatcher/Pods-StockWatcher-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AWSCognito/AWSCognito.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.framework",
+				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognito.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProvider.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProviderASF.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

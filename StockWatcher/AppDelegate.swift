@@ -1,26 +1,46 @@
 import UIKit
 import CoreData
+import AWSCognito
+import AWSCognitoIdentityProvider
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
   
   var window: UIWindow?
   
+  
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
      
-    if let splitViewController = window!.rootViewController as? UISplitViewController {
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-        splitViewController.preferredDisplayMode = .allVisible
-        splitViewController.delegate = self
-     
-        UISearchBar.appearance().tintColor = .candyGreen
-        UINavigationBar.appearance().tintColor = .candyGreen
-    }
+        if let splitViewController = window!.rootViewController as? UISplitViewController {
+            let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+            navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+            splitViewController.preferredDisplayMode = .allVisible
+            splitViewController.delegate = self
+         
+            UISearchBar.appearance().tintColor = .candyGreen
+            UINavigationBar.appearance().tintColor = .candyGreen
+        }
+    
+//    AWSDDLog.sharedInstance.logLevel = .verbose
+//    AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
+    
+   
     
     return true
   }
+    
+    func getPlist(withName name: String)-> [String]? {
+        if let path = Bundle.main.path(forResource: name, ofType: "plist"),
+            let xml = FileManager.default.contents(atPath: path){
+            return (try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainersAndLeaves, format: nil)) as? [String]
+        }
+        
+        return nil
+    }
+ 
+    
+    
     
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {

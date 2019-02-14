@@ -8,5 +8,6 @@ target 'StockWatcher' do
   # Pods for StockWatcher
 
   pod 'AWSCognito'
+  pod 'AWSCognitoIdentityProvider'
 
 end

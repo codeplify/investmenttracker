@@ -1,15 +1,22 @@
 PODS:
   - AWSCognito (2.6.32):
     - AWSCore (= 2.6.32)
+  - AWSCognitoIdentityProvider (2.6.32):
+    - AWSCognitoIdentityProviderASF (= 1.0.1)
+    - AWSCore (= 2.6.32)
+  - AWSCognitoIdentityProviderASF (1.0.1)
   - AWSCore (2.6.32)
 
 DEPENDENCIES:
   - AWSCognito
+  - AWSCognitoIdentityProvider
 
 SPEC CHECKSUMS:
   AWSCognito: 68f76e8e72ec28845fb60f88f6a76c65caf68aef
+  AWSCognitoIdentityProvider: 1ac74ed3ddc96a1e072868c10d43f8630eebdfed
+  AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
   AWSCore: bfb49938a3a4eb190bc68edf1fa9e90969de8fa2
 
-PODFILE CHECKSUM: 6b9cf4366c9ff95badc5bb6f84e1378b6553fe6b
+PODFILE CHECKSUM: 969ed262cbad7d07039cf197f9999f776febf62b
 
 COCOAPODS: 1.3.1
