@@ -18,6 +18,7 @@
 		452C6F7B1E9BDA75003A4C50 /* SearchFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 452C6F7A1E9BDA75003A4C50 /* SearchFooter.swift */; };
 		45D31C6F1EB28E8F000A3BE1 /* CandyTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D31C6E1EB28E8F000A3BE1 /* CandyTheme.swift */; };
 		D627599421F9992800E8A527 /* MonitorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D627599321F9992800E8A527 /* MonitorViewController.swift */; };
+		D6297FE5221814FD00CE236E /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6297FE4221814FD00CE236E /* Constant.swift */; };
 		D63F32EB2206CDEE00B719AA /* WatchlistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F32EA2206CDEE00B719AA /* WatchlistPresenter.swift */; };
 		D66349C122071F1B009EF321 /* PortfolioPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66349C022071F1B009EF321 /* PortfolioPresenter.swift */; };
 		D66349C322072127009EF321 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66349C222072127009EF321 /* Portfolio.swift */; };
@@ -44,6 +45,7 @@
 		93078F7B47F96F477AA8E81C /* Pods-StockWatcher.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockWatcher.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StockWatcher/Pods-StockWatcher.debug.xcconfig"; sourceTree = "<group>"; };
 		B7C839FAB9C452EDFEB51F15 /* Pods-StockWatcher.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StockWatcher.release.xcconfig"; path = "Pods/Target Support Files/Pods-StockWatcher/Pods-StockWatcher.release.xcconfig"; sourceTree = "<group>"; };
 		D627599321F9992800E8A527 /* MonitorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorViewController.swift; sourceTree = "<group>"; };
+		D6297FE4221814FD00CE236E /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		D63F32EA2206CDEE00B719AA /* WatchlistPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistPresenter.swift; sourceTree = "<group>"; };
 		D66349C022071F1B009EF321 /* PortfolioPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPresenter.swift; sourceTree = "<group>"; };
 		D66349C222072127009EF321 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				171E0C8B1B8E5B84001E6242 /* Info.plist */,
 				D6D1518522157ED000D9EFC3 /* CognitoConfig.plist */,
 				D6DB35D32214302100B67072 /* LoginViewController.swift */,
+				D6297FE4221814FD00CE236E /* Constant.swift */,
 			);
 			path = StockWatcher;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 				D6DB35D42214302100B67072 /* LoginViewController.swift in Sources */,
 				452C6F7B1E9BDA75003A4C50 /* SearchFooter.swift in Sources */,
 				D6C64D85220847CB00FDB013 /* PortfolioViewController.swift in Sources */,
+				D6297FE5221814FD00CE236E /* Constant.swift in Sources */,
 				45D31C6F1EB28E8F000A3BE1 /* CandyTheme.swift in Sources */,
 				171E0C821B8E5B84001E6242 /* DetailViewController.swift in Sources */,
 				171E0CAE1B8E5C58001E6242 /* Candy.swift in Sources */,

@@ -2,12 +2,12 @@ import UIKit
 import CoreData
 import AWSCognito
 import AWSCognitoIdentityProvider
+import AWSCore
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, AWSCognitoIdentityInteractiveAuthenticationDelegate {
   
   var window: UIWindow?
-  
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
@@ -25,10 +25,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 //    AWSDDLog.sharedInstance.logLevel = .verbose
 //    AWSDDLog.add(AWSDDTTYLogger.sharedInstance)
     
-   
+    AWSDDLog.sharedInstance.logLevel = .verbose
     
+    // setup service configuration
+    let serviceConfiguration = AWSServiceConfiguration(region: .USEast2, credentialsProvider: nil)
+    
+    // create pool configuration
+    let poolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: "339tdnbbo4u0jqr4i4ri52oaio",
+                                                                    clientSecret: "1a73ina32e6h3ng9cdvv3e52pf11av5b465cpdbv6ndhsui8igap",
+                                                                    poolId: "us-east-2_rDd0DiSnB")
+    
+    // initialize user pool client
+    AWSCognitoIdentityUserPool.register(with: serviceConfiguration, userPoolConfiguration: poolConfiguration, forKey: "us-east-2_rDd0DiSnB")
+    
+    // fetch the user pool client we initialized in above step
+    let pool = AWSCognitoIdentityUserPool(forKey: "us-east-2_rDd0DiSnB")
+    //self.storyboard = UIStoryboard(name: "Main", bundle: nil)
+    pool.delegate = self
+    
+    
+    //setupCognitoUserPool()
     return true
   }
+    
+    func setupCognitoUserPool(){
+        let clientId = "339tdnbbo4u0jqr4i4ri52oaio"
+        let poolId = "us-east-2_rDd0DiSnB"
+        let clientSecret = "1a73ina32e6h3ng9cdvv3e52pf11av5b465cpdbv6ndhsui8igap"
+        //let region = "us-east-2"
+        
+        let serviceConfiguration: AWSServiceConfiguration = AWSServiceConfiguration(region: .USEast2, credentialsProvider: nil)
+        let cognitoConfiguration: AWSCognitoIdentityUserPoolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: clientId, clientSecret: clientSecret, poolId: poolId)
+        
+        AWSCognitoIdentityUserPool.register(with: serviceConfiguration, userPoolConfiguration: cognitoConfiguration, forKey: poolId)
+    }
     
     func getPlist(withName name: String)-> [String]? {
         if let path = Bundle.main.path(forResource: name, ofType: "plist"),
