@@ -12,33 +12,48 @@ import AWSCognito
 import AWSCognitoIdentityProvider
 
 class LoginViewController: UIViewController {
-var pool: AWSCognitoIdentityUserPool?
     
+var pool: AWSCognitoIdentityUserPool?
+    var sentTo: String?
     @IBOutlet weak var txtUsername: UITextField!
     
     @IBOutlet weak var txtPassword: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.pool = AWSCognitoIdentityUserPool.init(forKey: "us-east-2_rDd0DiSnB")
-        
+         self.pool = AWSCognitoIdentityUserPool.init(forKey: AWSCognitoSigninProviderKey)
+      
     }
     
     @IBAction func btnLogin(_ sender: UIButton) {
         
-//        let email = AWSCognitoIdentityUserAttributeType.init()
-//        email?.name = "email"
-//        email?.value = "loeyagdan@yahoo.com"
+        var attributes = [AWSCognitoIdentityUserAttributeType]()
+     
+        //put textfield here...
+       // if let emailValue = "loey.agdan@yahoo.com", !emailValue.isEmpty {
+            let email = AWSCognitoIdentityUserAttributeType()
+            email?.name = "email"
+            email?.value = "loey.agdan@yahoo.com"
+            attributes.append(email!)
+//        }
         
-        //pool.signUp("loey@yahoo.com", password: "12345", userAttributes: nil, validationData: nil)
-        
-       
-        //user.signUp("loey@yahoo.com", password: "agdan", userAttributes: nil, validationData: nil)
-        
-        self.pool?.signUp("loey@yahoo.com", password: "loeyagdan", userAttributes: nil, validationData: nil)
+        print("pool must execute")
+        self.pool?.signUp("loey.agdan@yahoo.com", password: "swordfish1925", userAttributes: attributes, validationData: nil).continueWith {[weak self] (task) -> Any? in
+            guard let strongSelf = self else { return nil }
+            DispatchQueue.main.async(execute: {
+                if let error = task.error as NSError? {
+                    print(error)
+                } else if let result = task.result  {
+                    print(result)
+                }
+                
+            })
+            return nil
+        }
+        }
     }
     
     
   
     
-}
+

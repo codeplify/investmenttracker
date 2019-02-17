@@ -9,5 +9,6 @@ target 'StockWatcher' do
 
   pod 'AWSCognito'
   pod 'AWSCognitoIdentityProvider'
+  pod 'SVProgressHUD', '~> 2.2'
 
 end

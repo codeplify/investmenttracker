@@ -24,6 +24,8 @@
 		D66349C322072127009EF321 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66349C222072127009EF321 /* Portfolio.swift */; };
 		D683DBA121F84C0A0091B4ED /* XStockDBModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D683DB9F21F84C0A0091B4ED /* XStockDBModel.xcdatamodeld */; };
 		D6BDDBD9221195A600D324BF /* UtilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BDDBD8221195A600D324BF /* UtilityHelper.swift */; };
+		D6BF7128221971D30043CC72 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF7127221971D30043CC72 /* SignUpViewController.swift */; };
+		D6BF712A221985940043CC72 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF7129221985940043CC72 /* ConfirmViewController.swift */; };
 		D6C64D85220847CB00FDB013 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */; };
 		D6D1518622157ED000D9EFC3 /* CognitoConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6D1518522157ED000D9EFC3 /* CognitoConfig.plist */; };
 		D6DB35D42214302100B67072 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DB35D32214302100B67072 /* LoginViewController.swift */; };
@@ -51,6 +53,8 @@
 		D66349C222072127009EF321 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		D683DBA021F84C0A0091B4ED /* XStockDBModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = XStockDBModel.xcdatamodel; sourceTree = "<group>"; };
 		D6BDDBD8221195A600D324BF /* UtilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityHelper.swift; sourceTree = "<group>"; };
+		D6BF7127221971D30043CC72 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		D6BF7129221985940043CC72 /* ConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
 		D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; };
 		D6D1518522157ED000D9EFC3 /* CognitoConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = CognitoConfig.plist; sourceTree = "<group>"; };
 		D6DB35D32214302100B67072 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 		171E0C7C1B8E5B84001E6242 /* StockWatcher */ = {
 			isa = PBXGroup;
 			children = (
+				D6BF71262219718E0043CC72 /* Authentication */,
 				D6D1518422157EAA00D9EFC3 /* Configuration */,
 				D6BDDBD72211958D00D324BF /* Utilities */,
 				D63F32ED22071AD600B719AA /* DataPersistence */,
@@ -164,6 +169,15 @@
 				D6BDDBD8221195A600D324BF /* UtilityHelper.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		D6BF71262219718E0043CC72 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				D6BF7127221971D30043CC72 /* SignUpViewController.swift */,
+				D6BF7129221985940043CC72 /* ConfirmViewController.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		D6D1518422157EAA00D9EFC3 /* Configuration */ = {
@@ -289,6 +303,7 @@
 				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -296,6 +311,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProvider.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProviderASF.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -314,9 +330,11 @@
 				D6C64D85220847CB00FDB013 /* PortfolioViewController.swift in Sources */,
 				D6297FE5221814FD00CE236E /* Constant.swift in Sources */,
 				45D31C6F1EB28E8F000A3BE1 /* CandyTheme.swift in Sources */,
+				D6BF7128221971D30043CC72 /* SignUpViewController.swift in Sources */,
 				171E0C821B8E5B84001E6242 /* DetailViewController.swift in Sources */,
 				171E0CAE1B8E5C58001E6242 /* Candy.swift in Sources */,
 				171E0C801B8E5B84001E6242 /* MasterViewController.swift in Sources */,
+				D6BF712A221985940043CC72 /* ConfirmViewController.swift in Sources */,
 				D627599421F9992800E8A527 /* MonitorViewController.swift in Sources */,
 				D6DB35D622143E0700B67072 /* UserAccess.swift in Sources */,
 				D6BDDBD9221195A600D324BF /* UtilityHelper.swift in Sources */,
