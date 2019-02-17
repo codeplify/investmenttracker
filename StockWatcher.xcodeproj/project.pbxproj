@@ -122,7 +122,6 @@
 				171E0C881B8E5B84001E6242 /* LaunchScreen.storyboard */,
 				171E0C8B1B8E5B84001E6242 /* Info.plist */,
 				D6D1518522157ED000D9EFC3 /* CognitoConfig.plist */,
-				D6DB35D32214302100B67072 /* LoginViewController.swift */,
 				D6297FE4221814FD00CE236E /* Constant.swift */,
 			);
 			path = StockWatcher;
@@ -175,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				D6BF7127221971D30043CC72 /* SignUpViewController.swift */,
+				D6DB35D32214302100B67072 /* LoginViewController.swift */,
 				D6BF7129221985940043CC72 /* ConfirmViewController.swift */,
 			);
 			path = Authentication;
