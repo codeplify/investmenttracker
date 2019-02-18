@@ -1,18 +1,18 @@
 import UIKit
 import CoreData
-import AWSCognito
 import AWSCognitoIdentityProvider
-import AWSCore
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, AWSCognitoIdentityInteractiveAuthenticationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate  {
   
   var window: UIWindow?
-        var storyboard: UIStoryboard?
+  var signInViewController: LoginViewController?
+  var storyboard: UIStoryboard?
+  var navigationController: UINavigationController?
+    var rememberDeviceCompletionSource: AWSTaskCompletionSource<NSNumber>?
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
-     
         if let splitViewController = window!.rootViewController as? UISplitViewController {
             let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
             navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
@@ -30,31 +30,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                                                                     poolId: CIPoolID)
     AWSCognitoIdentityUserPool.register(with: serviceConfiguration, userPoolConfiguration: poolConfiguration, forKey: AWSCognitoSigninProviderKey)
     let pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoSigninProviderKey)
-    
-     self.storyboard = UIStoryboard(name: "Main", bundle: nil)
-    
+    self.storyboard = UIStoryboard(name: "Main", bundle: nil)
     pool.delegate = self
    
-    
-
-    
     return true
   }
     
-    func getPlist(withName name: String)-> [String]? {
-        if let path = Bundle.main.path(forResource: name, ofType: "plist"),
-            let xml = FileManager.default.contents(atPath: path){
-            return (try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainersAndLeaves, format: nil)) as? [String]
-        }
-        
-        return nil
-    }
- 
-    
-    
-    
-    // MARK: - Core Data stack
-    lazy var persistentContainer: NSPersistentContainer = {
+  /**
+     COREDATA:
+     
+     */
+  lazy var persistentContainer: NSPersistentContainer = {
        
         let container = NSPersistentContainer(name: "XStockDBModel")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -64,10 +50,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
         })
         return container
-    }()
+  }()
     
-    // MARK: - Core Data Saving support
-    func saveContext () {
+  func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -77,20 +62,85 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-    }
+  }
   
-  // MARK: - Split view
   func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
     guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
     guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
-    if topAsDetailController.detailCandy == nil {
-      // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-      return true
-    }
+        if topAsDetailController.detailCandy == nil {
+            //Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+            return true
+        }
     return false
   }
+    
+    
    
-  
+}
+
+
+extension AppDelegate: AWSCognitoIdentityInteractiveAuthenticationDelegate {
+    func startPasswordAuthentication() -> AWSCognitoIdentityPasswordAuthentication {
+        if self.navigationController == nil {
+            self.navigationController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? UINavigationController
+        }
+        
+        if self.signInViewController == nil {
+            self.signInViewController = self.navigationController?.viewControllers[0] as? LoginViewController
+        }
+        
+        DispatchQueue.main.async {
+            self.navigationController!.popToRootViewController(animated: true)
+            if !self.navigationController!.isViewLoaded || self.navigationController!.view.window == nil {
+                self.window?.rootViewController!.present(self.navigationController!,
+                                                        animated: true,
+                                                        completion: nil)
+            }
+        }
+        return self.signInViewController!
+    }
+}
+
+extension AppDelegate: AWSCognitoIdentityRememberDevice {
+
+    
+    func getRememberDevice(_ rememberDeviceCompletionSource: AWSTaskCompletionSource<NSNumber>) {
+        self.rememberDeviceCompletionSource = rememberDeviceCompletionSource
+        DispatchQueue.main.async {
+            // dismiss the view controller being present before asking to remember device
+            self.window?.rootViewController!.presentedViewController?.dismiss(animated: true, completion: nil)
+            let alertController = UIAlertController(title: "Remember Device",
+                                                    message: "Do you want to remember this device?.",
+                                                    preferredStyle: .actionSheet)
+            
+            let yesAction = UIAlertAction(title: "Yes", style: .default, handler: { (action) in
+                self.rememberDeviceCompletionSource?.set(result: true)
+            })
+            let noAction = UIAlertAction(title: "No", style: .default, handler: { (action) in
+                self.rememberDeviceCompletionSource?.set(result: false)
+            })
+            alertController.addAction(yesAction)
+            alertController.addAction(noAction)
+            
+            self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    func didCompleteStepWithError(_ error: Error?) {
+        DispatchQueue.main.async {
+            if let error = error as NSError? {
+                let alertController = UIAlertController(title: error.userInfo["__type"] as? String,
+                                                        message: error.userInfo["message"] as? String,
+                                                        preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                DispatchQueue.main.async {
+                    self.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+                }
+            }
+        }
+    }
+
 }
 
 

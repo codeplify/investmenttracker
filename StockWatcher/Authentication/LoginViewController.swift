@@ -7,57 +7,79 @@
 //
 
 import UIKit
-import AWSCognitoIdentityProvider
 import SVProgressHUD
+import AWSCognitoIdentityProvider
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController{
     
     @IBOutlet weak var txtUsername: UITextField!
     @IBOutlet weak var txtPassword: UITextField!
     
     var passwordAuthenticationCompletion: AWSTaskCompletionSource<AWSCognitoIdentityPasswordAuthenticationDetails>?
+    var usernameText: String?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.txtPassword.text = nil
+        self.txtUsername.text = usernameText
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-        
+       
     }
     
     @IBAction func btnLogin(_ sender: UIButton) {
         
         SVProgressHUD.show(withStatus: "Signing in...")
-        
         if self.txtUsername.text != nil && self.txtPassword.text != nil {
-            let authDetails = AWSCognitoIdentityPasswordAuthenticationDetails(username: "loeyagdan0225@gmail.com", password: "loeyagdan123")
+            let authDetails = AWSCognitoIdentityPasswordAuthenticationDetails(username: self.txtUsername.text!, password: self.txtPassword.text!)
+            
             self.passwordAuthenticationCompletion?.set(result: authDetails)
             SVProgressHUD.dismiss()
-        }else {
-            let alertController = UIAlertController(title: "", message: "Error signing", preferredStyle: .alert)
-            self.present(alertController, animated: true, completion: nil)
+            
+        }else{
+            let alertController = UIAlertController(title: "", message: "invalid username", preferredStyle: .alert)
+            let retryAction = UIAlertAction(title: "Retry", style: .default, handler: nil)
+            alertController.addAction(retryAction)
             SVProgressHUD.dismiss()
         }
-   }
+    }
 }
 
-extension LoginViewController: AWSCognitoIdentityPasswordAuthentication{
-    public func getDetails(_ authenticationInput: AWSCognitoIdentityPasswordAuthenticationInput, passwordAuthenticationCompletionSource: AWSTaskCompletionSource<AWSCognitoIdentityPasswordAuthenticationDetails>) {
+extension LoginViewController: AWSCognitoIdentityPasswordAuthentication {
+    func getDetails(_ authenticationInput: AWSCognitoIdentityPasswordAuthenticationInput, passwordAuthenticationCompletionSource: AWSTaskCompletionSource<AWSCognitoIdentityPasswordAuthenticationDetails>) {
+            
         self.passwordAuthenticationCompletion = passwordAuthenticationCompletionSource
-        DispatchQueue.main.async {
-            print("Last known username \(authenticationInput.lastKnownUsername)")
+        
+        print("get details reached...")
+        DispatchQueue.main.async{
+            if self.usernameText == nil {
+                self.usernameText = authenticationInput.lastKnownUsername
+                print(authenticationInput.lastKnownUsername)
+            }
         }
     }
-    
+
     func didCompleteStepWithError(_ error: Error?) {
-        if let error = error as NSError? {
-            print(error)
-        }else{
-            print("no error")
+        DispatchQueue.main.async {
+            if let error = error as NSError? {
+                print(error)
+                let alertController = UIAlertController(title: error.userInfo["__type"] as? String,
+                                                        message: error.userInfo["message"] as? String,
+                                                        preferredStyle: .alert)
+                let retryAction = UIAlertAction(title: "Retry", style: .default, handler: nil)
+                alertController.addAction(retryAction)
+                
+                self.present(alertController, animated: true, completion:  nil)
+            } else {
+                self.txtUsername.text = nil
+                self.dismiss(animated: true, completion: nil)
+            }
         }
     }
-    
-    
 }
+
 
     
     

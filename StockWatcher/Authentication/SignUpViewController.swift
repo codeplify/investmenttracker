@@ -22,6 +22,7 @@ class SignUpViewController: UIViewController {
         super.viewDidLoad()
         self.pool = AWSCognitoIdentityUserPool.init(forKey: AWSCognitoSigninProviderKey)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender:Any?){
         if let signupConfirmationViewController = segue.destination as? ConfirmViewController {
             signupConfirmationViewController.user = self.pool?.getUser(txtEmail.text!)

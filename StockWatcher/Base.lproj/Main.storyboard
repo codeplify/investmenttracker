@@ -12,7 +12,7 @@
         <!--Login View Controller-->
         <scene sceneID="xZm-gC-6is">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="Hq3-z9-R1O" customClass="LoginViewController" customModule="StockWatcher" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Hq3-z9-R1O" customClass="LoginViewController" customModule="StockWatcher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="pnz-aV-GR6"/>
                         <viewControllerLayoutGuide type="bottom" id="sy5-Vg-bJ2"/>
@@ -87,7 +87,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bJE-ZM-ehH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1196" y="-1607.0464767616193"/>
+            <point key="canvasLocation" x="585" y="-1475"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="uUc-Nd-5FR">
@@ -164,7 +164,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Yk-uD-7Fm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2128.8000000000002" y="-1607.0464767616193"/>
+            <point key="canvasLocation" x="1345" y="-1477"/>
         </scene>
         <!--Confirm View Controller-->
         <scene sceneID="env-pU-4tH">
@@ -210,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9CY-Nc-6hh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2965.5999999999999" y="-1604.3478260869567"/>
+            <point key="canvasLocation" x="2105" y="-1478"/>
         </scene>
         <!--Portfolio View Controller-->
         <scene sceneID="Shi-Ly-a7e">
@@ -779,7 +779,7 @@
         <!--Navigation Controller-->
         <scene sceneID="5NG-zx-4UB">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sMF-SJ-xjX" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginViewController" automaticallyAdjustsScrollViewInsets="NO" id="sMF-SJ-xjX" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QJ0-RV-wSz">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -792,7 +792,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lwa-hO-x3N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="256.80000000000001" y="-1607.0464767616193"/>
+            <point key="canvasLocation" x="-218" y="-1476"/>
         </scene>
     </scenes>
     <resources>
