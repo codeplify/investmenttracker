@@ -3,25 +3,19 @@ import CoreData
 import AWSCognitoIdentityProvider
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate  {
+class AppDelegate: UIResponder, UIApplicationDelegate,  AWSCognitoIdentityInteractiveAuthenticationDelegate  {
   
   var window: UIWindow?
   var signInViewController: LoginViewController?
-  var storyboard: UIStoryboard?
+  var mfaViewController: ConfirmViewController?
   var navigationController: UINavigationController?
-    var rememberDeviceCompletionSource: AWSTaskCompletionSource<NSNumber>?
+  var storyboard: UIStoryboard?
+  var rememberDeviceCompletionSource: AWSTaskCompletionSource<NSNumber>?
+  
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
-        if let splitViewController = window!.rootViewController as? UISplitViewController {
-            let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-            navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-            splitViewController.preferredDisplayMode = .allVisible
-            splitViewController.delegate = self
-         
-            UISearchBar.appearance().tintColor = .candyGreen
-            UINavigationBar.appearance().tintColor = .candyGreen
-        }
+
     
     AWSDDLog.sharedInstance.logLevel = .verbose
     let serviceConfiguration = AWSServiceConfiguration(region: CIUserPoolRegion, credentialsProvider: nil)
@@ -29,11 +23,69 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
                                                                     clientSecret: CIPoolAppClientSecret,
                                                                     poolId: CIPoolID)
     AWSCognitoIdentityUserPool.register(with: serviceConfiguration, userPoolConfiguration: poolConfiguration, forKey: AWSCognitoSigninProviderKey)
+    
     let pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoSigninProviderKey)
     self.storyboard = UIStoryboard(name: "Main", bundle: nil)
     pool.delegate = self
    
     return true
+  }
+    
+    
+  /** AWS Cognito Authentication */
+    //MARK:- Check on the view controllers management in ios swift
+    //TODO:- Do this in laboartory before implementing
+    
+  func startPasswordAuthentication() -> AWSCognitoIdentityPasswordAuthentication {
+    
+    print("message: startPasswordAuthentication() ->")
+        if self.navigationController == nil {
+            self.navigationController = self.storyboard?.instantiateViewController(withIdentifier: "signinController") as? UINavigationController
+            print("navigation controller \(self.navigationController) count: \(self.navigationController?.viewControllers.count)")
+        }
+
+        if self.signInViewController == nil {
+            self.signInViewController = self.navigationController?.viewControllers[0] as? LoginViewController
+            print("Signin view controller \(self.signInViewController)")
+        }
+
+        DispatchQueue.main.async {
+            self.navigationController!.popToRootViewController(animated: true)
+            if !self.navigationController!.isViewLoaded || self.navigationController!.view.window == nil {
+                self.window?.rootViewController!.present(self.navigationController!,
+                                                         animated: true,
+                                                         completion: nil)
+            }
+        }
+    return self.signInViewController!
+  }
+    
+  func startMultiFactorAuthentication() -> AWSCognitoIdentityMultiFactorAuthentication {
+        if (self.mfaViewController == nil) {
+            self.mfaViewController = ConfirmViewController()
+            self.mfaViewController?.modalPresentationStyle = .popover
+        }
+        DispatchQueue.main.async {
+            if (!self.mfaViewController!.isViewLoaded
+                || self.mfaViewController!.view.window == nil) {
+                //display mfa as popover on current view controller
+                let viewController = self.window?.rootViewController!
+                viewController?.present(self.mfaViewController!,
+                                        animated: true,
+                                        completion: nil)
+                
+                // configure popover vc
+                let presentationController = self.mfaViewController!.popoverPresentationController
+                presentationController?.permittedArrowDirections = UIPopoverArrowDirection.left
+                presentationController?.sourceView = viewController!.view
+                presentationController?.sourceRect = viewController!.view.bounds
+            }
+        }
+        return self.mfaViewController!
+  }
+    
+  func startRememberDevice() -> AWSCognitoIdentityRememberDevice {
+        return self
   }
     
   /**
@@ -52,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         return container
   }()
     
-  func saveContext () {
+  func saveContext (){
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -64,45 +116,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
   }
   
-  func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
-    guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
-    guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
-        if topAsDetailController.detailCandy == nil {
-            //Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-            return true
-        }
-    return false
-  }
-    
-    
-   
-}
 
-
-extension AppDelegate: AWSCognitoIdentityInteractiveAuthenticationDelegate {
-    func startPasswordAuthentication() -> AWSCognitoIdentityPasswordAuthentication {
-        if self.navigationController == nil {
-            self.navigationController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? UINavigationController
-        }
-        
-        if self.signInViewController == nil {
-            self.signInViewController = self.navigationController?.viewControllers[0] as? LoginViewController
-        }
-        
-        DispatchQueue.main.async {
-            self.navigationController!.popToRootViewController(animated: true)
-            if !self.navigationController!.isViewLoaded || self.navigationController!.view.window == nil {
-                self.window?.rootViewController!.present(self.navigationController!,
-                                                        animated: true,
-                                                        completion: nil)
-            }
-        }
-        return self.signInViewController!
-    }
+    
 }
 
 extension AppDelegate: AWSCognitoIdentityRememberDevice {
-
     
     func getRememberDevice(_ rememberDeviceCompletionSource: AWSTaskCompletionSource<NSNumber>) {
         self.rememberDeviceCompletionSource = rememberDeviceCompletionSource
@@ -143,6 +161,3 @@ extension AppDelegate: AWSCognitoIdentityRememberDevice {
 
 }
 
-
-
-//commited changes

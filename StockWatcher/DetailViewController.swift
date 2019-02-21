@@ -1,5 +1,6 @@
 import UIKit
 import CoreData
+import AWSCognitoIdentityProvider
 
 class PortfolioTableViewCell : UITableViewCell {
     @IBOutlet weak var lblDate: UILabel!
@@ -29,12 +30,19 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
  var isWatched = false
  var presenter: WatchlistPresenter?
     
+    
   var detailCandy: Candy? {
     didSet {
       configureView()
     }
   }
-  
+    
+    @IBOutlet weak var btnLogout: UIButton!
+    
+    @IBAction func btnLogoutPressed(_ sender: Any) {
+        
+    }
+    
   func configureView() {
     if let detailCandy = detailCandy {
         
@@ -86,11 +94,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     tableView.dataSource = self
     tableView.delegate = self
     configureView()
-   
   }
     
   override func viewWillAppear(_ animated: Bool) {
-       searchPortfolio()
+      searchPortfolio()
   }
   
   override func didReceiveMemoryWarning() {
@@ -171,7 +178,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {}
-    
+   
     func searchPortfolio() {
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return}
@@ -258,7 +265,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
 extension DetailViewController: WatchlistDelegate {
     func deleteStockInvestedSucceed() {
         print("investment deleted")
-        searchPortfolio()
+     //   searchPortfolio()
         
     }
     

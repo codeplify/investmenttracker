@@ -29,7 +29,6 @@ class SignUpViewController: UIViewController {
         }
     }
     
-    
     @IBAction func btnSignUpTapped(_ sender: UIButton) {
         
         SVProgressHUD.show(withStatus: "Signing up...")

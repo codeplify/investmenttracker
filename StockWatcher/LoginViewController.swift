@@ -25,10 +25,6 @@ class LoginViewController: UIViewController{
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    override func viewDidLoad() {
-       
-    }
-    
     @IBAction func btnLogin(_ sender: UIButton) {
         
         SVProgressHUD.show(withStatus: "Signing in...")

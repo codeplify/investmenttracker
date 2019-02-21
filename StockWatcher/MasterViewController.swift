@@ -1,8 +1,9 @@
 import CoreData
 import UIKit
+import AWSCognitoIdentityProvider
 
 
-class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UISplitViewControllerDelegate{
   
   @IBOutlet var tableView: UITableView!
   @IBOutlet var searchFooter: SearchFooter!
@@ -14,6 +15,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   var filteredCandies = [Candy]()
   let searchController = UISearchController(searchResultsController: nil)
     
+ 
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -31,19 +33,43 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     searchController.obscuresBackgroundDuringPresentation = false
     searchController.searchBar.placeholder = "Search Stocks"
     searchController.searchBar.showsScopeBar = true
+    
     navigationItem.searchController = searchController
     definesPresentationContext = true
     
     if let splitViewController = splitViewController {
       let controllers = splitViewController.viewControllers
-      detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+        
+       //detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+       splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+        navigationController?.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+        
+        splitViewController.preferredDisplayMode = .allVisible
+        splitViewController.delegate = self
+
+
     }
-    
+    /*       splitViewController.preferredDisplayMode = .allVisible
+     splitViewController.delegate = self
+     //splitViewController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+     splitViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+     detailViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+     
+     splitViewController.preferredDisplayMode = .allVisible
+     splitViewController.delegate = self*/
     tableView.tableFooterView = searchFooter
     
-    print("Filtering => \(isFiltering())")
-    
   }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
+        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
+        guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
+        if topAsDetailController.detailCandy == nil {
+            //Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+            return true
+        }
+        return false
+    }
     
   func loadStocks(){
         guard let url = URL(string: "http://phisix-api4.appspot.com/stocks.json")else {return}
@@ -204,18 +230,16 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func isFiltering() -> Bool {
-        //TODO:- Change the value of section to filtering -> to set to filtering of only invested amounts
         let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
-        //return searchController.isActive && (!searchBarIsEmpty() || searchBarScopeIsFiltering)
         return true
     }
   
   override func viewWillAppear(_ animated: Bool) {
-    if splitViewController!.isCollapsed {
+//    if splitViewController!.isCollapsed {
       if let selectionIndexPath = self.tableView.indexPathForSelectedRow {
         self.tableView.deselectRow(at: selectionIndexPath, animated: animated)
       }
-    }
+//    }
     super.viewWillAppear(animated)
   }
   

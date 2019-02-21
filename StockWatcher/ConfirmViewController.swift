@@ -15,6 +15,9 @@ class ConfirmViewController: UIViewController {
     @IBOutlet weak var txtConfirmationCode: UITextField!
     var user: AWSCognitoIdentityUser?
     
+    var destination: String?
+    var mfaCodeCompletionSource: AWSTaskCompletionSource<NSString>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,6 +53,32 @@ class ConfirmViewController: UIViewController {
             
             return nil
         }
+    }
+    
+}
+
+extension ConfirmViewController : AWSCognitoIdentityMultiFactorAuthentication {
+    
+    func didCompleteMultifactorAuthenticationStepWithError(_ error: Error?) {
+        DispatchQueue.main.async(execute: {
+            if let error = error as NSError? {
+                
+                let alertController = UIAlertController(title: error.userInfo["__type"] as? String,
+                                                        message: error.userInfo["message"] as? String,
+                                                        preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(okAction)
+                
+                self.present(alertController, animated: true, completion:  nil)
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
+        })
+    }
+    
+    func getCode(_ authenticationInput: AWSCognitoIdentityMultifactorAuthenticationInput, mfaCodeCompletionSource: AWSTaskCompletionSource<NSString>) {
+        self.mfaCodeCompletionSource = mfaCodeCompletionSource
+        self.destination = authenticationInput.destination
     }
     
 }
