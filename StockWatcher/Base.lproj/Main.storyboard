@@ -945,7 +945,7 @@
             </objects>
             <point key="canvasLocation" x="-57" y="140"/>
         </scene>
-        <!--Dashboard View Controller-->
+        <!--swapp-->
         <scene sceneID="cZW-FQ-2Jv">
             <objects>
                 <viewController id="eU1-n1-wde" customClass="DashboardViewController" customModule="StockWatcher" customModuleProvider="target" sceneMemberID="viewController">
@@ -957,15 +957,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dashboard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMV-8D-vJa">
-                                <rect key="frame" x="145" y="323" width="84" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eaV-32-uaU">
-                                <rect key="frame" x="163" y="471" width="48" height="30"/>
+                                <rect key="frame" x="163" y="581" width="48" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Logout">
                                     <color key="titleColor" red="0.32867060599999998" green="0.61464927810000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -974,21 +967,52 @@
                                     <action selector="btnLogoutTapped:" destination="eU1-n1-wde" eventType="touchUpInside" id="cyf-TA-ruB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lMO-0U-i1I">
-                                <rect key="frame" x="158" y="536" width="58" height="19"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Portfolio">
-                                    <color key="titleColor" red="0.32867060599999998" green="0.61464927810000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <connections>
-                                    <action selector="btnPortfolioPressed:" destination="eU1-n1-wde" eventType="touchUpInside" id="069-pl-nwb"/>
-                                    <segue destination="H1p-Uh-vWS" kind="show" identifier="segueToStocks" id="ibl-Hx-7XA"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Qke-2I-yyY">
+                                <rect key="frame" x="30" y="180.5" width="315" height="306"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jKh-E9-xjx">
+                                        <rect key="frame" x="0.0" y="0.0" width="315" height="252"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="74" id="ZZe-hC-srb">
+                                                <rect key="frame" x="0.0" y="28" width="315" height="74"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZZe-hC-srb" id="ahg-p7-Lrh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="315" height="73.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lMO-0U-i1I">
+                                        <rect key="frame" x="0.0" y="272" width="315" height="34"/>
+                                        <color key="backgroundColor" red="0.0074053830760000003" green="0.47049060879999999" blue="0.0074864455100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Stocks">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="btnPortfolioPressed:" destination="eU1-n1-wde" eventType="touchUpInside" id="069-pl-nwb"/>
+                                            <segue destination="H1p-Uh-vWS" kind="show" identifier="segueToStocks" id="ibl-Hx-7XA"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Qke-2I-yyY" firstAttribute="centerY" secondItem="Jg0-t5-Njo" secondAttribute="centerY" id="LpB-zj-Kia"/>
+                            <constraint firstItem="Qke-2I-yyY" firstAttribute="leading" secondItem="Jg0-t5-Njo" secondAttribute="leading" constant="30" id="Lqo-3p-2J3"/>
+                            <constraint firstAttribute="trailing" secondItem="Qke-2I-yyY" secondAttribute="trailing" constant="30" id="oWm-LX-eXY"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="1xA-xB-iwI"/>
+                    <navigationItem key="navigationItem" title="swapp" id="1xA-xB-iwI">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="xhE-GV-V3a">
+                            <color key="tintColor" red="0.0064665693480868208" green="0.41084439766839376" blue="0.006537355132366183" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="btnLogoutDashboardTapped:" destination="eU1-n1-wde" id="mCc-S5-vEa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ga3-KO-CPY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
