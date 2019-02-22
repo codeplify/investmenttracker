@@ -724,10 +724,10 @@
             </objects>
             <point key="canvasLocation" x="-911" y="-630"/>
         </scene>
-        <!--View Controller-->
+        <!--Forgot Password View Controller-->
         <scene sceneID="A0g-UZ-nDH">
             <objects>
-                <viewController id="JWr-Ew-Lab" sceneMemberID="viewController">
+                <viewController id="JWr-Ew-Lab" customClass="ForgotPasswordViewController" customModule="StockWatcher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KX1-2h-Xmb"/>
                         <viewControllerLayoutGuide type="bottom" id="cYr-CT-pab"/>
@@ -755,22 +755,26 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.007405383076290766" green="0.47049060880829019" blue="0.0074864455099750878" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Forgot Password"/>
+                                <connections>
+                                    <action selector="btnForgotPassword:" destination="JWr-Ew-Lab" eventType="touchUpInside" id="KUV-dv-ZgX"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
-                        <segue destination="ujD-X7-DHH" kind="show" id="puX-B3-KGM"/>
+                        <outlet property="txtEmailAddress" destination="v9d-ux-GAr" id="Fag-iG-GeR"/>
+                        <segue destination="ujD-X7-DHH" kind="show" identifier="confirmForgotPasswordSegue" id="puX-B3-KGM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Pc-Oh-tlQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1124" y="-1358.7706146926537"/>
         </scene>
-        <!--View Controller-->
+        <!--Confirm Forgot Password View Controller-->
         <scene sceneID="pJc-9u-dl9">
             <objects>
-                <viewController id="ujD-X7-DHH" sceneMemberID="viewController">
+                <viewController id="ujD-X7-DHH" customClass="ConfirmForgotPasswordViewController" customModule="StockWatcher" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KGR-wo-tFW"/>
                         <viewControllerLayoutGuide type="bottom" id="YII-59-0KQ"/>
@@ -812,10 +816,17 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0074053830760000003" green="0.47049060879999999" blue="0.0074864455100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="Change Password"/>
+                                <connections>
+                                    <action selector="btnChangedPasswordPressed:" destination="ujD-X7-DHH" eventType="touchUpInside" id="4e2-pa-wNE"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
+                    <connections>
+                        <outlet property="txtCode" destination="rdV-1x-WWV" id="k3z-eS-VKT"/>
+                        <outlet property="txtPassword" destination="QRo-Mm-kyF" id="fdA-H4-9ZX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hhS-l1-RlA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
