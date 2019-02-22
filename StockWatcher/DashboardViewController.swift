@@ -29,10 +29,6 @@ class DashboardViewController: UIViewController {
         self.refresh()
     }
     
-    @IBAction func btnLogoutTapped(_ sender: Any) {
-        
-    }
-    
     @IBAction func btnLogoutDashboardTapped(_ sender: Any) {
         self.user?.signOut()
         self.response = nil
