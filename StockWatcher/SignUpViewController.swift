@@ -21,6 +21,7 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pool = AWSCognitoIdentityUserPool.init(forKey: AWSCognitoSigninProviderKey)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender:Any?){
