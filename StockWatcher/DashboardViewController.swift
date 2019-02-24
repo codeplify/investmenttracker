@@ -6,6 +6,12 @@
 //  Copyright © 2019 Loey Agdan. All rights reserved.
 //
 
+/**
+    TODO:- Add loading current status of invested stocks
+    TOFIX:- Back button on detailview fix splitview issue
+    TOD0:- Add AdMob
+ */
+
 import UIKit
 import AWSCognitoIdentityProvider
 
@@ -14,55 +20,8 @@ class DashboardTableViewCell : UITableViewCell {
     @IBOutlet weak var imgStockMovement: UIImageView!
 }
 
-
 class DashboardViewController: UIViewController, UITableViewDelegate , UITableViewDataSource{
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ps.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellDashboard", for: indexPath) as! DashboardTableViewCell
-            let p = ps[indexPath.row]
-        
-        cell.lblStockCodeD.text = "\(p.code)"
-        return cell
-        
-    }
-    
-    func searchP(){
-        
-        print("Search Investment...")
-        
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{return}
-        let managedContext = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
-        var portfolio: [NSManagedObject] = []
-        
-        do{
-            portfolio = try managedContext.fetch(fetchRequest)
-            
-            if portfolio.count > 0 {
-                ps.removeAll()
-                
-                for p in portfolio{
-                    let portfolio = Portfolio()
-                        portfolio.price = p.value(forKey: "price") as! Double
-                        portfolio.code = p.value(forKey: "code") as! String
-                    ps.append(portfolio)
-                }
-                
-            }else{
-                print("portfolio not found")
-            }
-        }catch let error as NSError {
-            print(error)
-        }
-        
-    }
-    
-    
+
     var user: AWSCognitoIdentityUser?
     var pool: AWSCognitoIdentityUserPool?
     var response: AWSCognitoIdentityUserGetDetailsResponse?
@@ -72,17 +31,81 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.separatorStyle = .none
+        
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoSigninProviderKey)
         if self.user == nil {
             self.user = self.pool?.currentUser()
             print("Login value: \(self.user?.username)")
         }
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        
+        self.searchP()
         self.refresh()
+    }
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("ps count \(stocks.count)")
+        return ps.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell:DashboardTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellDashboard")! as! DashboardTableViewCell
+        
+        let p = ps[indexPath.row]
+        print("stock \(stocks.count)")
+        cell.lblStockCodeD.text = "\(p.code!)"
+        return cell
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    
+    var stocks: [NSManagedObject] = []
+    func searchP(){
+        
+        print("Search Investment...")
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
+        
+        
+        do{
+            stocks = try managedContext.fetch(fetchRequest)
+            
+            
+            if stocks.count > 0 {
+                print("stock count \(stocks.count)")
+                ps.removeAll()
+                
+                for p in stocks{
+                    let portfolio = Portfolio()
+                    
+                    portfolio.code = p.value(forKey: "scode") as! String
+                    print("display code \(portfolio.code)")
+                    
+                    if ps.count <= 2 {
+                        ps.append(portfolio)
+                    }
+                    //TODO:- Find stocks and get updates from api current status of the stock
+                }
+                
+                print("ps count \(ps.count)")
+                
+            }else{
+                print("portfolio not found")
+            }
+        }catch let error as NSError {
+            print(error)
+        }
+        
     }
     
     @IBAction func btnLogoutDashboardTapped(_ sender: Any) {
