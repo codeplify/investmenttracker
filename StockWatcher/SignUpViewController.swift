@@ -43,6 +43,12 @@ class SignUpViewController: UIViewController {
             attributes.append(email!)
         }
         
+        let access = AWSCognitoIdentityUserAttributeType()
+        access?.name = "profile"
+        access?.value = "free"
+        attributes.append(access!)
+        
+        
         self.pool?.signUp(txtEmail.text!, password: txtPassword.text!, userAttributes: attributes, validationData: nil).continueWith{
             [weak self] (task) -> Any? in
             
