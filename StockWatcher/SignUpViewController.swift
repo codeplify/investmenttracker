@@ -53,6 +53,9 @@ class SignUpViewController: UIViewController {
                     SVProgressHUD.dismiss()
                     
                     let alert = UIAlertController(title: "", message: "Error: \(error)", preferredStyle: .alert)
+                    let okAlert = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+                    
+                    alert.addAction(okAlert)
                     self!.present(alert, animated: true)
                     
                 }else if let result = task.result {

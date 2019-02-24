@@ -9,22 +9,78 @@
 import UIKit
 import AWSCognitoIdentityProvider
 
-class DashboardViewController: UIViewController {
+class DashboardTableViewCell : UITableViewCell {
+    @IBOutlet weak var lblStockCodeD: UILabel!
+    @IBOutlet weak var imgStockMovement: UIImageView!
+}
+
+
+class DashboardViewController: UIViewController, UITableViewDelegate , UITableViewDataSource{
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ps.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cellDashboard", for: indexPath) as! DashboardTableViewCell
+            let p = ps[indexPath.row]
+        
+        cell.lblStockCodeD.text = "\(p.code)"
+        return cell
+        
+    }
+    
+    func searchP(){
+        
+        print("Search Investment...")
+        
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
+        var portfolio: [NSManagedObject] = []
+        
+        do{
+            portfolio = try managedContext.fetch(fetchRequest)
+            
+            if portfolio.count > 0 {
+                ps.removeAll()
+                
+                for p in portfolio{
+                    let portfolio = Portfolio()
+                        portfolio.price = p.value(forKey: "price") as! Double
+                        portfolio.code = p.value(forKey: "code") as! String
+                    ps.append(portfolio)
+                }
+                
+            }else{
+                print("portfolio not found")
+            }
+        }catch let error as NSError {
+            print(error)
+        }
+        
+    }
+    
     
     var user: AWSCognitoIdentityUser?
     var pool: AWSCognitoIdentityUserPool?
     var response: AWSCognitoIdentityUserGetDetailsResponse?
+    var ps:[Portfolio] = [Portfolio]()
+    
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoSigninProviderKey)
         if self.user == nil {
             self.user = self.pool?.currentUser()
             print("Login value: \(self.user?.username)")
         }
+        
+        tableView.delegate = self
+        tableView.dataSource = self
         
         self.refresh()
     }
