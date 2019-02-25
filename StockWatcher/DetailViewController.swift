@@ -29,19 +29,17 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
  var ps:[Portfolio] = [Portfolio]()
  var isWatched = false
  var presenter: WatchlistPresenter?
-    
-    
-  var detailCandy: Candy? {
+ var detailCandy: Candy? {
     didSet {
       configureView()
     }
   }
     
-    @IBOutlet weak var btnLogout: UIButton!
+  @IBOutlet weak var btnLogout: UIButton!
     
-    @IBAction func btnLogoutPressed(_ sender: Any) {
+  @IBAction func btnLogoutPressed(_ sender: Any) {
         
-    }
+  }
     
   func configureView() {
     if let detailCandy = detailCandy {
@@ -105,16 +103,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
   }
     
   @IBAction func btnWatchTapped(_ sender: UIButton) {
-    
-
-    
         if (self.presenter?.search(code: detailCandy!.name))! {
             self.presenter?.save(stock: detailCandy!)
         }
   }
     
     
-    @IBAction func btnInvestTapped(_ sender: UIButton) {
+  @IBAction func btnInvestTapped(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyboard.instantiateViewController(withIdentifier: "MonitorVC") as! MonitorViewController
         
@@ -122,7 +117,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
         controller.navigationItem.leftItemsSupplementBackButton = true
         self.navigationController?.pushViewController(controller, animated: true)
-    }
+  }
     
     
     /**

@@ -648,7 +648,11 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Chocolate" largeTitleDisplayMode="always" id="mOI-FS-AaM"/>
+                    <navigationItem key="navigationItem" title="Chocolate" largeTitleDisplayMode="always" id="mOI-FS-AaM">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="j6b-OZ-Q0b">
+                            <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="btnInvest" destination="BlV-bE-1Lk" id="VGH-Pw-HYK"/>
                         <outlet property="btnLogout" destination="DTK-sP-tDA" id="vaQ-RT-k3W"/>
@@ -824,6 +828,7 @@
             <objects>
                 <splitViewController id="H1p-Uh-vWS" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="ti5-g5-k5U"/>
                     <connections>
                         <segue destination="RMx-3f-FxP" kind="relationship" relationship="masterViewController" id="BlO-5A-QYV"/>
                         <segue destination="vC3-pB-5Vb" kind="relationship" relationship="detailViewController" id="Tll-UG-LXB"/>
@@ -1043,7 +1048,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.92138129472732544" green="0.9215582013130188" blue="0.92135167121887207" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -1073,15 +1078,15 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellDashboard" rowHeight="77" id="ZZe-hC-srb" customClass="DashboardTableViewCell" customModule="StockWatcher" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="315" height="77"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZZe-hC-srb" id="ahg-p7-Lrh">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZZe-hC-srb" id="ahg-p7-Lrh">
                                             <rect key="frame" x="0.0" y="0.0" width="315" height="76.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="up-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="21I-pZ-5cz">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="up-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="21I-pZ-5cz">
                                                     <rect key="frame" x="252" y="38" width="25" height="20"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XqL-Is-wRz">
-                                                    <rect key="frame" x="32" y="37.5" width="116" height="24"/>
+                                                    <rect key="frame" x="32" y="37" width="116" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="116" id="htv-OC-l7q"/>
                                                         <constraint firstAttribute="height" constant="15" id="zZ2-1p-fkw"/>
@@ -1121,7 +1126,7 @@
                                 </state>
                                 <connections>
                                     <action selector="btnPortfolioPressed:" destination="eU1-n1-wde" eventType="touchUpInside" id="069-pl-nwb"/>
-                                    <segue destination="H1p-Uh-vWS" kind="show" identifier="segueToStocks" id="ibl-Hx-7XA"/>
+                                    <segue destination="H1p-Uh-vWS" kind="push" identifier="segueToStocks" id="ibl-Hx-7XA"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1196,7 +1201,7 @@
         <image name="up-arrow" width="15" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Tll-UG-LXB"/>
+        <segue reference="q9E-Xa-mX4"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

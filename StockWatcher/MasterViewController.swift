@@ -1,6 +1,7 @@
 import CoreData
 import UIKit
 import AWSCognitoIdentityProvider
+import SVProgressHUD
 
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UISplitViewControllerDelegate{
@@ -37,18 +38,20 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     navigationItem.searchController = searchController
     definesPresentationContext = true
     
-    if let splitViewController = splitViewController {
-      let controllers = splitViewController.viewControllers
-        
-       //detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-       splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        navigationController?.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-        
-        splitViewController.preferredDisplayMode = .allVisible
-        splitViewController.delegate = self
-
-
-    }
+//    if let splitViewController = splitViewController {
+//      let controllers = splitViewController.viewControllers
+//        
+//       //detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+//       splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+//        navigationController?.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+//        
+//        splitViewController.preferredDisplayMode = .allVisible
+//        splitViewController.delegate = self
+//
+//
+//    }
+    
+    
     /*       splitViewController.preferredDisplayMode = .allVisible
      splitViewController.delegate = self
      //splitViewController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
@@ -61,17 +64,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
   }
     
-    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
-        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
-        guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
-        if topAsDetailController.detailCandy == nil {
-            //Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
-            return true
-        }
-        return false
-    }
-    
   func loadStocks(){
+    SVProgressHUD.show(withStatus: "Loading stocks...")
         guard let url = URL(string: "http://phisix-api4.appspot.com/stocks.json")else {return}
         
         let task = URLSession.shared.dataTask(with: url){data,response,error in
@@ -98,6 +92,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                     
                     self.candies.append(Candy(category:"\(stockName)", name:"\(symbol)",volume:"\(vol)",percent_change:"\(per)",price:"\(String(describing: price["amount"]!))",currency:"\(String(describing: price["currency"]!))"))
                 }
+                
+                SVProgressHUD.dismiss()
                 self.tableView.reloadData()
                 self.searchController.isActive = true
                 self.searchController.becomeFirstResponder()
