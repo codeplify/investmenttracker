@@ -37,9 +37,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
   @IBOutlet weak var btnLogout: UIButton!
     
-  @IBAction func btnLogoutPressed(_ sender: Any) {
-        
-  }
+  @IBAction func btnLogoutPressed(_ sender: Any) { }
     
   func configureView() {
     if let detailCandy = detailCandy {
@@ -87,6 +85,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     self.presenter = WatchlistPresenter(delegate: self as WatchlistDelegate)
     
     tableView.dataSource = self
@@ -210,7 +209,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     portfolio.stock = p.value(forKey: "stocks") as! Int
                     portfolio.tax = p.value(forKey: "tax") as! Double
                     portfolio.total = p.value(forKey: "total") as! Double
-                    
                     ps.append(portfolio)
                 }
                 

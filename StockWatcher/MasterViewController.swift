@@ -15,7 +15,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   var stocks: [NSManagedObject] = []
   var filteredCandies = [Candy]()
   let searchController = UISearchController(searchResultsController: nil)
-    
+  var splitViewController1: UISplitViewController?
  
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -37,32 +37,27 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     navigationItem.searchController = searchController
     definesPresentationContext = true
-    
-//    if let splitViewController = splitViewController {
-//      let controllers = splitViewController.viewControllers
-//        
-//       //detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-//       splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-//        navigationController?.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-//        
-//        splitViewController.preferredDisplayMode = .allVisible
-//        splitViewController.delegate = self
-//
-//
-//    }
-    
-    
-    /*       splitViewController.preferredDisplayMode = .allVisible
-     splitViewController.delegate = self
-     //splitViewController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-     splitViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-     detailViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-     
-     splitViewController.preferredDisplayMode = .allVisible
-     splitViewController.delegate = self*/
+
     tableView.tableFooterView = searchFooter
     
+    
+    if let splitViewController = splitViewController {
+        let controllers = splitViewController.viewControllers
+        detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+        print("splitview controller is not null")
+    }
+    
   }
+    
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
+        guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
+        guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
+        if topAsDetailController.detailCandy == nil {
+            // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+            return true
+        }
+        return false
+    }
     
   func loadStocks(){
     SVProgressHUD.show(withStatus: "Loading stocks...")
@@ -304,6 +299,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             controller.detailCandy = candy
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.hidesBackButton = false
        
         if candy.percent_change == "" {
             controller.isWatched = true

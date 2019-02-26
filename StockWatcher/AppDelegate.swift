@@ -15,8 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,  AWSCognitoIdentityIntera
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
-
-    
     AWSDDLog.sharedInstance.logLevel = .verbose
     let serviceConfiguration = AWSServiceConfiguration(region: CIUserPoolRegion, credentialsProvider: nil)
     let poolConfiguration = AWSCognitoIdentityUserPoolConfiguration(clientId: CIPoolAppClientID,

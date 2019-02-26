@@ -153,8 +153,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
             masterViewController.navigationItem.leftItemsSupplementBackButton = true
             masterViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
             
+//            detailViewController.navigationItem.leftItemsSupplementBackButton = true
+//            detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+//            
             UISearchBar.appearance().tintColor = .candyGreen
             UINavigationBar.appearance().tintColor = .candyGreen
+            
+            
             
             navigationController?.pushViewController(masterViewController, animated: true)
         }
