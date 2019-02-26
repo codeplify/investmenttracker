@@ -91,6 +91,8 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
                     portfolio.code = p.value(forKey: "scode") as! String
                     print("display code \(portfolio.code)")
                     
+                    self.getData(stock: portfolio.code!)
+                    
                     if ps.count <= 2 {
                         ps.append(portfolio)
                     }
@@ -133,16 +135,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToStocks"  {
             
-            //            if let splitViewController = window!.rootViewController as? UISplitViewController {
-            //                let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-            //                navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-            //                splitViewController.preferredDisplayMode = .allVisible
-            //                splitViewController.delegate = self
-            //
-            //                UISearchBar.appearance().tintColor = .candyGreen
-            //                UINavigationBar.appearance().tintColor = .candyGreen
-            //            }
-            
             guard let splitViewController = segue.destination as? UISplitViewController,
                 let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
                 let masterViewController = leftNavController.topViewController as? MasterViewController,
@@ -152,17 +144,88 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
             
             masterViewController.navigationItem.leftItemsSupplementBackButton = true
             masterViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-            
-//            detailViewController.navigationItem.leftItemsSupplementBackButton = true
-//            detailViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-//            
+  
             UISearchBar.appearance().tintColor = .candyGreen
             UINavigationBar.appearance().tintColor = .candyGreen
-            
-            
             
             navigationController?.pushViewController(masterViewController, animated: true)
         }
     }
+    
+    func getData(stock: String){
+        guard let url = URL(string: "http://phisix-api4.appspot.com/stocks/\(stock).json") else {return}
+        let task = URLSession.shared.dataTask(with: url){data,reponse,error in
+            guard let dataResponse = data,error == nil else{
+                print(error?.localizedDescription ?? "Response Error")
+                return
+            }
+            
+            print("dataResponse \(dataResponse)")
+            
+            guard let rootJSON = try? JSONSerialization.jsonObject(with: dataResponse, options: [])else {
+                return
+            }
+            
+            print("root json \(rootJSON)")
+            var p = Portfolio()
+            
+            if let JSON = rootJSON as? [String: Any]{
+                guard let jsonArray = JSON["stock"] as? [[String:Any]] else {return}
+                print("json_array \(jsonArray)")
+                
+                for json in jsonArray {
+                   // guard let symbol = json["symbol"] as? [[String:Any]] else {return}
+                   let price = json["price"] as! [String:Any]
+                    print("_price \(price["amount"])")
+                    p.amount = price["amount"] as! Double
+                    //TODO:- Create a Handler callback...
+                    
+                }
+                
+            }
+            
+        }
+        
+        task.resume()
+    }
+    
+    /**
+     SVProgressHUD.show(withStatus: "Loading stocks...")
+     guard let url = URL(string: "http://phisix-api4.appspot.com/stocks.json")else {return}
+     
+     let task = URLSession.shared.dataTask(with: url){data,response,error in
+     guard let dataResponse = data,error == nil else{
+     print(error?.localizedDescription ?? "Response Error")
+     return
+     }
+     
+     guard let rootJSON = try? JSONSerialization.jsonObject(with: dataResponse, options: []) else {
+     print("failed")
+     return
+     }
+     
+     if let JSON = rootJSON as? [String:Any]{
+     
+     guard let jsonArray = JSON["stock"] as? [[String:Any]] else { return }
+     
+     for json in jsonArray {
+     guard let stockName = json["name"] as? String else{ return }
+     guard let symbol = json["symbol"] as? String else{ return }
+     guard let per = json["percent_change"] else { return }
+     guard let vol = json["volume"] as? Int else{ return }
+     let price = json["price"] as! [String:Any]
+     
+     self.candies.append(Candy(category:"\(stockName)", name:"\(symbol)",volume:"\(vol)",percent_change:"\(per)",price:"\(String(describing: price["amount"]!))",currency:"\(String(describing: price["currency"]!))"))
+     }
+     
+     SVProgressHUD.dismiss()
+     self.tableView.reloadData()
+     self.searchController.isActive = true
+     self.searchController.becomeFirstResponder()
+     }
+     }
+     
+     task.resume()
+     */
 
 }
