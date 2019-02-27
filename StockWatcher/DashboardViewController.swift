@@ -9,7 +9,8 @@
 /**
     TODO:- Add loading current status of invested stocks
     TOFIX:- Back button on detailview fix splitview issue
-    TOD0:- Add AdMob
+    TODO:- Add AdMob
+    TODO:- Add Internet connectivity
  */
 
 import UIKit
@@ -18,6 +19,8 @@ import AWSCognitoIdentityProvider
 class DashboardTableViewCell : UITableViewCell {
     @IBOutlet weak var lblStockCodeD: UILabel!
     @IBOutlet weak var imgStockMovement: UIImageView!
+    @IBOutlet weak var lblAmountValue: UILabel!
+    @IBOutlet weak var lblVolumeValue: UILabel!
 }
 
 class DashboardViewController: UIViewController, UITableViewDelegate , UITableViewDataSource{
@@ -59,6 +62,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
         let p = ps[indexPath.row]
         print("stock \(stocks.count)")
         cell.lblStockCodeD.text = "\(p.code!)"
+        cell.lblAmountValue.text = "\(p.percent!)%"
+        cell.lblVolumeValue.text = "\(p.amount!)"
+        
+        if "\(p.percent!)".contains("-") {
+            cell.imgStockMovement.image = UIImage(named: "download-arrow")
+        }
         return cell
     }
     
@@ -75,7 +84,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{return}
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
-        
+       
         
         do{
             stocks = try managedContext.fetch(fetchRequest)
@@ -85,18 +94,32 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
                 print("stock count \(stocks.count)")
                 ps.removeAll()
                 
+              
+                
                 for p in stocks{
                     let portfolio = Portfolio()
+                    
+                    let group = DispatchGroup()
+                    group.enter()
                     
                     portfolio.code = p.value(forKey: "scode") as! String
                     print("display code \(portfolio.code)")
                     
-                    self.getData(stock: portfolio.code!)
                     
-                    if ps.count <= 2 {
-                        ps.append(portfolio)
+                    DispatchQueue.global(qos: .default).async {
+                    
+                        self.getData(stock: portfolio.code!){
+                            (result) -> () in
+                            
+                            print("amount completion \(result.amount)")
+                            portfolio.amount = result.amount!
+                            portfolio.percent = result.percent!
+                            group.leave()
+                        }
                     }
-                    //TODO:- Find stocks and get updates from api current status of the stock
+                    
+                    group.wait()
+                    self.ps.append(portfolio)
                 }
                 
                 print("ps count \(ps.count)")
@@ -152,7 +175,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
         }
     }
     
-    func getData(stock: String){
+    func getData(stock: String, completion: @escaping ( _ result: Portfolio)->()) {
         guard let url = URL(string: "http://phisix-api4.appspot.com/stocks/\(stock).json") else {return}
         let task = URLSession.shared.dataTask(with: url){data,reponse,error in
             guard let dataResponse = data,error == nil else{
@@ -178,10 +201,12 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
                    let price = json["price"] as! [String:Any]
                     print("_price \(price["amount"])")
                     p.amount = price["amount"] as! Double
+                    p.percent = json["percent_change"] as! Double
+                    print("percent \(p.percent)")
                     //TODO:- Create a Handler callback...
                     
                 }
-                
+                completion(p)
             }
             
         }

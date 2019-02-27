@@ -21,4 +21,5 @@ class Portfolio:NSObject {
     var date:String?
     var code:String?
     var total:Double?
+    var percent:Double?
 }
