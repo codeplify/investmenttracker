@@ -1,6 +1,7 @@
 import CoreData
 import UIKit
 import AWSCognitoIdentityProvider
+import SVProgressHUD
 
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UISplitViewControllerDelegate{
@@ -14,7 +15,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   var stocks: [NSManagedObject] = []
   var filteredCandies = [Candy]()
   let searchController = UISearchController(searchResultsController: nil)
-    
+  var splitViewController1: UISplitViewController?
  
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -36,28 +37,15 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
     navigationItem.searchController = searchController
     definesPresentationContext = true
+
+    tableView.tableFooterView = searchFooter
+    
     
     if let splitViewController = splitViewController {
-      let controllers = splitViewController.viewControllers
-        
-       //detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-       splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        navigationController?.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-        
-        splitViewController.preferredDisplayMode = .allVisible
-        splitViewController.delegate = self
-
-
+        let controllers = splitViewController.viewControllers
+        detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
+        print("splitview controller is not null")
     }
-    /*       splitViewController.preferredDisplayMode = .allVisible
-     splitViewController.delegate = self
-     //splitViewController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-     splitViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-     detailViewController?.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-     
-     splitViewController.preferredDisplayMode = .allVisible
-     splitViewController.delegate = self*/
-    tableView.tableFooterView = searchFooter
     
   }
     
@@ -65,13 +53,14 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
         guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
         if topAsDetailController.detailCandy == nil {
-            //Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
+            // Return true to indicate that we have handled the collapse by doing nothing; the secondary controller will be discarded.
             return true
         }
         return false
     }
     
   func loadStocks(){
+    SVProgressHUD.show(withStatus: "Loading stocks...")
         guard let url = URL(string: "http://phisix-api4.appspot.com/stocks.json")else {return}
         
         let task = URLSession.shared.dataTask(with: url){data,response,error in
@@ -98,6 +87,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                     
                     self.candies.append(Candy(category:"\(stockName)", name:"\(symbol)",volume:"\(vol)",percent_change:"\(per)",price:"\(String(describing: price["amount"]!))",currency:"\(String(describing: price["currency"]!))"))
                 }
+                
+                SVProgressHUD.dismiss()
                 self.tableView.reloadData()
                 self.searchController.isActive = true
                 self.searchController.becomeFirstResponder()
@@ -308,6 +299,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             controller.detailCandy = candy
             controller.navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem
             controller.navigationItem.leftItemsSupplementBackButton = true
+            controller.navigationItem.hidesBackButton = false
        
         if candy.percent_change == "" {
             controller.isWatched = true

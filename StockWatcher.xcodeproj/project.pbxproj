@@ -25,6 +25,7 @@
 		D63F32EB2206CDEE00B719AA /* WatchlistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F32EA2206CDEE00B719AA /* WatchlistPresenter.swift */; };
 		D66349C122071F1B009EF321 /* PortfolioPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66349C022071F1B009EF321 /* PortfolioPresenter.swift */; };
 		D66349C322072127009EF321 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66349C222072127009EF321 /* Portfolio.swift */; };
+		D67B30282226689D00ED17A8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B30272226689D00ED17A8 /* NetworkManager.swift */; };
 		D683DBA121F84C0A0091B4ED /* XStockDBModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D683DB9F21F84C0A0091B4ED /* XStockDBModel.xcdatamodeld */; };
 		D6BDDBD9221195A600D324BF /* UtilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BDDBD8221195A600D324BF /* UtilityHelper.swift */; };
 		D6BF7128221971D30043CC72 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF7127221971D30043CC72 /* SignUpViewController.swift */; };
@@ -57,6 +58,7 @@
 		D63F32EA2206CDEE00B719AA /* WatchlistPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchlistPresenter.swift; sourceTree = "<group>"; };
 		D66349C022071F1B009EF321 /* PortfolioPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioPresenter.swift; sourceTree = "<group>"; };
 		D66349C222072127009EF321 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
+		D67B30272226689D00ED17A8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		D683DBA021F84C0A0091B4ED /* XStockDBModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = XStockDBModel.xcdatamodel; sourceTree = "<group>"; };
 		D6BDDBD8221195A600D324BF /* UtilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityHelper.swift; sourceTree = "<group>"; };
 		D6BF7127221971D30043CC72 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				D6BDDBD8221195A600D324BF /* UtilityHelper.swift */,
+				D67B30272226689D00ED17A8 /* NetworkManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -312,6 +315,7 @@
 				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProvider/AWSCognitoIdentityProvider.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSCognitoIdentityProviderASF/AWSCognitoIdentityProviderASF.framework",
 				"${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -320,6 +324,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProvider.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCognitoIdentityProviderASF.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AWSCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -338,6 +343,7 @@
 				D6DB35D42214302100B67072 /* LoginViewController.swift in Sources */,
 				452C6F7B1E9BDA75003A4C50 /* SearchFooter.swift in Sources */,
 				D6C64D85220847CB00FDB013 /* PortfolioViewController.swift in Sources */,
+				D67B30282226689D00ED17A8 /* NetworkManager.swift in Sources */,
 				D6297FE5221814FD00CE236E /* Constant.swift in Sources */,
 				45D31C6F1EB28E8F000A3BE1 /* CandyTheme.swift in Sources */,
 				D6BF7128221971D30043CC72 /* SignUpViewController.swift in Sources */,

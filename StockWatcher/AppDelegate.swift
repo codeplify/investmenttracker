@@ -11,11 +11,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,  AWSCognitoIdentityIntera
   var navigationController: UINavigationController?
   var storyboard: UIStoryboard?
   var rememberDeviceCompletionSource: AWSTaskCompletionSource<NSNumber>?
-  
+  let network: NetworkManager = NetworkManager.sharedInstance
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-    
-
     
     AWSDDLog.sharedInstance.logLevel = .verbose
     let serviceConfiguration = AWSServiceConfiguration(region: CIUserPoolRegion, credentialsProvider: nil)
@@ -27,9 +25,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate,  AWSCognitoIdentityIntera
     let pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoSigninProviderKey)
     self.storyboard = UIStoryboard(name: "Main", bundle: nil)
     pool.delegate = self
+    
+    checkNetworkConnectivity()
    
     return true
   }
+    
+    func checkNetworkConnectivity(){
+        NetworkManager.isUnreachable { _ in
+            print("Network manager is unreachable...")
+           
+        }
+        
+        NetworkManager.isReachable { _ in
+            print("Network is reachable")
+            
+        }
+        
+        network.reachability.whenReachable = { _ in
+            print("Network connectivity success")
+            
+        }
+        
+        network.reachability.whenUnreachable = {
+            _ in
+            print("Network connectivity failed")
+            let alert = UIAlertController(title: "Unable to connect", message: "Please check your internet connectivity", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        }
+    }
     
     
   /** AWS Cognito Authentication */

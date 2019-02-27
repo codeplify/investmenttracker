@@ -32,7 +32,6 @@ class LoginViewController: UIViewController{
             let authDetails = AWSCognitoIdentityPasswordAuthenticationDetails(username: self.txtUsername.text!, password: self.txtPassword.text!)
             
             self.passwordAuthenticationCompletion?.set(result: authDetails)
-            SVProgressHUD.dismiss()
             
         }else{
             let alertController = UIAlertController(title: "", message: "invalid username", preferredStyle: .alert)
@@ -61,17 +60,22 @@ extension LoginViewController: AWSCognitoIdentityPasswordAuthentication {
         DispatchQueue.main.async {
             if let error = error as NSError? {
                 print(error)
-                let alertController = UIAlertController(title: error.userInfo["__type"] as? String,
-                                                        message: error.userInfo["message"] as? String,
+                let title = error.userInfo["__type"] as? String
+                let message = error.userInfo["message"] as? String
+                let alertController = UIAlertController(title: title,
+                                                        message: message,
                                                         preferredStyle: .alert)
                 let retryAction = UIAlertAction(title: "Retry", style: .default, handler: nil)
                 alertController.addAction(retryAction)
                 
                 self.present(alertController, animated: true, completion:  nil)
+                
             } else {
                 self.txtUsername.text = nil
                 self.dismiss(animated: true, completion: nil)
             }
+            
+            SVProgressHUD.dismiss()
         }
     }
 }

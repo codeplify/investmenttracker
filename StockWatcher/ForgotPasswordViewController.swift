@@ -29,6 +29,7 @@ class ForgotPasswordViewController: UIViewController {
     }
     
     @IBAction func btnForgotPassword(_ sender: Any) {
+        
         guard let username = self.txtEmailAddress.text, !username.isEmpty else {
             
             let alertController = UIAlertController(title: "Missing UserName",

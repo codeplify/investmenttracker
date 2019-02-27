@@ -43,6 +43,12 @@ class SignUpViewController: UIViewController {
             attributes.append(email!)
         }
         
+        let access = AWSCognitoIdentityUserAttributeType()
+        access?.name = "profile"
+        access?.value = "free"
+        attributes.append(access!)
+        
+        
         self.pool?.signUp(txtEmail.text!, password: txtPassword.text!, userAttributes: attributes, validationData: nil).continueWith{
             [weak self] (task) -> Any? in
             
@@ -53,6 +59,9 @@ class SignUpViewController: UIViewController {
                     SVProgressHUD.dismiss()
                     
                     let alert = UIAlertController(title: "", message: "Error: \(error)", preferredStyle: .alert)
+                    let okAlert = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
+                    
+                    alert.addAction(okAlert)
                     self!.present(alert, animated: true)
                     
                 }else if let result = task.result {

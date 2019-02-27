@@ -6,11 +6,13 @@ PODS:
     - AWSCore (= 2.6.32)
   - AWSCognitoIdentityProviderASF (1.0.1)
   - AWSCore (2.6.32)
+  - ReachabilitySwift (4.3.0)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - AWSCognito
   - AWSCognitoIdentityProvider
+  - ReachabilitySwift
   - SVProgressHUD (~> 2.2)
 
 SPEC CHECKSUMS:
@@ -18,8 +20,9 @@ SPEC CHECKSUMS:
   AWSCognitoIdentityProvider: 1ac74ed3ddc96a1e072868c10d43f8630eebdfed
   AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
   AWSCore: bfb49938a3a4eb190bc68edf1fa9e90969de8fa2
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 30e15306e14b394bdcdc305a0f69d719d7c30144
+PODFILE CHECKSUM: c7a0a7fd6efba2cde0e1c1b391cc42690789f3f2
 
 COCOAPODS: 1.3.1
