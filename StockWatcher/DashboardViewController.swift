@@ -52,7 +52,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
         bannerView = GADBannerView(adSize: kGADAdSizeBanner)
         addBannerViewToView(bannerView)
         
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = AdManager.test.banner
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self

@@ -32,6 +32,7 @@
 		D6BF712A221985940043CC72 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF7129221985940043CC72 /* ConfirmViewController.swift */; };
 		D6C64D85220847CB00FDB013 /* PortfolioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */; };
 		D6D1518622157ED000D9EFC3 /* CognitoConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D6D1518522157ED000D9EFC3 /* CognitoConfig.plist */; };
+		D6DB09DC22267D8D00AD2C6F /* AdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DB09DB22267D8D00AD2C6F /* AdManager.swift */; };
 		D6DB35D42214302100B67072 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DB35D32214302100B67072 /* LoginViewController.swift */; };
 		D6DB35D622143E0700B67072 /* UserAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DB35D522143E0700B67072 /* UserAccess.swift */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,7 @@
 		D6BF7129221985940043CC72 /* ConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
 		D6C64D84220847CB00FDB013 /* PortfolioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortfolioViewController.swift; sourceTree = "<group>"; };
 		D6D1518522157ED000D9EFC3 /* CognitoConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = CognitoConfig.plist; sourceTree = "<group>"; };
+		D6DB09DB22267D8D00AD2C6F /* AdManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdManager.swift; sourceTree = "<group>"; };
 		D6DB35D32214302100B67072 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D6DB35D522143E0700B67072 /* UserAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccess.swift; sourceTree = "<group>"; };
 		DD7D4F9CB0997D575D059F80 /* Pods_StockWatcher.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_StockWatcher.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -181,6 +183,7 @@
 			children = (
 				D6BDDBD8221195A600D324BF /* UtilityHelper.swift */,
 				D67B30272226689D00ED17A8 /* NetworkManager.swift */,
+				D6DB09DB22267D8D00AD2C6F /* AdManager.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				D63F32EB2206CDEE00B719AA /* WatchlistPresenter.swift in Sources */,
 				D6246110222035210060EAFF /* ForgotPasswordViewController.swift in Sources */,
 				D683DBA121F84C0A0091B4ED /* XStockDBModel.xcdatamodeld in Sources */,
+				D6DB09DC22267D8D00AD2C6F /* AdManager.swift in Sources */,
 				171E0C7E1B8E5B84001E6242 /* AppDelegate.swift in Sources */,
 				D66349C122071F1B009EF321 /* PortfolioPresenter.swift in Sources */,
 			);
