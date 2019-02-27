@@ -1,13 +1,14 @@
 import UIKit
 import CoreData
 import AWSCognitoIdentityProvider
+import GoogleMobileAds
 
 class PortfolioTableViewCell : UITableViewCell {
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblAmount: UILabel!
 }
 
-class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GADInterstitialDelegate {
     
  //TODO:- transfer code using didSet to MonitorViewController
  @IBOutlet weak var btnInvest: UIButton!
@@ -26,6 +27,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
  @IBOutlet weak var labelDesignProfit: UILabel!
  @IBOutlet weak var labelStockOwn: UILabel!
     
+ var intertitial: GADInterstitial!
  var ps:[Portfolio] = [Portfolio]()
  var isWatched = false
  var presenter: WatchlistPresenter?
@@ -91,6 +93,14 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     tableView.dataSource = self
     tableView.delegate = self
     configureView()
+    
+    //Load Ads
+    
+    //Intertitial
+    intertitial = GADInterstitial(adUnitID: AdManager.test.interstitial)
+    let request = GADRequest()
+    intertitial.load(request)
+    intertitial.delegate = self
   }
     
   override func viewWillAppear(_ animated: Bool) {
@@ -104,6 +114,11 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
   @IBAction func btnWatchTapped(_ sender: UIButton) {
         if (self.presenter?.search(code: detailCandy!.name))! {
             self.presenter?.save(stock: detailCandy!)
+            
+            if intertitial.isReady {
+                intertitial.present(fromRootViewController: self)
+            }
+            
         }
   }
     
@@ -253,6 +268,38 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+}
+
+extension DetailViewController{
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        print("interstitialDidReceiveAd")
+    }
+    
+    /// Tells the delegate an ad request failed.
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        print("interstitial:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+    /// Tells the delegate that an interstitial will be presented.
+    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
+        print("interstitialWillPresentScreen")
+    }
+    
+    /// Tells the delegate the interstitial is to be animated off the screen.
+    func interstitialWillDismissScreen(_ ad: GADInterstitial) {
+        print("interstitialWillDismissScreen")
+    }
+    
+    /// Tells the delegate the interstitial had been animated off the screen.
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        print("interstitialDidDismissScreen")
+    }
+    
+    /// Tells the delegate that a user click will open another app
+    /// (such as the App Store), backgrounding the current app.
+    func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
+        print("interstitialWillLeaveApplication")
+    }
 }
 
 extension DetailViewController: WatchlistDelegate {
