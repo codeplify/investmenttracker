@@ -29,7 +29,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
     var response: AWSCognitoIdentityUserGetDetailsResponse?
     var ps:[Portfolio] = [Portfolio]()
     
-    let network: NetworkManager = NetworkManager.sharedInstance
+
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -49,34 +49,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
         self.searchP()
         self.refresh()
         
-        checkNetworkConnectivity()
+        //checkNetworkConnectivity()
     }
     
-    func checkNetworkConnectivity(){
-        NetworkManager.isUnreachable { _ in
-            print("Network manager is unreachable...")
-            let alert = UIAlertController(title: "Unable to connect", message: "Please check your internet connectivity", preferredStyle: .alert)
-            
-            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
-            self.present(alert, animated: true)
-        }
-        
-        NetworkManager.isReachable { _ in
-            print("Network is reachable")
-           
-        }
-        
-        network.reachability.whenReachable = { _ in
-            print("Network connectivity success")
-           
-        }
-        
-        network.reachability.whenUnreachable = {
-            _ in
-            print("Network connectivity failed")
-           
-        }
-    }
+   
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
