@@ -11,5 +11,6 @@ target 'StockWatcher' do
   pod 'AWSCognitoIdentityProvider'
   pod 'SVProgressHUD', '~> 2.2'
   pod 'ReachabilitySwift'
+  pod 'Google-Mobile-Ads-SDK'
 
 end

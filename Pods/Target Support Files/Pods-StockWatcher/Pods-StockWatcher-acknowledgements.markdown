@@ -21,6 +21,10 @@ The AWS Mobile SDK for iOS is generally licensed under the Apache 2.0 License, w
 The AWS Mobile SDK for iOS is generally licensed under the Apache 2.0 License, with the Amazon Cognito Identity Provider and Amazon Cognito Sync subcomponents being licensed under the Amazon Software License and the AWSLex/Bluefront folder under the AWS Customer Agreement (https://aws.amazon.com/agreement/ ). 
 
 
+## Google-Mobile-Ads-SDK
+
+Copyright 2018 Google
+
 ## ReachabilitySwift
 
 Copyright (c) 2016 Ashley Mills

@@ -9,11 +9,11 @@
 /**
     TODO:- Add loading current status of invested stocks
     TOFIX:- Back button on detailview fix splitview issue
-    TODO:- Add AdMob
  */
 
 import UIKit
 import AWSCognitoIdentityProvider
+import GoogleMobileAds
 
 class DashboardTableViewCell : UITableViewCell {
     @IBOutlet weak var lblStockCodeD: UILabel!
@@ -22,14 +22,13 @@ class DashboardTableViewCell : UITableViewCell {
     @IBOutlet weak var lblVolumeValue: UILabel!
 }
 
-class DashboardViewController: UIViewController, UITableViewDelegate , UITableViewDataSource{
+class DashboardViewController: UIViewController, UITableViewDelegate , UITableViewDataSource, GADBannerViewDelegate{
 
     var user: AWSCognitoIdentityUser?
     var pool: AWSCognitoIdentityUserPool?
     var response: AWSCognitoIdentityUserGetDetailsResponse?
     var ps:[Portfolio] = [Portfolio]()
-    
-
+    var bannerView: GADBannerView!
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -49,11 +48,16 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
         self.searchP()
         self.refresh()
         
-        //checkNetworkConnectivity()
+        //Adview
+        bannerView = GADBannerView(adSize: kGADAdSizeBanner)
+        addBannerViewToView(bannerView)
+        
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        bannerView.delegate = self
     }
-    
    
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("ps count \(stocks.count)")
@@ -258,4 +262,29 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
      task.resume()
      */
 
+}
+
+extension DashboardViewController {
+    
+    //AdBanner
+    func addBannerViewToView(_ bannerView: GADBannerView) {
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints(
+            [NSLayoutConstraint(item: bannerView,
+                                attribute: .bottom,
+                                relatedBy: .equal,
+                                toItem: bottomLayoutGuide,
+                                attribute: .top,
+                                multiplier: 1,
+                                constant: 0),
+             NSLayoutConstraint(item: bannerView,
+                                attribute: .centerX,
+                                relatedBy: .equal,
+                                toItem: view,
+                                attribute: .centerX,
+                                multiplier: 1,
+                                constant: 0)
+            ])
+    }
 }

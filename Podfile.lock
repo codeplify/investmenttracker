@@ -6,12 +6,14 @@ PODS:
     - AWSCore (= 2.6.32)
   - AWSCognitoIdentityProviderASF (1.0.1)
   - AWSCore (2.6.32)
+  - Google-Mobile-Ads-SDK (7.35.0)
   - ReachabilitySwift (4.3.0)
   - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - AWSCognito
   - AWSCognitoIdentityProvider
+  - Google-Mobile-Ads-SDK
   - ReachabilitySwift
   - SVProgressHUD (~> 2.2)
 
@@ -20,9 +22,10 @@ SPEC CHECKSUMS:
   AWSCognitoIdentityProvider: 1ac74ed3ddc96a1e072868c10d43f8630eebdfed
   AWSCognitoIdentityProviderASF: f94f1a502e72ef3d0a1de93e10bf7a79c8698118
   AWSCore: bfb49938a3a4eb190bc68edf1fa9e90969de8fa2
+  Google-Mobile-Ads-SDK: bf5cc062e45dae8ee6a81cadfd3aa19d45cc6723
   ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: c7a0a7fd6efba2cde0e1c1b391cc42690789f3f2
+PODFILE CHECKSUM: 4c3ade4772d5903dce32ba651187e85f78664558
 
 COCOAPODS: 1.3.1
