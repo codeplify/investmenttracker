@@ -88,6 +88,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.allVisible
+    
     self.presenter = WatchlistPresenter(delegate: self as WatchlistDelegate)
     
     tableView.dataSource = self
@@ -101,6 +103,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let request = GADRequest()
     intertitial.load(request)
     intertitial.delegate = self
+    
+    
+    
   }
     
   override func viewWillAppear(_ animated: Bool) {
@@ -121,6 +126,11 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         }
   }
+    
+    
+    @IBAction func btnCancelViewConroller(_ sender: Any) {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
     
     
   @IBAction func btnInvestTapped(_ sender: UIButton) {

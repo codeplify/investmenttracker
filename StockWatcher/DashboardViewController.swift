@@ -179,7 +179,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
   
             UISearchBar.appearance().tintColor = .candyGreen
             UINavigationBar.appearance().tintColor = .candyGreen
-            
+            print("This navigation has been triggered...")
             navigationController?.pushViewController(masterViewController, animated: true)
         }
     }

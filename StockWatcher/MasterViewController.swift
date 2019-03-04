@@ -3,6 +3,7 @@ import UIKit
 import AWSCognitoIdentityProvider
 import SVProgressHUD
 
+//TODO:- Fix loading when stuck in downloading of stocks in dashboard
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UISplitViewControllerDelegate{
   
@@ -46,6 +47,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         print("splitview controller is not null")
     }
+    
+    
     
   }
     
@@ -282,10 +285,14 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
         return cell
     }
+    
+
 
   
   // MARK: - Segues
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    print("print segue... \(segue.identifier)")
     if segue.identifier == "showDetail" {
       if let indexPath = tableView.indexPathForSelectedRow {
         let candy: Candy
