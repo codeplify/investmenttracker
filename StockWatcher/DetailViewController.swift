@@ -129,7 +129,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     @IBAction func btnCancelViewConroller(_ sender: Any) {
-        self.navigationController?.popToRootViewController(animated: true)
+        //self.navigationController?.popToRootViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     

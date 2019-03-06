@@ -48,7 +48,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         print("splitview controller is not null")
     }
     
-    
+    navigationItem.backBarButtonItem?.tintColor = .candyGreen
     
   }
     

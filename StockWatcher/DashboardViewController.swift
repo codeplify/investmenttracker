@@ -60,10 +60,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
     
     override func viewDidAppear(_ animated: Bool) {
         print("view did appear load...r")
-        
         self.searchP()
-        
-        
     }
    
     
