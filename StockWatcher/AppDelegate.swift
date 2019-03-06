@@ -12,6 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,  AWSCognitoIdentityIntera
   var storyboard: UIStoryboard?
   var rememberDeviceCompletionSource: AWSTaskCompletionSource<NSNumber>?
   let network: NetworkManager = NetworkManager.sharedInstance
+  var connectivityStatus:Bool = true
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
@@ -33,27 +34,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate,  AWSCognitoIdentityIntera
     
     func checkNetworkConnectivity(){
         NetworkManager.isUnreachable { _ in
-            print("Network manager is unreachable...")
-           
+            self.connectivityStatus = false
         }
         
         NetworkManager.isReachable { _ in
             print("Network is reachable")
-            
         }
         
         network.reachability.whenReachable = { _ in
             print("Network connectivity success")
-            
         }
         
         network.reachability.whenUnreachable = {
             _ in
+            
+            //TODO:- Check view has been loaded...
+            
             print("Network connectivity failed")
             let alert = UIAlertController(title: "Unable to connect", message: "Please check your internet connectivity", preferredStyle: .alert)
             
             alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-            self.window?.rootViewController?.present(alert, animated: true, completion: nil)
+            //self.window?.rootViewController?.present(alert, animated: true, completion: nil)
         }
     }
     
