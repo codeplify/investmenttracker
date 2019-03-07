@@ -553,6 +553,14 @@
                                         <state key="normal" title="Cancel">
                                             <color key="titleColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="btnCancelViewConroller:" destination="JEX-9P-axG" eventType="touchUpInside" id="Bfe-DF-S2n"/>
                                             <action selector="btnLogoutPressed:" destination="JEX-9P-axG" eventType="touchUpInside" id="zJg-f4-RHz"/>

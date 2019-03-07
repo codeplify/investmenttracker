@@ -153,6 +153,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
         self.refresh()
     }
     
+    //TODO:- Work on segue to detect internet connectivity..
     
     @IBAction func btnPortfolioPressed(_ sender: Any) {
         
