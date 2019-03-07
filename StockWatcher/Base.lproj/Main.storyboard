@@ -515,7 +515,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="TGC-Kb-QAq">
-                                <rect key="frame" x="10" y="535" width="355" height="112"/>
+                                <rect key="frame" x="10" y="573" width="355" height="74"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkZ-ES-WCA">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="30"/>
@@ -548,25 +548,6 @@
                                             <action selector="btnWatchTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="HsP-gG-nkl"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DTK-sP-tDA">
-                                        <rect key="frame" x="153.5" y="82" width="48" height="30"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="btnCancelViewConroller:" destination="JEX-9P-axG" eventType="touchUpInside" id="Bfe-DF-S2n"/>
-                                            <action selector="btnLogoutPressed:" destination="JEX-9P-axG" eventType="touchUpInside" id="zJg-f4-RHz"/>
-                                            <segue destination="RMx-3f-FxP" kind="show" id="4WG-Ec-2bC"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="vte-Mb-WUF" secondAttribute="trailing" id="IRz-8n-9f1"/>
@@ -578,7 +559,7 @@
                                 </constraints>
                             </stackView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kYN-FC-DlM">
-                                <rect key="frame" x="16" y="283" width="343" height="242"/>
+                                <rect key="frame" x="16" y="321" width="343" height="242"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="242" id="wdb-fQ-XsL"/>
@@ -590,19 +571,20 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f5c-9B-IoJ">
                                             <rect key="frame" x="8" y="12" width="33" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cto-vi-PkU">
-                                            <rect key="frame" x="283" y="12" width="54" height="18"/>
+                                            <rect key="frame" x="283" y="12" width="56" height="18"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" rowHeight="55" id="aPX-1p-Xke" customClass="PortfolioTableViewCell" customModule="StockWatcher" customModuleProvider="target">
@@ -660,11 +642,15 @@
                         <barButtonItem key="leftBarButtonItem" title="Back" id="j6b-OZ-Q0b">
                             <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Exit" id="QXQ-lD-orG">
+                            <connections>
+                                <action selector="doExitDetailTapped:" destination="JEX-9P-axG" id="YeC-3G-l0j"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="btnInvest" destination="BlV-bE-1Lk" id="VGH-Pw-HYK"/>
-                        <outlet property="btnLogout" destination="DTK-sP-tDA" id="vaQ-RT-k3W"/>
                         <outlet property="btnUnWatchButton" destination="ZkZ-ES-WCA" id="MVZ-Nz-fuR"/>
                         <outlet property="btnWatchButton" destination="vte-Mb-WUF" id="6eo-OH-4i4"/>
                         <outlet property="detailDescriptionLabel" destination="jTl-4A-YZp" id="OV0-b4-vM9"/>
@@ -1087,7 +1073,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="3" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jKh-E9-xjx">
-                                <rect key="frame" x="30" y="197" width="315" height="223"/>
+                                <rect key="frame" x="30" y="153" width="315" height="267"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellDashboard" rowHeight="71" id="ZZe-hC-srb" customClass="DashboardTableViewCell" customModule="StockWatcher" customModuleProvider="target">
@@ -1237,7 +1223,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="AhB-Av-CTX"/>
         <segue reference="q9E-Xa-mX4"/>
-        <segue reference="4WG-Ec-2bC"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
