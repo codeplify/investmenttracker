@@ -1073,21 +1073,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="3" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jKh-E9-xjx">
-                                <rect key="frame" x="30" y="153" width="315" height="267"/>
+                                <rect key="frame" x="30" y="197" width="315" height="223"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellDashboard" rowHeight="71" id="ZZe-hC-srb" customClass="DashboardTableViewCell" customModule="StockWatcher" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="315" height="71"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZZe-hC-srb" id="ahg-p7-Lrh">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZZe-hC-srb" id="ahg-p7-Lrh">
                                             <rect key="frame" x="0.0" y="0.0" width="315" height="70.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="up-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="21I-pZ-5cz">
-                                                    <rect key="frame" x="252" y="38" width="25" height="20"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="up-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="21I-pZ-5cz">
+                                                    <rect key="frame" x="263" y="38" width="14" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XqL-Is-wRz">
-                                                    <rect key="frame" x="32" y="37" width="116" height="15"/>
+                                                    <rect key="frame" x="32" y="37.5" width="116" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="116" id="htv-OC-l7q"/>
                                                         <constraint firstAttribute="height" constant="15" id="zZ2-1p-fkw"/>
@@ -1097,27 +1098,26 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2t8-pO-k8V">
-                                                    <rect key="frame" x="32" y="55" width="42" height="21"/>
+                                                    <rect key="frame" x="32" y="55.5" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBT-qL-NL7">
-                                                    <rect key="frame" x="212" y="34" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fBT-qL-NL7">
+                                                    <rect key="frame" x="213" y="34.5" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="fBT-qL-NL7" firstAttribute="centerY" secondItem="XqL-Is-wRz" secondAttribute="centerY" id="2DU-b9-W83"/>
                                                 <constraint firstItem="2t8-pO-k8V" firstAttribute="top" secondItem="XqL-Is-wRz" secondAttribute="bottom" constant="3" id="AP4-hr-XV0"/>
                                                 <constraint firstItem="XqL-Is-wRz" firstAttribute="top" secondItem="ahg-p7-Lrh" secondAttribute="topMargin" constant="26" id="Ejx-aj-9Rz"/>
-                                                <constraint firstAttribute="trailing" secondItem="21I-pZ-5cz" secondAttribute="trailing" constant="38" id="Fd2-Ql-Mtc"/>
-                                                <constraint firstItem="21I-pZ-5cz" firstAttribute="centerY" secondItem="ahg-p7-Lrh" secondAttribute="centerY" id="IcO-Dj-lxq"/>
                                                 <constraint firstItem="XqL-Is-wRz" firstAttribute="leading" secondItem="ahg-p7-Lrh" secondAttribute="leadingMargin" constant="17" id="IgQ-nn-ekJ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="fBT-qL-NL7" secondAttribute="trailing" constant="45" id="RGA-1y-vgT"/>
                                                 <constraint firstItem="XqL-Is-wRz" firstAttribute="centerY" secondItem="ahg-p7-Lrh" secondAttribute="centerY" id="UlI-tc-E5C"/>
                                                 <constraint firstItem="2t8-pO-k8V" firstAttribute="leading" secondItem="ahg-p7-Lrh" secondAttribute="leading" constant="32" id="aAm-nu-ndp"/>
-                                                <constraint firstItem="21I-pZ-5cz" firstAttribute="leading" secondItem="fBT-qL-NL7" secondAttribute="trailing" constant="8" id="hw9-WZ-Oij"/>
                                                 <constraint firstItem="fBT-qL-NL7" firstAttribute="centerY" secondItem="ahg-p7-Lrh" secondAttribute="centerY" id="uXc-wh-TeE"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1144,6 +1144,11 @@
                                 <state key="normal" title="Stocks" image="search">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="btnPortfolioPressed:" destination="eU1-n1-wde" eventType="touchUpInside" id="069-pl-nwb"/>
                                     <segue destination="H1p-Uh-vWS" kind="push" identifier="segueToStocks" id="ibl-Hx-7XA"/>
@@ -1221,6 +1226,7 @@
         <image name="up-arrow" width="15" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="ibl-Hx-7XA"/>
         <segue reference="AhB-Av-CTX"/>
         <segue reference="q9E-Xa-mX4"/>
     </inferredMetricsTieBreakers>
