@@ -45,7 +45,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     if let splitViewController = splitViewController {
         let controllers = splitViewController.viewControllers
         detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-        print("splitview controller is not null")
     }
     
     navigationItem.backBarButtonItem?.tintColor = .candyGreen
