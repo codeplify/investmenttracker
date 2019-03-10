@@ -187,6 +187,10 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                     return doesCategoryMatch && candy.name.lowercased().contains(searchText.lowercased())
                 }
             })
+            
+            if searchController.searchBar.selectedScopeButtonIndex == 0 {
+                tableView.restore()
+            }
             print("selected scope \(searchController.searchBar.selectedScopeButtonIndex)")
         }
         
