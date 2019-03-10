@@ -26,7 +26,7 @@ class LoginViewController: UIViewController{
     }
     
     @IBAction func btnLogin(_ sender: UIButton) {
-        
+        //TODO:- Check Internet Connectivity here...
         SVProgressHUD.show(withStatus: "Signing in...")
         if self.txtUsername.text != nil && self.txtPassword.text != nil {
             let authDetails = AWSCognitoIdentityPasswordAuthenticationDetails(username: self.txtUsername.text!, password: self.txtPassword.text!)

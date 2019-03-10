@@ -1073,7 +1073,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="3" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jKh-E9-xjx">
-                                <rect key="frame" x="30" y="197" width="315" height="223"/>
+                                <rect key="frame" x="30" y="153" width="315" height="267"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellDashboard" rowHeight="71" id="ZZe-hC-srb" customClass="DashboardTableViewCell" customModule="StockWatcher" customModuleProvider="target">
@@ -1190,6 +1190,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="QJ0-RV-wSz">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.18659984760000001" green="0.52149428929999997" blue="0.062088875029999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -1220,15 +1223,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Inline-Logo" width="192" height="192"/>
-        <image name="main_logo" width="277" height="87"/>
-        <image name="search" width="48" height="48"/>
-        <image name="up-arrow" width="24" height="24"/>
+        <image name="Inline-Logo" width="240" height="240"/>
+        <image name="main_logo" width="138" height="43"/>
+        <image name="search" width="30" height="30"/>
+        <image name="up-arrow" width="15" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ibl-Hx-7XA"/>
         <segue reference="AhB-Av-CTX"/>
         <segue reference="q9E-Xa-mX4"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" red="0.18659984760000001" green="0.52149428929999997" blue="0.062088875029999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
 </document>

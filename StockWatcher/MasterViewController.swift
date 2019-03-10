@@ -48,7 +48,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     navigationItem.backBarButtonItem?.tintColor = .candyGreen
-    
   }
     
     func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
@@ -63,7 +62,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     
   func loadStocks(){
     SVProgressHUD.show(withStatus: "Loading stocks...")
-        guard let url = URL(string: "http://phisix-api4.appspot.com/stocks.json")else {return}
+        guard let url = URL(string: pseStocksLink)else {return}
         
         let task = URLSession.shared.dataTask(with: url){data,response,error in
             guard let dataResponse = data,error == nil else{
