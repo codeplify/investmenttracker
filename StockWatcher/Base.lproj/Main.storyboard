@@ -1073,7 +1073,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="3" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jKh-E9-xjx">
-                                <rect key="frame" x="30" y="153" width="315" height="267"/>
+                                <rect key="frame" x="30" y="197" width="315" height="223"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellDashboard" rowHeight="71" id="ZZe-hC-srb" customClass="DashboardTableViewCell" customModule="StockWatcher" customModuleProvider="target">
@@ -1150,8 +1150,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="btnPortfolioPressed:" destination="eU1-n1-wde" eventType="touchUpInside" id="069-pl-nwb"/>
-                                    <segue destination="H1p-Uh-vWS" kind="push" identifier="segueToStocks" id="ibl-Hx-7XA"/>
+                                    <segue destination="H1p-Uh-vWS" kind="show" identifier="segueToStocks" id="GIN-dn-vTL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1229,6 +1228,7 @@
         <image name="up-arrow" width="15" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="GIN-dn-vTL"/>
         <segue reference="AhB-Av-CTX"/>
         <segue reference="q9E-Xa-mX4"/>
     </inferredMetricsTieBreakers>

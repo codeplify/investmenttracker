@@ -50,7 +50,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     navigationItem.backBarButtonItem?.tintColor = .candyGreen
   }
     
-    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
+  func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
         guard let secondaryAsNavController = secondaryViewController as? UINavigationController else { return false }
         guard let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController else { return false }
         if topAsDetailController.detailCandy == nil {
@@ -58,7 +58,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             return true
         }
         return false
-    }
+  }
     
   func loadStocks(){
     SVProgressHUD.show(withStatus: "Loading stocks...")
@@ -67,11 +67,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         let task = URLSession.shared.dataTask(with: url){data,response,error in
             guard let dataResponse = data,error == nil else{
                 print(error?.localizedDescription ?? "Response Error")
+                SVProgressHUD.dismiss()
                 return
             }
             
             guard let rootJSON = try? JSONSerialization.jsonObject(with: dataResponse, options: []) else {
                 print("failed")
+                SVProgressHUD.dismiss()
                 return
             }
             
@@ -156,6 +158,15 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                         return $0
                     }
                 
+                if temp.count == 0 && searchController.searchBar.selectedScopeButtonIndex == 0 {
+                    tableView.setEmptyView(title: "Empty Watchlist", message: "Your watchlist is empty you can search from list of stocks from All segments")
+                }else{
+                    print("else has value")
+                    tableView.restore()
+                }
+                
+                print("selected scope \(searchController.searchBar.selectedScopeButtonIndex)")
+                
                     filteredCandies.removeAll()
                     filteredCandies = temp
             }catch let error as NSError {
@@ -176,6 +187,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                     return doesCategoryMatch && candy.name.lowercased().contains(searchText.lowercased())
                 }
             })
+            print("selected scope \(searchController.searchBar.selectedScopeButtonIndex)")
         }
         
         if(scope == "Portfolio"){
@@ -193,7 +205,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
             var stock2 :[NSManagedObject] = []
             do{
                 stock2 = try managedContext.fetch(fetchRequest)
-                print("Stock Count => \(stocks.count)")
+                print("Stock Count Port=> \(stocks.count)")
+                
                 temp2.removeAll()
                 filteredCandies = candies.map {
                     for s in stocks{
@@ -208,6 +221,15 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                         }
                     }
                     return $0
+                }
+                
+                print("selected scope \(searchController.searchBar.selectedScopeButtonIndex)")
+                
+                if temp2.count == 0 && searchController.searchBar.selectedScopeButtonIndex == 1 {
+                    print("empty portfolio")
+                    tableView.setEmptyView(title: "Empty Portfolio", message: "You have no investment yet.")
+                }else{
+                    tableView.backgroundView = nil
                 }
                 
                 filteredCandies.removeAll()
@@ -227,11 +249,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     }
   
   override func viewWillAppear(_ animated: Bool) {
-//    if splitViewController!.isCollapsed {
       if let selectionIndexPath = self.tableView.indexPathForSelectedRow {
         self.tableView.deselectRow(at: selectionIndexPath, animated: animated)
       }
-//    }
     super.viewWillAppear(animated)
   }
   

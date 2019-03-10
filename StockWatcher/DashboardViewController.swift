@@ -6,10 +6,6 @@
 //  Copyright © 2019 Loey Agdan. All rights reserved.
 //
 
-/**
-    TOFIX:- Back button on detailview fix splitview issue
- */
-
 import UIKit
 import AWSCognitoIdentityProvider
 import GoogleMobileAds
@@ -51,18 +47,15 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
         bannerView.delegate = self
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        print("view did appear load...r")
         self.searchP()
     }
    
     
-    
-    
     var stocks: [NSManagedObject] = []
-    
     func searchP(){
         
         SVProgressHUD.show(withStatus: "Loading stocks...")
@@ -71,7 +64,6 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
         let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
        
-        
         do{
             stocks = try managedContext.fetch(fetchRequest)
             
@@ -103,7 +95,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
                 
                 }else{
                     SVProgressHUD.dismiss()
-                    tableView.backgroundView = nil
+                    tableView.setEmptyView(title: "Empty Watchlist", message: "Press search stocks")
                 }
             }catch let error as NSError {
                 let alert = UIAlertController(title: "", message: "Error getting stocks", preferredStyle: .alert)
@@ -122,7 +114,11 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
     //TODO:- Work on segue to detect internet connectivity..
     
     @IBAction func btnPortfolioPressed(_ sender: Any) {
-        
+        if appDelegate?.connectivityStatus == true{
+            
+        }else{
+            print("no network detected...")
+        }
     }
     
     func refresh() {
@@ -138,20 +134,24 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "segueToStocks"  {
             
-            guard let splitViewController = segue.destination as? UISplitViewController,
-                let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
-                let masterViewController = leftNavController.topViewController as? MasterViewController,
-                let rightNavController = splitViewController.viewControllers.last as? UINavigationController,
-                let detailViewController = rightNavController.topViewController as? DetailViewController
-                else { fatalError() }
-            
-            masterViewController.navigationItem.leftItemsSupplementBackButton = true
-            masterViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
-  
-            UISearchBar.appearance().tintColor = .candyGreen
-            UINavigationBar.appearance().tintColor = .candyGreen
-            print("This navigation has been triggered...")
-            navigationController?.pushViewController(masterViewController, animated: true)
+            if appDelegate?.connectivityStatus == true {
+                
+                guard let splitViewController = segue.destination as? UISplitViewController,
+                    let leftNavController = splitViewController.viewControllers.first as? UINavigationController,
+                    let masterViewController = leftNavController.topViewController as? MasterViewController,
+                    let rightNavController = splitViewController.viewControllers.last as? UINavigationController,
+                    let detailViewController = rightNavController.topViewController as? DetailViewController
+                    else { fatalError() }
+                
+                masterViewController.navigationItem.leftItemsSupplementBackButton = true
+                masterViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem
+      
+                UISearchBar.appearance().tintColor = .candyGreen
+                UINavigationBar.appearance().tintColor = .candyGreen
+                navigationController?.pushViewController(masterViewController, animated: true)
+            }else{
+                print("error on connectiviy")
+            }
         }
     }
     
@@ -207,13 +207,19 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
 }
 
 //tableview
-
+let appDelegate = UIApplication.shared.delegate as? AppDelegate
 extension DashboardViewController {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("ps count \(stocks.count)")
         
+        //TODO:- Check internet connectivity here...
+       
         if ps.count == 0 {
-            tableView.setEmptyView(title: "Empty Watchlist", message: "Search from the list of stocks")
+            print("ps count \(ps.count)")
+            if appDelegate?.connectivityStatus == true {
+                tableView.setEmptyView(title: "Empty Watchlist", message: "No network access")
+            }else{
+                 tableView.setEmptyView(title: "Empty Watchlist", message: "Search from the list of stocks")
+            }
         }else{
             tableView.restore()
         }
@@ -274,57 +280,42 @@ extension UITableView {
         let emptyView = UIView(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height))
         
         let titleLabel = UILabel()
-        
         let messageLabel = UILabel()
         
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
         
         titleLabel.textColor = UIColor.black
-        
         titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
         
         messageLabel.textColor = UIColor.lightGray
-        
         messageLabel.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
         
         emptyView.addSubview(titleLabel)
-        
         emptyView.addSubview(messageLabel)
         
         titleLabel.centerYAnchor.constraint(equalTo: emptyView.centerYAnchor).isActive = true
-        
         titleLabel.centerXAnchor.constraint(equalTo: emptyView.centerXAnchor).isActive = true
         
         messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
-        
         messageLabel.leftAnchor.constraint(equalTo: emptyView.leftAnchor, constant: 20).isActive = true
-        
         messageLabel.rightAnchor.constraint(equalTo: emptyView.rightAnchor, constant: -20).isActive = true
         
         titleLabel.text = title
-        
         messageLabel.text = message
-        
         messageLabel.numberOfLines = 0
-        
         messageLabel.textAlignment = .center
         
         // The only tricky part is here:
         
         self.backgroundView = emptyView
-        
         self.separatorStyle = .none
         
     }
     
     func restore() {
-        
         self.backgroundView = nil
-        
         self.separatorStyle = .singleLine
-        
     }
     
 }
