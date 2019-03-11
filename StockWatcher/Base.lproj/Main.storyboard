@@ -25,7 +25,8 @@
                                 <rect key="frame" x="118.5" y="84" width="138" height="43"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kTJ-GP-6Ky">
-                                <rect key="frame" x="130" y="359" width="115" height="30"/>
+                                <rect key="frame" x="128.5" y="369" width="118" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <state key="normal" title="Forgot Password">
                                     <color key="titleColor" red="0.32867060599999998" green="0.61464927810000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
@@ -33,29 +34,29 @@
                                     <segue destination="JWr-Ew-Lab" kind="show" id="g4B-gT-SrG"/>
                                 </connections>
                             </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="HYb-EB-ao6">
-                                <rect key="frame" x="35" y="157" width="305" height="129"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="HYb-EB-ao6">
+                                <rect key="frame" x="35" y="152" width="305" height="144"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNq-Vh-7MK">
                                         <rect key="frame" x="0.0" y="0.0" width="305" height="19.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MJV-Jv-oCI">
-                                        <rect key="frame" x="0.0" y="29.5" width="305" height="30"/>
+                                        <rect key="frame" x="0.0" y="34.5" width="305" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" textContentType="email"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4o7-St-MDs">
-                                        <rect key="frame" x="0.0" y="69.5" width="305" height="19.5"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                        <rect key="frame" x="0.0" y="79.5" width="305" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EKr-hb-4fA">
-                                        <rect key="frame" x="0.0" y="99" width="305" height="30"/>
+                                        <rect key="frame" x="0.0" y="114" width="305" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
@@ -63,13 +64,18 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="center" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="8aK-LP-c5U">
-                                <rect key="frame" x="62.5" y="316" width="250" height="30"/>
+                                <rect key="frame" x="62.5" y="326" width="250" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uj2-Gb-3d4">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="30"/>
-                                        <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                         <state key="normal" title="Sign Up"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <segue destination="jbt-ZK-FJz" kind="show" id="WcX-zP-TEG"/>
                                         </connections>
@@ -81,6 +87,11 @@
                                         <state key="normal" title="Login">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="btnLogin:" destination="Hq3-z9-R1O" eventType="touchUpInside" id="Pll-ld-l8b"/>
                                         </connections>
@@ -98,7 +109,7 @@
                             <constraint firstItem="ZMT-eS-a9Y" firstAttribute="centerX" secondItem="AhH-G2-gcu" secondAttribute="centerX" id="6Wy-5t-o7L"/>
                             <constraint firstItem="HYb-EB-ao6" firstAttribute="leading" secondItem="AhH-G2-gcu" secondAttribute="leading" constant="35" id="HMH-iv-fBo"/>
                             <constraint firstItem="kTJ-GP-6Ky" firstAttribute="centerX" secondItem="AhH-G2-gcu" secondAttribute="centerX" id="QgN-fy-Ck8"/>
-                            <constraint firstItem="HYb-EB-ao6" firstAttribute="top" secondItem="ZMT-eS-a9Y" secondAttribute="bottom" constant="30" id="Usn-g1-vBa"/>
+                            <constraint firstItem="HYb-EB-ao6" firstAttribute="top" secondItem="ZMT-eS-a9Y" secondAttribute="bottom" constant="25" id="Usn-g1-vBa"/>
                             <constraint firstItem="ZMT-eS-a9Y" firstAttribute="top" secondItem="pnz-aV-GR6" secondAttribute="bottom" constant="20" id="bfU-o8-OSe"/>
                             <constraint firstAttribute="trailing" secondItem="HYb-EB-ao6" secondAttribute="trailing" constant="35" id="l4J-zg-DV4"/>
                             <constraint firstItem="8aK-LP-c5U" firstAttribute="centerX" secondItem="AhH-G2-gcu" secondAttribute="centerX" id="p5J-d8-tKI"/>
@@ -174,7 +185,14 @@
                                     <constraint firstAttribute="width" constant="125" id="7hw-MO-gfl"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                <state key="normal" title="SignUp"/>
+                                <state key="normal" title="SignUp">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="btnSignUpTapped:" destination="jbt-ZK-FJz" eventType="touchUpInside" id="3HT-NX-FnU"/>
                                 </connections>
@@ -237,7 +255,14 @@
                                     <constraint firstAttribute="width" constant="104" id="svz-dM-I22"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                <state key="normal" title="Confirm"/>
+                                <state key="normal" title="Confirm">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="btnConfirmTapped:" destination="kf7-IR-kk1" eventType="touchUpInside" id="hgZ-gv-0qw"/>
                                 </connections>
@@ -519,8 +544,9 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZkZ-ES-WCA">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                         <color key="tintColor" red="0.047604091469999998" green="0.31373298170000002" blue="0.60789602990000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" title="Unwatched"/>
+                                        <state key="normal" title="Remove Watching"/>
                                         <connections>
                                             <action selector="btnDeleteWatchStock:" destination="JEX-9P-axG" eventType="touchUpInside" id="vbG-oy-INU"/>
                                         </connections>
@@ -533,6 +559,11 @@
                                         <state key="normal" title="Invest">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="btnInvestTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="KC7-9V-FZ9"/>
                                             <action selector="btnWatchTapped:" destination="JEX-9P-axG" eventType="touchUpInside" id="wcm-6V-L6F"/>
@@ -875,7 +906,9 @@
                                 <rect key="frame" x="109" y="211" width="152" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.007405383076290766" green="0.47049060880829019" blue="0.0074864455099750878" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Forgot Password"/>
+                                <state key="normal" title="Forgot Password">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="btnForgotPassword:" destination="JWr-Ew-Lab" eventType="touchUpInside" id="KUV-dv-ZgX"/>
                                 </connections>
@@ -936,7 +969,14 @@
                                 <rect key="frame" x="91" y="282" width="192" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0074053830760000003" green="0.47049060879999999" blue="0.0074864455100000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Change Password"/>
+                                <state key="normal" title="Change Password">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="btnChangedPasswordPressed:" destination="ujD-X7-DHH" eventType="touchUpInside" id="4e2-pa-wNE"/>
                                 </connections>

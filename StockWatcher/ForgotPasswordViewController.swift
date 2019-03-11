@@ -20,6 +20,8 @@ class ForgotPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoSigninProviderKey)
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
