@@ -46,7 +46,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         let controllers = splitViewController.viewControllers
         detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
     }
-    
     navigationItem.backBarButtonItem?.tintColor = .candyGreen
   }
     
@@ -59,6 +58,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         }
         return false
   }
+  
+ //TODO:- Move this MVP pattern
+ //TODO:- Manage Queue and threading
     
   func loadStocks(){
     SVProgressHUD.show(withStatus: "Loading stocks...")
@@ -97,7 +99,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 self.searchController.becomeFirstResponder()
             }
         }
-        
         task.resume()
     }
     

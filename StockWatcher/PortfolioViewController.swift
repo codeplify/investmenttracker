@@ -9,9 +9,7 @@
 import UIKit
 import CoreData
 
-class PortfolioViewController: UIViewController {
-
-    
+class PortfolioViewController: UIViewController {    
     var portfolio: [NSManagedObject] = []
     override func viewDidLoad() {
         super.viewDidLoad()
