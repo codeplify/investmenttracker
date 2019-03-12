@@ -27,6 +27,7 @@
 		D66349C322072127009EF321 /* Portfolio.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66349C222072127009EF321 /* Portfolio.swift */; };
 		D67B30282226689D00ED17A8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67B30272226689D00ED17A8 /* NetworkManager.swift */; };
 		D683DBA121F84C0A0091B4ED /* XStockDBModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D683DB9F21F84C0A0091B4ED /* XStockDBModel.xcdatamodeld */; };
+		D69D52C122376FC100381AEF /* MasterPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69D52C022376FC100381AEF /* MasterPresenter.swift */; };
 		D6BDDBD9221195A600D324BF /* UtilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BDDBD8221195A600D324BF /* UtilityHelper.swift */; };
 		D6BF7128221971D30043CC72 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF7127221971D30043CC72 /* SignUpViewController.swift */; };
 		D6BF712A221985940043CC72 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6BF7129221985940043CC72 /* ConfirmViewController.swift */; };
@@ -61,6 +62,7 @@
 		D66349C222072127009EF321 /* Portfolio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Portfolio.swift; sourceTree = "<group>"; };
 		D67B30272226689D00ED17A8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		D683DBA021F84C0A0091B4ED /* XStockDBModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = XStockDBModel.xcdatamodel; sourceTree = "<group>"; };
+		D69D52C022376FC100381AEF /* MasterPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterPresenter.swift; sourceTree = "<group>"; };
 		D6BDDBD8221195A600D324BF /* UtilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityHelper.swift; sourceTree = "<group>"; };
 		D6BF7127221971D30043CC72 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		D6BF7129221985940043CC72 /* ConfirmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 			children = (
 				D63F32EA2206CDEE00B719AA /* WatchlistPresenter.swift */,
 				D66349C022071F1B009EF321 /* PortfolioPresenter.swift */,
+				D69D52C022376FC100381AEF /* MasterPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 				171E0CAE1B8E5C58001E6242 /* Candy.swift in Sources */,
 				D62461122220353F0060EAFF /* ConfirmForgotPasswordViewController.swift in Sources */,
 				171E0C801B8E5B84001E6242 /* MasterViewController.swift in Sources */,
+				D69D52C122376FC100381AEF /* MasterPresenter.swift in Sources */,
 				D6BF712A221985940043CC72 /* ConfirmViewController.swift in Sources */,
 				D627599421F9992800E8A527 /* MonitorViewController.swift in Sources */,
 				D6DB35D622143E0700B67072 /* UserAccess.swift in Sources */,

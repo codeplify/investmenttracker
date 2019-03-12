@@ -3,7 +3,7 @@ import UIKit
 import AWSCognitoIdentityProvider
 import SVProgressHUD
 
-//TODO:- Fix loading when stuck in downloading of stocks in dashboard
+//TODO:- Fix issues during internet connectivity failure
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UISplitViewControllerDelegate{
   
@@ -11,6 +11,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   @IBOutlet var searchFooter: SearchFooter!
     
   var wpresenter: WatchlistPresenter?
+  var mpresenter: MasterPresenter?
   var detailViewController: DetailViewController? = nil
   var candies = [Candy]()
   var stocks: [NSManagedObject] = []
@@ -25,11 +26,14 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     searchController.searchBar.delegate = self
     tableView.isHidden = false
 
+    self.mpresenter = MasterPresenter(delegate: self)
+    
     DispatchQueue.main.async {
         self.filteredCandies.removeAll()
         self.candies.removeAll()
-        self.loadStocks()
+         self.candies = (self.mpresenter?.loadStocks())!
     }
+    
     
     searchController.searchResultsUpdater = self
     searchController.obscuresBackgroundDuringPresentation = false
@@ -61,48 +65,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   
  //TODO:- Move this MVP pattern
  //TODO:- Manage Queue and threading
-    
-  func loadStocks(){
-    SVProgressHUD.show(withStatus: "Loading stocks...")
-        guard let url = URL(string: pseStocksLink)else {return}
-        
-        let task = URLSession.shared.dataTask(with: url){data,response,error in
-            guard let dataResponse = data,error == nil else{
-                print(error?.localizedDescription ?? "Response Error")
-                SVProgressHUD.dismiss()
-                return
-            }
-            
-            guard let rootJSON = try? JSONSerialization.jsonObject(with: dataResponse, options: []) else {
-                print("failed")
-                SVProgressHUD.dismiss()
-                return
-            }
-            
-            if let JSON = rootJSON as? [String:Any]{
-                
-                guard let jsonArray = JSON["stock"] as? [[String:Any]] else { return }
-                
-                for json in jsonArray {
-                    guard let stockName = json["name"] as? String else{ return }
-                    guard let symbol = json["symbol"] as? String else{ return }
-                    guard let per = json["percent_change"] else { return }
-                    guard let vol = json["volume"] as? Int else{ return }
-                    let price = json["price"] as! [String:Any]
-                    
-                    self.candies.append(Candy(category:"\(stockName)", name:"\(symbol)",volume:"\(vol)",percent_change:"\(per)",price:"\(String(describing: price["amount"]!))",currency:"\(String(describing: price["currency"]!))"))
-                }
-                
-                SVProgressHUD.dismiss()
-                self.tableView.reloadData()
-                self.searchController.isActive = true
-                self.searchController.becomeFirstResponder()
-            }
-        }
-        task.resume()
-    }
-    
-    // MARK: - Private instance methods
+ //MARK:- Private instance methods
     
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -354,3 +317,20 @@ extension MasterViewController: UISearchBarDelegate {
     }
 }
 
+extension MasterViewController: MasterDelegate {
+    func loadStocks() {
+        
+    }
+    
+    
+    func showProgress() {
+       SVProgressHUD.show(withStatus: "Loading stocks...")
+    }
+    
+    func hideProgress() {
+        SVProgressHUD.dismiss()
+        self.tableView.reloadData()
+        self.searchController.isActive = true
+        self.searchController.becomeFirstResponder()
+    }
+}
