@@ -63,6 +63,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         return false
   }
   
+    //TO-DO: Manage Coredata outside of view Controller
 
     
     func searchBarIsEmpty() -> Bool {
@@ -242,7 +243,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   // MARK: - Segues
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
-    print("print segue... \(segue.identifier)")
     if segue.identifier == "showDetail" {
       if let indexPath = tableView.indexPathForSelectedRow {
         let candy: Candy
