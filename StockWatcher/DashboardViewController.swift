@@ -279,11 +279,15 @@ extension UITableView {
         
         let emptyView = UIView(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height))
         
+        let img = UIImageView()
         let titleLabel = UILabel()
         let messageLabel = UILabel()
         
+        img.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        img.image = UIImage(named: "Caramel")
         
         titleLabel.textColor = UIColor.black
         titleLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 18)
@@ -291,6 +295,7 @@ extension UITableView {
         messageLabel.textColor = UIColor.lightGray
         messageLabel.font = UIFont(name: "HelveticaNeue-Regular", size: 17)
         
+        //emptyView.addSubview(img)
         emptyView.addSubview(titleLabel)
         emptyView.addSubview(messageLabel)
         
