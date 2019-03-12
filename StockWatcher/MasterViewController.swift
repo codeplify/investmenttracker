@@ -63,37 +63,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         return false
   }
   
- //TODO:- Move this MVP pattern
- //TODO:- Manage Queue and threading
- //MARK:- Private instance methods
+
     
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
-
-    func isPortfolioExist(code: String)->Bool{
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {return false}
-            
-            let managedContext = appDelegate.persistentContainer.viewContext
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Investment")
-            fetchRequest.predicate = NSPredicate(format: "code = %@",code)
-            
-            var portfolio: [NSManagedObject] = []
-            do{
-                portfolio = try managedContext.fetch(fetchRequest)
-                
-                if portfolio.count > 0 {
-                    return true
-                }
-                
-            }catch let error as NSError {
-                print(error)
-                return false
-            }
-            
-            return false
-    }
-    
+ 
     var tempCandies:[Candy] = []
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
 
@@ -160,9 +135,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         
         if(scope == "Portfolio"){
             
-            //MARK:- This is only activated when searchbar is selected
-            
-            print("Portfolio Listings...")
             filteredCandies.removeAll()
             var temp = [Candy]()
             
@@ -180,7 +152,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                     for s in stocks{
                         if $0.name ==  "\(s.value(forKey: "scode")!)" {
                             
-                            if isPortfolioExist(code: $0.name){
+                            if mpresenter!.isPortfolioExist(code: $0.name){
                                 temp2.append($0)
                                 print("appended \($0.name)")
                                 return $0
@@ -234,7 +206,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
     if isFiltering() {
         searchFooter.setIsFilteringToShow(filteredItemCount: filteredCandies.count, of: candies.count)
         return filteredCandies.count
@@ -260,20 +231,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         cell.accessoryType = .disclosureIndicator
         
         if candy.percent_change.contains("-") {
-            //cell.textLabel?.textColor = UIColor.red
-            //cell.detailTextLabel?.textColor = UIColor.red
             cell.imageView?.image = UIImage(imageLiteralResourceName: "download-arrow")
         }else{
-            //cell.textLabel?.textColor = UIColor.candyGreen
-            //cell.detailTextLabel?.textColor = UIColor.candyGreen
             cell.imageView?.image = UIImage(imageLiteralResourceName: "up-arrow")
         }
     
         return cell
-    }
-    
-
-
+  }
   
   // MARK: - Segues
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -318,10 +282,7 @@ extension MasterViewController: UISearchBarDelegate {
 }
 
 extension MasterViewController: MasterDelegate {
-    func loadStocks() {
-        
-    }
-    
+    func loadStocks() {}
     
     func showProgress() {
        SVProgressHUD.show(withStatus: "Loading stocks...")

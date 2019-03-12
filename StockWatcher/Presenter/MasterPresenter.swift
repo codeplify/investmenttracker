@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
 
 protocol MasterDelegate {
     func showProgress()
@@ -19,6 +21,28 @@ class MasterPresenter{
     var candies = [Candy]()
     init(delegate:MasterDelegate){
         self.delegate = delegate
+    }
+    
+    func isPortfolioExist(code: String)->Bool{
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        let managedContext = appDelegate!.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Investment")
+        fetchRequest.predicate = NSPredicate(format: "code = %@",code)
+        
+        var portfolio: [NSManagedObject] = []
+        do{
+            portfolio = try managedContext.fetch(fetchRequest)
+            
+            if portfolio.count > 0 {
+                return true
+            }
+            
+        }catch let error as NSError {
+            print(error)
+            return false
+        }
+        
+        return false
     }
     
     func loadStocks()->[Candy]{
