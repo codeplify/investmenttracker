@@ -11,6 +11,9 @@ import AWSCognitoIdentityProvider
 import GoogleMobileAds
 import SVProgressHUD
 
+//TODO:- Auto select All section in searchbar when watchlist is empty
+//TODO:- User management and control
+
 class DashboardTableViewCell : UITableViewCell {
     @IBOutlet weak var lblStockCodeD: UILabel!
     @IBOutlet weak var imgStockMovement: UIImageView!
