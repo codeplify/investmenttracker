@@ -3,7 +3,7 @@ import UIKit
 import AWSCognitoIdentityProvider
 import SVProgressHUD
 
-//TODO:- Fix issues during internet connectivity failure
+//TODO:- Handling of limits on transactions using manager
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UISplitViewControllerDelegate{
   
@@ -88,10 +88,13 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 temp.removeAll()
                 
                     filteredCandies = candies.map {
-                        for s in stocks{
+                        for (index,s) in stocks.enumerated(){
                             if $0.name ==  "\(s.value(forKey: "scode")!)" {
-                                temp.append($0)
-                                print("appended \($0.name)")
+                                //TODO:- Control by a manager
+                                if index <= userAccess {
+                                    temp.append($0)
+                                    print("appended \($0.name)")
+                                }
                                 return $0
                             }
                         }
@@ -150,15 +153,16 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 temp2.removeAll()
                 filteredCandies = candies.map {
-                    for s in stocks{
+                    for (index,s) in stocks.enumerated(){
                         if $0.name ==  "\(s.value(forKey: "scode")!)" {
-                            
-                            if mpresenter!.isPortfolioExist(code: $0.name){
-                                temp2.append($0)
-                                print("appended \($0.name)")
-                                return $0
+                            //TODO:- to manage by manager
+                            if index <= userAccess {
+                                if mpresenter!.isPortfolioExist(code: $0.name){
+                                    temp2.append($0)
+                                    print("appended \($0.name)")
+                                    return $0
+                                }
                             }
-                            
                         }
                     }
                     return $0

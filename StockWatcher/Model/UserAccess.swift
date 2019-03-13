@@ -9,7 +9,7 @@
 import Foundation
 
 enum UserAccess: Int {
-    case free = 0
-    case monthly = 1
-    case subscription = 2
+    case free = 2
+    case monthly = 10
+    case subscription = 20
 }

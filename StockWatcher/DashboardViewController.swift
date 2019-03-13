@@ -38,6 +38,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
         self.tableView.dataSource = self
         self.tableView.separatorStyle = .none
         
+        
         //Manage userpool
         self.pool = AWSCognitoIdentityUserPool(forKey: AWSCognitoSigninProviderKey)
         if self.user == nil {  self.user = self.pool?.currentUser() }
@@ -74,7 +75,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
                 print("stock count \(stocks.count)")
                 ps.removeAll()
                 
-                        for p in stocks{
+                        for (index,p) in stocks.enumerated(){
                             let portfolio = Portfolio()
                             
                             let group = DispatchGroup()
@@ -91,7 +92,10 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
                             }
                             
                             group.wait()
-                            self.ps.append(portfolio)
+                            //TODO:- Make enumeration to handle
+                            if index <= userAccess {
+                                self.ps.append(portfolio)
+                            }
                         }
                     SVProgressHUD.dismiss()
                     tableView.reloadData()
@@ -187,13 +191,13 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
                     print("json_array \(jsonArray)")
                     
                     for json in jsonArray {
-                       // guard let symbol = json["symbol"] as? [[String:Any]] else {return}
+                     
                        let price = json["price"] as! [String:Any]
                         print("_price \(price["amount"])")
                         p.amount = price["amount"] as! Double
                         p.percent = json["percent_change"] as! Double
                         print("percent \(p.percent)")
-                        //TODO:- Create a Handler callback...
+                       
                         
                     }
                     completion(p)
@@ -219,7 +223,7 @@ extension DashboardViewController {
         if ps.count == 0 {
             print("ps count \(ps.count)")
             if appDelegate?.connectivityStatus == true {
-                tableView.setEmptyView(title: "Empty Watchlist", message: "No network access")
+                tableView.setEmptyView(title: "Internet not available", message: "No network access")
             }else{
                  tableView.setEmptyView(title: "Empty Watchlist", message: "Search from the list of stocks")
             }
@@ -234,15 +238,17 @@ extension DashboardViewController {
         
         let cell:DashboardTableViewCell = tableView.dequeueReusableCell(withIdentifier: "cellDashboard")! as! DashboardTableViewCell
         
-        let p = ps[indexPath.row]
-        print("stock \(stocks.count)")
-        cell.lblStockCodeD.text = "\(p.code!)"
-        cell.lblAmountValue.text = "\(p.percent!)%"
-        cell.lblVolumeValue.text = "\(p.amount!)"
         
-        if "\(p.percent!)".contains("-") {
-            cell.imgStockMovement.image = UIImage(named: "download-arrow")
-        }
+            let p = ps[indexPath.row]
+                print("stock \(stocks.count)")
+                cell.lblStockCodeD.text = "\(p.code!)"
+                cell.lblAmountValue.text = "\(p.percent!)%"
+                cell.lblVolumeValue.text = "\(p.amount!)"
+            
+            if "\(p.percent!)".contains("-") {
+                cell.imgStockMovement.image = UIImage(named: "download-arrow")
+            }
+        
         return cell
     }
     
