@@ -3,8 +3,6 @@ import UIKit
 import AWSCognitoIdentityProvider
 import SVProgressHUD
 
-//TODO:- Handling of limits on transactions using manager
-
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UISplitViewControllerDelegate{
   
   @IBOutlet var tableView: UITableView!
@@ -51,6 +49,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
     }
     navigationItem.backBarButtonItem?.tintColor = .candyGreen
+    if watchlistCount == 0 {
+        searchController.searchBar.selectedScopeButtonIndex = 2}
   }
     
   func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {

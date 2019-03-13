@@ -70,6 +70,7 @@ class DashboardViewController: UIViewController, UITableViewDelegate , UITableVi
        
         do{
             stocks = try managedContext.fetch(fetchRequest)
+            watchlistCount = stocks.count
             
             if stocks.count > 0 {
                 print("stock count \(stocks.count)")

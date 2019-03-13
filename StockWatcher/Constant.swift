@@ -15,3 +15,4 @@ let CIPoolAppClientSecret = "1a73ina32e6h3ng9cdvv3e52pf11av5b465cpdbv6ndhsui8iga
 let AWSCognitoSigninProviderKey = "swapp"
 let pseStocksLink = "http://phisix-api4.appspot.com/stocks.json"
 let userAccess = UserAccess.free.rawValue //default
+var watchlistCount = 0
