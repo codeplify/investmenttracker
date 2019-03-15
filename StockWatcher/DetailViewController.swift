@@ -41,6 +41,12 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
   @IBAction func btnLogoutPressed(_ sender: Any) { }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if !btnWatchButton.isHidden {
+            btnUnWatchButton.isHidden = true
+        }
+    }
+    
   func configureView() {
     if let detailCandy = detailCandy {
         

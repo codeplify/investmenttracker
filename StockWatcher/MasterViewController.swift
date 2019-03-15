@@ -80,10 +80,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   }
     
 
-  
-    //TO-DO: Manage Coredata outside of view Controller
-
-    
     func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
     }
