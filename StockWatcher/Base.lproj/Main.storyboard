@@ -692,7 +692,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Back" id="j6b-OZ-Q0b">
                             <color key="tintColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Exit" id="QXQ-lD-orG">
+                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="QXQ-lD-orG">
                             <connections>
                                 <action selector="doExitDetailTapped:" destination="JEX-9P-axG" id="YeC-3G-l0j"/>
                             </connections>
