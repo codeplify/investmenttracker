@@ -80,9 +80,9 @@ class WatchlistPresenter{
         return false
     }
     
+    /** MARK:- Remove stock from watchlist */
     func delete(code:String){
         //TODO:- check if there is an existing stocks inside
-        
         if !isPortfolioExist(code: code){
         
             print("code to delete \(code)")

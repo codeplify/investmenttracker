@@ -16,7 +16,23 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   var filteredCandies = [Candy]()
   let searchController = UISearchController(searchResultsController: nil)
   var splitViewController1: UISplitViewController?
+  
  
+    override func viewDidAppear(_ animated: Bool) {
+        print("/** View did appear trigger*/")
+        
+        filterContentForSearchText("", scope: "Watch")
+        if watchlistCount == 0 {
+            searchController.searchBar.selectedScopeButtonIndex = 2
+            filterContentForSearchText("", scope: "All")
+        }
+        
+        if watchlistCount >= 1 {
+            searchController.searchBar.selectedScopeButtonIndex = 0
+            filterContentForSearchText("", scope: "Watch")
+        }
+    }
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -62,6 +78,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         }
         return false
   }
+    
+
   
     //TO-DO: Manage Coredata outside of view Controller
 
@@ -70,10 +88,12 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         return searchController.searchBar.text?.isEmpty ?? true
     }
  
+    /** MARK:- Filtering stocks... */
     var tempCandies:[Candy] = []
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
 
         if(scope == "Watch"){
+            tableView.reloadData()
             filteredCandies.removeAll()
             
             var temp = [Candy]()
@@ -140,15 +160,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         if(scope == "Portfolio"){
             
             filteredCandies.removeAll()
-            var temp = [Candy]()
-            
-            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
             var temp2 = [Candy]()
-            let managedContext = appDelegate.persistentContainer.viewContext
-            let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "StocksDB")
-            var stock2 :[NSManagedObject] = []
-            do{
-                stock2 = try managedContext.fetch(fetchRequest)
                 print("Stock Count Port=> \(stocks.count)")
                 
                 temp2.removeAll()
@@ -179,10 +191,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 
                 filteredCandies.removeAll()
                 filteredCandies = temp2
-                
-            }catch let error as NSError{
-                print(error)
-            }
         }
         
         tableView.reloadData()
@@ -204,7 +212,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     super.didReceiveMemoryWarning()
   }
   
-    var c:Int = 0
+  var c:Int = 0
   // MARK: - Table View
   func numberOfSections(in tableView: UITableView) -> Int {
     return 1
@@ -215,10 +223,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         searchFooter.setIsFilteringToShow(filteredItemCount: filteredCandies.count, of: candies.count)
         return filteredCandies.count
     }
-    
     searchFooter.setNotFiltering()
-    print("stock count \(candies.count)")
-    
     return candies.count
   }
    
@@ -240,7 +245,6 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
         }else{
             cell.imageView?.image = UIImage(imageLiteralResourceName: "up-arrow")
         }
-    
         return cell
   }
   

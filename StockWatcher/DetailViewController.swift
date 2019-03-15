@@ -86,7 +86,8 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
   }
   
     @IBAction func doExitDetailTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
   override func viewDidLoad() {
@@ -107,8 +108,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let request = GADRequest()
     intertitial.load(request)
     intertitial.delegate = self
-    
-    
     
   }
     

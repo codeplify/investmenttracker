@@ -58,7 +58,8 @@ class SignUpViewController: UIViewController {
                     print(error)
                     SVProgressHUD.dismiss()
                     
-                    let alert = UIAlertController(title: "", message: "Error: \(error)", preferredStyle: .alert)
+                    //TODO:- Fix error description for validation
+                    let alert = UIAlertController(title: "", message: "Error: \(error.description)", preferredStyle: .alert)
                     let okAlert = UIAlertAction.init(title: "Ok", style: .default, handler: nil)
                     
                     alert.addAction(okAlert)
