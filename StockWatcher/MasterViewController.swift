@@ -143,10 +143,8 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
                 let doesCategoryMatch = (scope == "All") || (candy.category == scope)
                 
                 if searchBarIsEmpty() {
-                    print("doesCategoryMatch\(doesCategoryMatch)")
                     return doesCategoryMatch
                 } else {
-                    print("doesCategoryMatch- false")
                     return doesCategoryMatch && candy.name.lowercased().contains(searchText.lowercased())
                 }
             })

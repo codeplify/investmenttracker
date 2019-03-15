@@ -221,20 +221,18 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 lblProfit.isHidden = false
                 lblStockOwned.isHidden = false
                 
-                var totalInvested:[Double] = []
-                
                 for p in portfolio {
                     print("p:\(p.value(forKey: "total")!)")
                     let portfolio = Portfolio()
-                    portfolio.amount = p.value(forKey: "amount") as! Double
-                    portfolio.charge = p.value(forKey: "bcharge") as! Double
-                    portfolio.code = p.value(forKey: "code") as! String
-                    portfolio.date = p.value(forKey: "date") as! String
-                    portfolio.uid = p.value(forKey: "id") as! UUID
-                    portfolio.price = p.value(forKey: "price") as! Double
-                    portfolio.stock = p.value(forKey: "stocks") as! Int
-                    portfolio.tax = p.value(forKey: "tax") as! Double
-                    portfolio.total = p.value(forKey: "total") as! Double
+                    portfolio.amount = (p.value(forKey: "amount") as! Double)
+                    portfolio.charge = (p.value(forKey: "bcharge") as! Double)
+                    portfolio.code = (p.value(forKey: "code") as! String)
+                    portfolio.date = (p.value(forKey: "date") as! String)
+                    portfolio.uid = (p.value(forKey: "id") as! UUID)
+                    portfolio.price = (p.value(forKey: "price") as! Double)
+                    portfolio.stock = (p.value(forKey: "stocks") as! Int)
+                    portfolio.tax = (p.value(forKey: "tax") as! Double)
+                    portfolio.total = (p.value(forKey: "total") as! Double)
                     ps.append(portfolio)
                 }
                 
@@ -281,43 +279,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
 }
 
-extension DetailViewController{
-    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
-        print("interstitialDidReceiveAd")
-    }
-    
-    /// Tells the delegate an ad request failed.
-    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
-        print("interstitial:didFailToReceiveAdWithError: \(error.localizedDescription)")
-    }
-    
-    /// Tells the delegate that an interstitial will be presented.
-    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
-        print("interstitialWillPresentScreen")
-    }
-    
-    /// Tells the delegate the interstitial is to be animated off the screen.
-    func interstitialWillDismissScreen(_ ad: GADInterstitial) {
-        print("interstitialWillDismissScreen")
-    }
-    
-    /// Tells the delegate the interstitial had been animated off the screen.
-    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        print("interstitialDidDismissScreen")
-    }
-    
-    /// Tells the delegate that a user click will open another app
-    /// (such as the App Store), backgrounding the current app.
-    func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
-        print("interstitialWillLeaveApplication")
-    }
-}
+
 
 extension DetailViewController: WatchlistDelegate {
     func deleteStockInvestedSucceed() {
-        print("investment deleted")
-     //   searchPortfolio()
-        
+        searchPortfolio()
+        tableView.reloadData()
+        print("tableview reloaded...")
     }
     
     func deleteStockInvestedFailed(message: String) {
@@ -380,5 +348,37 @@ extension Double {
     }()
     var formatted: String {
         return Double.twoFractionDigits.string(for: self) ?? ""
+    }
+}
+
+extension DetailViewController{
+    func interstitialDidReceiveAd(_ ad: GADInterstitial) {
+        print("interstitialDidReceiveAd")
+    }
+    
+    /// Tells the delegate an ad request failed.
+    func interstitial(_ ad: GADInterstitial, didFailToReceiveAdWithError error: GADRequestError) {
+        print("interstitial:didFailToReceiveAdWithError: \(error.localizedDescription)")
+    }
+    
+    /// Tells the delegate that an interstitial will be presented.
+    func interstitialWillPresentScreen(_ ad: GADInterstitial) {
+        print("interstitialWillPresentScreen")
+    }
+    
+    /// Tells the delegate the interstitial is to be animated off the screen.
+    func interstitialWillDismissScreen(_ ad: GADInterstitial) {
+        print("interstitialWillDismissScreen")
+    }
+    
+    /// Tells the delegate the interstitial had been animated off the screen.
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        print("interstitialDidDismissScreen")
+    }
+    
+    /// Tells the delegate that a user click will open another app
+    /// (such as the App Store), backgrounding the current app.
+    func interstitialWillLeaveApplication(_ ad: GADInterstitial) {
+        print("interstitialWillLeaveApplication")
     }
 }

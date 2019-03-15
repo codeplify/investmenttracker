@@ -128,6 +128,8 @@ class WatchlistPresenter{
             let del = candy[0] as! NSManagedObject
             managedContext.delete(del)
             
+            
+            
             do{
                 try managedContext.save()
                 self.delegate.deleteStockInvestedSucceed()
