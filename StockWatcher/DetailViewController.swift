@@ -58,7 +58,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if percentChange {
                 lblPercentage.textColor = UIColor.red
             }else{
-                lblPercentage.textColor = UIColor.green
+                lblPercentage.textColor = UIColor.candyGreen
             }
             
             if btnWatchButton.isHidden {
