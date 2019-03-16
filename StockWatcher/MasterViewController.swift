@@ -21,16 +21,16 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidAppear(_ animated: Bool) {
         print("/** View did appear trigger*/")
         
-        filterContentForSearchText("", scope: "Watch")
-        if watchlistCount == 0 {
-            searchController.searchBar.selectedScopeButtonIndex = 2
-            filterContentForSearchText("", scope: "All")
-        }
-        
-        if watchlistCount >= 1 {
-            searchController.searchBar.selectedScopeButtonIndex = 0
-            filterContentForSearchText("", scope: "Watch")
-        }
+//        filterContentForSearchText("", scope: "Watch")
+//        if watchlistCount == 0 {
+//            searchController.searchBar.selectedScopeButtonIndex = 2
+//            filterContentForSearchText("", scope: "All")
+//        }
+//
+//        if watchlistCount >= 1 {
+//            searchController.searchBar.selectedScopeButtonIndex = 0
+//            filterContentForSearchText("", scope: "Watch")
+//        }
     }
 
   override func viewDidLoad() {
