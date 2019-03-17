@@ -2,6 +2,9 @@ import CoreData
 import UIKit
 import AWSCognitoIdentityProvider
 import SVProgressHUD
+import Reachability
+
+//TODO:- Add URL checking
 
 class MasterViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UISplitViewControllerDelegate{
   
@@ -19,18 +22,17 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   
  
     override func viewDidAppear(_ animated: Bool) {
-        print("/** View did appear trigger*/")
         
-//        filterContentForSearchText("", scope: "Watch")
-//        if watchlistCount == 0 {
-//            searchController.searchBar.selectedScopeButtonIndex = 2
-//            filterContentForSearchText("", scope: "All")
-//        }
-//
-//        if watchlistCount >= 1 {
-//            searchController.searchBar.selectedScopeButtonIndex = 0
-//            filterContentForSearchText("", scope: "Watch")
-//        }
+        filterContentForSearchText("", scope: "Watch")
+        if watchlistCount == 0 {
+            searchController.searchBar.selectedScopeButtonIndex = 2
+            filterContentForSearchText("", scope: "All")
+        }
+
+        if watchlistCount >= 1 {
+            searchController.searchBar.selectedScopeButtonIndex = 0
+            filterContentForSearchText("", scope: "Watch")
+        }
     }
 
   override func viewDidLoad() {
@@ -67,6 +69,7 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
     navigationItem.backBarButtonItem?.tintColor = .candyGreen
     if watchlistCount == 0 {
         searchController.searchBar.selectedScopeButtonIndex = 2}
+    
   }
     
   func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController:UIViewController, onto primaryViewController:UIViewController) -> Bool {
@@ -80,9 +83,9 @@ class MasterViewController: UIViewController, UITableViewDataSource, UITableView
   }
     
 
-    func searchBarIsEmpty() -> Bool {
+  func searchBarIsEmpty() -> Bool {
         return searchController.searchBar.text?.isEmpty ?? true
-    }
+  }
  
     /** MARK:- Filtering stocks... */
     var tempCandies:[Candy] = []
@@ -296,4 +299,8 @@ extension MasterViewController: MasterDelegate {
         self.searchController.isActive = true
         self.searchController.becomeFirstResponder()
     }
+    
+   
 }
+
+
